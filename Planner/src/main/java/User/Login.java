@@ -12,11 +12,15 @@ public abstract class Login {
     public static HashMap<String, String> userPassword = new HashMap<>();
     public static User loggedInUser = null;
 
+    public static boolean onLoad(){
+
+    }
+
     /**
-     *
-     * @param email
-     * @param password
-     * @return
+     * Attempts to log the user in with a username and password.
+     * @param email String:  The users email
+     * @param password String: The users password.
+     * @return Boolean: True if the user was successfully logged in.
      */
     public static boolean logIn(String email, String password){
         if(isUser(email) && checkPassword(email,password)){
@@ -26,14 +30,14 @@ public abstract class Login {
         }
         return false;
     }
-    public static boolean logOut(User user){
-        if(user.isLoggedIn()){
-            user.toggleLoggedIn();
-            loggedInUser = null;
-            return true;
-        }
-        return false;
+
+    /**
+     * Logs out the currently logged in user.
+     */
+    public static void logOut(){
+        loggedInUser.toggleLoggedIn();
     }
+
     /**
      * Creates a new user; this will also insure the user dose not already exist and the email is valid.
      * @param firstname the users first name.
@@ -53,6 +57,13 @@ public abstract class Login {
         addUserHashMap(user);
         addUserPassword(email,passwordHashAndSalt(email,password));
     }
+
+    /**
+     * Used to check if the users password machetes the stored one.
+     * @param email String: users email address.
+     * @param password String: users password.
+     * @return Boolean: True if the users password matches.
+     */
     private static boolean checkPassword(String email, String password){
         final String SALT = hashSHA512(email);
         final String PASSWORD_SALT = password + SALT;
@@ -62,11 +73,24 @@ public abstract class Login {
         }
         return false;
     }
+
+    /**
+     * Generates the password's hash + salt, the salt is derived from the users emailaddress.
+     * @param email String: the users email.
+     * @param password Password: the users password.
+     * @return String: the hash and salted password.
+     */
     private static String passwordHashAndSalt(String email, String password){
         final String SALT = hashSHA512(email);
         final String PASSWORD_SALT = password + SALT;
         return hashSHA512(PASSWORD_SALT);
     }
+
+    /**
+     * Utility method that used the SHA512 hashing algorithm.
+     * @param string String: the value to be hashed.
+     * @return String: The hashed value.
+     */
     private static String hashSHA512(String string){
         return Hashing.sha512().hashString(string, StandardCharsets.UTF_8).toString();
     }
@@ -77,7 +101,7 @@ public abstract class Login {
      * @param email the users email address.
      * @throws InvalidEmailAddressException thrown if the condations are not met.
      */
-    public static void checkEmail(String email) throws InvalidEmailAddressException{
+    private static void checkEmail(String email) throws InvalidEmailAddressException{
         Pattern pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         boolean matchFound = matcher.find();
@@ -91,7 +115,7 @@ public abstract class Login {
      * @param password the users password.
      * @throws InvalidPasswordException thrown if these conditions are not met.
      */
-    public static void checkPassword(String password) throws InvalidPasswordException {
+    private static void checkPassword(String password) throws InvalidPasswordException {
         //Minimum eight characters, at least one letter, one number and one special character
         //^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\S+$).{8,}$
         Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!*])(?=\\S+$).{8,}$",Pattern.UNICODE_CASE);
@@ -159,7 +183,7 @@ public abstract class Login {
      * @param user User.User: The user object.
      * @return Boolean: true if the user is added.
      */
-    public static boolean addUserHashMap(User user){
+    private static boolean addUserHashMap(User user){
         if(isUser(user.getEmail())){return false;}
         userHashMap.put(user.getEmail(),user);
         return true;
@@ -205,7 +229,7 @@ public abstract class Login {
         System.out.println("Test Login: ");
         System.out.println("Login: "+logIn(email,password));
         System.out.println(loggedInUser);
-        logOut(loggedInUser);
+        logOut();
 
         System.out.println("Test wrong password: ");
         System.out.println("Login: "+logIn(email,"password"));
