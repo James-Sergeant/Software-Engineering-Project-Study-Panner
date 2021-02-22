@@ -1,19 +1,39 @@
-package User;
+package com.team3_3.User;
 
+import com.team3_3.ObjectIO;
 import com.google.common.hash.Hashing;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Login {
-    public static HashMap<String, User> userHashMap = new HashMap<>();
-    public static HashMap<String, String> userPassword = new HashMap<>();
-    public static User loggedInUser = null;
+    private static HashMap<String, com.team3_3.User.User> userHashMap = new HashMap<>();
+    private static  HashMap<String, String> USER_PASSWORD_MAP;
+    private static User loggedInUser = null;
+    private static final String PASSWORD_FILE_LOCATION = "dat/UserPasswords.ser";
 
-    public static boolean onLoad(){
+    /**
+     * Saves the current users and passwords to a file.
+     * @return Boolean: True if this is successful.
+     */
+    public static boolean saveUserPassword(){
+        return ObjectIO.saveObject(PASSWORD_FILE_LOCATION, USER_PASSWORD_MAP);
+    }
 
+    /**
+     * Loads in all of the usernames and passwords
+     * @return Boolean: True if succeeded.
+     */
+    public static boolean loadUserPassword(){
+        if(!(new File(PASSWORD_FILE_LOCATION).exists())){
+            USER_PASSWORD_MAP = new HashMap<>();
+            return saveUserPassword();
+        }
+        USER_PASSWORD_MAP = ObjectIO.readObject(PASSWORD_FILE_LOCATION);
+        return true;
     }
 
     /**
@@ -53,7 +73,7 @@ public abstract class Login {
         userExists(email);
         checkEmail(email);
         checkPassword(password);
-        User user = new User(firstname,surname,email);
+        com.team3_3.User.User user = new com.team3_3.User.User(firstname,surname,email);
         addUserHashMap(user);
         addUserPassword(email,passwordHashAndSalt(email,password));
     }
@@ -68,7 +88,7 @@ public abstract class Login {
         final String SALT = hashSHA512(email);
         final String PASSWORD_SALT = password + SALT;
         final String PASSWORD_HASH = hashSHA512(PASSWORD_SALT);
-        if(PASSWORD_HASH.equals(userPassword.get(email))){
+        if(PASSWORD_HASH.equals(USER_PASSWORD_MAP.get(email))){
             return true;
         }
         return false;
@@ -171,39 +191,39 @@ public abstract class Login {
 
     /**
      * Checks if the user exists using the users object.
-     * @param user User.User: the user object.
+     * @param user com.team3_3.User.com.team3_3.User: the user object.
      * @return Boolean: True if the user exists.
      */
-    public static boolean isUser(User user){
+    public static boolean isUser(com.team3_3.User.User user){
         return userHashMap.containsValue(user);
     }
 
     /**
      * adds the user to the map of all users.
-     * @param user User.User: The user object.
+     * @param user com.team3_3.User.com.team3_3.User: The user object.
      * @return Boolean: true if the user is added.
      */
-    private static boolean addUserHashMap(User user){
+    private static boolean addUserHashMap(com.team3_3.User.User user){
         if(isUser(user.getEmail())){return false;}
         userHashMap.put(user.getEmail(),user);
         return true;
     }
     /**
      * A map of all of the users
-     * @return HashMap\<String,User.User>: A HashMap of the users with the email as the key.
+     * @return HashMap\<String,com.team3_3.User.com.team3_3.User>: A HashMap of the users with the email as the key.
      */
-    public static HashMap<String, User> getUserHashMap() {
+    public static HashMap<String, com.team3_3.User.User> getUserHashMap() {
         return Login.userHashMap;
     }
 
     /**
-     * @return User:  The current logged in user.
+     * @return com.team3_3.User:  The current logged in user.
      */
-    public static User getLoggedInUser() {
+    public static com.team3_3.User.User getLoggedInUser() {
         return loggedInUser;
     }
     private static void addUserPassword(String email, String passwordHash){
-        userPassword.put(email,passwordHash);
+        USER_PASSWORD_MAP.put(email,passwordHash);
     }
 
     public static User getUser(String email){
@@ -214,6 +234,7 @@ public abstract class Login {
         final String email = "afa19aeu@uea.ac.uk";
         final String password = "TestIng123456#\u2560";
         System.out.println("Create a new user: ");
+        Login.loadUserPassword();
 
         try {
             newUser("James","Sergenat",email,password);
@@ -233,6 +254,11 @@ public abstract class Login {
 
         System.out.println("Test wrong password: ");
         System.out.println("Login: "+logIn(email,"password"));
+
+        System.out.println("Test saving Passwords");
+        System.out.println(saveUserPassword());
+
+        System.out.println("Test Loading Passwords");
 
     }
 }

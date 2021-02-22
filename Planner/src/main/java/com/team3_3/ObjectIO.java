@@ -1,14 +1,23 @@
+package com.team3_3;
+
 import java.io.*;
 
 public abstract class ObjectIO {
-    public static <A> void saveObject(String location,A object){
+    public static <A> boolean saveObject(String location,A object){
         try {
+            File f = new File(location);
+            if(!f.exists()){
+                f.getParentFile().mkdirs();
+                f.createNewFile();
+            }
             FileOutputStream fileOutputStream = new FileOutputStream(location);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream((fileOutputStream));
             objectOutputStream.writeObject(object);
             objectOutputStream.close();
+            return true;
         }catch(Exception e){
-            System.out.println("ERROR SAVING DECK OBJECT\n"+e);
+            System.out.println("ERROR SAVING OBJECT\n"+e);
+            return false;
         }
     }
 

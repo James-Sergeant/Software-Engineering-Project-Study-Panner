@@ -45,11 +45,11 @@
   </component>
   <component name="RunManager" selected="Application.Login">
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="User.Login" />
+      <option name="MAIN_CLASS_NAME" value="com.team3_3.User.Login" />
       <module name="Planner" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="User.*" />
+          <option name="PATTERN" value="com.team3_3.User.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -58,14 +58,14 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
+      <option name="MAIN_CLASS_NAME" value="com.team3_3.Main" />
       <module name="Planner" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="User" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="User.User" />
+      <option name="MAIN_CLASS_NAME" value="com.team3_3.User.User" />
       <module name="Planner" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -101,6 +101,10 @@
       <workItem from="1613395244601" duration="3710000" />
       <workItem from="1613475351133" duration="1820000" />
       <workItem from="1613563648393" duration="12781000" />
+      <workItem from="1613644260844" duration="60000" />
+      <workItem from="1613648124769" duration="3309000" />
+      <workItem from="1613730018370" duration="76000" />
+      <workItem from="1613995390282" duration="1919000" />
     </task>
     <servers />
   </component>

@@ -1,15 +1,8 @@
-package User;
-
-import com.google.common.hash.Hashing;
+package com.team3_3.User;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import User.Login.*;
 
-//import static User.Login.*;
+//import static com.team3_3.User.Login.*;
 
 
 public class User implements Serializable {
@@ -26,10 +19,10 @@ public class User implements Serializable {
      * @param firstname the users first name.
      * @param surname the user surname.
      * @param email the users email address, this has to be unique.
-     * @throws UserExistsException is thrown if the user already exists in the system.
-     * @throws InvalidEmailAddressException Is thrown if the supplied email dose not match the standard for emails.
+     * @throws Login.UserExistsException is thrown if the user already exists in the system.
+     * @throws Login.InvalidEmailAddressException Is thrown if the supplied email dose not match the standard for emails.
      * @link www.emailregex.com
-     * @throws InvalidPasswordException The password dose not meet the requirements: Minimum eight characters, at least one letter, one number and one special character
+     * @throws Login.InvalidPasswordException The password dose not meet the requirements: Minimum eight characters, at least one letter, one number and one special character
      */
     protected User(String firstname,String surname, String email){
         this.firstname = firstname;
@@ -79,7 +72,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "com.team3_3.User{" +
                 "SSN=" + SSN +
                 ", firstname='" + firstname + '\'' +
                 ", surname='" + surname + '\'' +
@@ -95,11 +88,11 @@ public class User implements Serializable {
     public static void main(String[] args) {
         try {
             Login.newUser("James", "Sergeant","afa19aeu@uea.ac.uk","Password123456789!");
-        } catch (InvalidEmailAddressException e) {
+        } catch (Login.InvalidEmailAddressException e) {
             e.printStackTrace();
-        } catch (InvalidPasswordException e) {
+        } catch (Login.InvalidPasswordException e) {
             e.printStackTrace();
-        } catch (UserExistsException e) {
+        } catch (Login.UserExistsException e) {
             e.printStackTrace();
         }
         System.out.println(Login.getUser("afa19aeu@uea.ac.uk"));
