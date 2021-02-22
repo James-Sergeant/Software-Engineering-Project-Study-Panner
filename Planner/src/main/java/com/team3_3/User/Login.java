@@ -1,6 +1,6 @@
 package com.team3_3.User;
 
-import com.team3_3.ObjectIO;
+import com.team3_3.utils.ObjectIO;
 import com.google.common.hash.Hashing;
 
 import java.io.File;
@@ -10,7 +10,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class Login {
-    private static HashMap<String, com.team3_3.User.User> userHashMap = new HashMap<>();
     private static  HashMap<String, String> USER_PASSWORD_MAP;
     private static User loggedInUser = null;
     private static final String PASSWORD_FILE_LOCATION = "dat/UserPasswords.ser";
@@ -42,9 +41,9 @@ public abstract class Login {
      * @param password String: The users password.
      * @return Boolean: True if the user was successfully logged in.
      */
-    public static boolean logIn(String email, String password){
+    public static boolean logIn(String email, String password) throws User.UserNotFoundException {
         if(isUser(email) && checkPassword(email,password)){
-            loggedInUser = getUser(email);
+            loggedInUser = User.loadUser(email);
             loggedInUser.toggleLoggedIn();
             return true;
         }
@@ -52,9 +51,10 @@ public abstract class Login {
     }
 
     /**
-     * Logs out the currently logged in user.
+     * Saves the user data and logs out the currently logged in user.
      */
     public static void logOut(){
+        User.saveUser(loggedInUser);
         loggedInUser.toggleLoggedIn();
     }
 
@@ -74,7 +74,7 @@ public abstract class Login {
         checkEmail(email);
         checkPassword(password);
         com.team3_3.User.User user = new com.team3_3.User.User(firstname,surname,email);
-        addUserHashMap(user);
+        User.saveUser(user);
         addUserPassword(email,passwordHashAndSalt(email,password));
     }
 
@@ -186,7 +186,7 @@ public abstract class Login {
      * @return Boolean: returns true if the user exists.
      */
     public static boolean isUser(String email){
-        return userHashMap.containsKey(email);
+        return USER_PASSWORD_MAP.containsKey(email);
     }
 
     /**
@@ -195,25 +195,7 @@ public abstract class Login {
      * @return Boolean: True if the user exists.
      */
     public static boolean isUser(com.team3_3.User.User user){
-        return userHashMap.containsValue(user);
-    }
-
-    /**
-     * adds the user to the map of all users.
-     * @param user com.team3_3.User.com.team3_3.User: The user object.
-     * @return Boolean: true if the user is added.
-     */
-    private static boolean addUserHashMap(com.team3_3.User.User user){
-        if(isUser(user.getEmail())){return false;}
-        userHashMap.put(user.getEmail(),user);
-        return true;
-    }
-    /**
-     * A map of all of the users
-     * @return HashMap\<String,com.team3_3.User.com.team3_3.User>: A HashMap of the users with the email as the key.
-     */
-    public static HashMap<String, com.team3_3.User.User> getUserHashMap() {
-        return Login.userHashMap;
+        return USER_PASSWORD_MAP.containsValue(user);
     }
 
     /**
@@ -226,18 +208,18 @@ public abstract class Login {
         USER_PASSWORD_MAP.put(email,passwordHash);
     }
 
-    public static User getUser(String email){
-        return userHashMap.get(email);
-    }
-
     public static void main(String[] args) {
         final String email = "afa19aeu@uea.ac.uk";
         final String password = "TestIng123456#\u2560";
+
         System.out.println("Create a new user: ");
+
+        //Loads in users
+        System.out.println("Test Loading Passwords");
         Login.loadUserPassword();
 
         try {
-            newUser("James","Sergenat",email,password);
+            newUser("James","Sergeant",email,password);
         } catch (InvalidEmailAddressException e) {
             e.printStackTrace();
         } catch (InvalidPasswordException e) {
@@ -245,20 +227,26 @@ public abstract class Login {
         } catch (UserExistsException e) {
             e.printStackTrace();
         }
-        System.out.println(getUser(email));
 
         System.out.println("Test Login: ");
-        System.out.println("Login: "+logIn(email,password));
+        try {
+            System.out.println("Login: "+logIn(email,password));
+        } catch (User.UserNotFoundException e) {
+            e.printStackTrace();
+        }
         System.out.println(loggedInUser);
+
         logOut();
 
         System.out.println("Test wrong password: ");
-        System.out.println("Login: "+logIn(email,"password"));
+        try {
+            System.out.println("Login: "+logIn(email,"password"));
+        } catch (User.UserNotFoundException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Test saving Passwords");
         System.out.println(saveUserPassword());
-
-        System.out.println("Test Loading Passwords");
 
     }
 }
