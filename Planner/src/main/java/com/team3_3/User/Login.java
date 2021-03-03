@@ -209,7 +209,7 @@ public abstract class Login {
     }
 
     public static void main(String[] args) {
-        final String email = "afa19aeu@uea.ac.uk";
+        final String email = "afa17aeu@uea.ac.uk";
         final String password = "TestIng123456#\u2560";
 
         System.out.println("Create a new user: ");
