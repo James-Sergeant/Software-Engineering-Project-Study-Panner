@@ -1,12 +1,24 @@
 package com.team3_3.User;
 
+
 import com.google.common.hash.Hashing;
 import com.team3_3.utils.ObjectIO;
 
 import java.io.File;
 import java.io.Serializable;
 import java.nio.charset.Charset;
-
+/**
+ * <h1>User Class</h1>
+ *<p>This class is used to store a user and its associated data. The User class and all its composed classes are
+ * serializable so that the user and its data can be saved.</p>
+ * @author  James Sergeant
+ * @version 1.0
+ * @since   01/03/2021
+ *
+ * <h2>Change Log</h2>
+ *   - 01/03/2021: Defined the basic user object and methods that comprise it - JS
+ *   - 01/03/2021: Allowed the User to be saved so that it can be stored. - JS
+ */
 public class User implements Serializable {
     public final transient int SSN = 1;
     public static final String USERS_DIR = "dat/userData";
@@ -17,7 +29,7 @@ public class User implements Serializable {
 
 
     /**
-     * Private constructor for a new user.
+     * Protected constructor as creation of new users need special behaviour, this is handled by the Login class.
      * @param firstname the users first name.
      * @param surname the user surname.
      * @param email the users email address, this has to be unique.

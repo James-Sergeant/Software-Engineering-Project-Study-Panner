@@ -8,7 +8,18 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ * <h1>Login Class</h1>
+ *<p>This a static class is used handle the user creation and logging in, only one user is loaded into memory at anytime and this
+ * only happens when that user has logged in.</p>
+ * @author  James Sergeant
+ * @version 1.0
+ * @since   01/03/2021
+ *
+ * <h2>Change Log</h2>
+ *   - 01/03/2021: Defined the basic methods for the class - JS
+ *   - 01/03/2021: Implemented hashed and salted password. - JS
+ */
 public abstract class Login {
     private static  HashMap<String, String> USER_PASSWORD_MAP;
     private static User loggedInUser = null;

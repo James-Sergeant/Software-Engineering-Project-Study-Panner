@@ -1,7 +1,17 @@
 package com.team3_3.utils;
 
 import java.io.*;
-
+/**
+ * <h1>ObjectIO</h1>
+ *<p>A static util class used for loading a saving objects.</p>
+ * @author  James Sergeant
+ * @version 1.0
+ * @since   01/03/2021
+ *
+ * <h2>Change Log</h2>
+ *   - 01/03/2021: saveObject added - JS
+ *   - 01/03/2021: loadObject added - JS
+ */
 public abstract class ObjectIO {
     /**
      * Used to save objects to files.
