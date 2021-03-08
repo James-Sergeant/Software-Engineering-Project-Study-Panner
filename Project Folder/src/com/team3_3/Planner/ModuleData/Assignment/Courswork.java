@@ -18,4 +18,11 @@ package com.team3_3.Planner.ModuleData.Assignment;
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
 public class Courswork extends Assignment {
+    Courswork(int one){
+
+    }
+
+    public static void main(String[] args) {
+        Courswork cw = new Courswork(10);
+    }
 }
