@@ -14,8 +14,8 @@ package com.team3_3.Planner.ModuleData.Assignment;
  *   - {DATE}: {NOTES} - {INITIALS}
  *
  *
- * <h2>Refrences: </>
- *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
+ * <h2>References: </>
+ *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
 public abstract class Assignment {
 }
