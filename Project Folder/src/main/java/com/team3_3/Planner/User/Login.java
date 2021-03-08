@@ -1,6 +1,6 @@
-package com.team3_3.User;
+package com.team3_3.Planner.User;
 
-import com.team3_3.utils.ObjectIO;
+import com.team3_3.Planner.utils.ObjectIO;
 import com.google.common.hash.Hashing;
 
 import java.io.File;
@@ -100,7 +100,7 @@ public abstract class Login {
         userExists(email);
         checkEmail(email);
         checkPassword(password);
-        com.team3_3.User.User user = new com.team3_3.User.User(firstname,surname,email);
+        User user = new User(firstname,surname,email);
         User.saveUser(user);
         addUserPassword(email,passwordHashAndSalt(email,password));
     }
@@ -222,14 +222,14 @@ public abstract class Login {
      * @param user com.team3_3.User.com.team3_3.User: the user object.
      * @return Boolean: True if the user exists.
      */
-    public static boolean isUser(com.team3_3.User.User user){
+    public static boolean isUser(User user){
         return USER_PASSWORD_MAP.containsValue(user);
     }
 
     /**
      * @return com.team3_3.User:  The current logged in user.
      */
-    public static com.team3_3.User.User getLoggedInUser() {
+    public static User getLoggedInUser() {
         return loggedInUser;
     }
 
