@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","u":"allclasses-index.html"},{"p":"com.team3_3.User","l":"Login"},{"p":"com.team3_3","l":"Main"},{"p":"com.team3_3.utils","l":"ObjectIO"},{"p":"com.team3_3.User","l":"User"}];updateSearchResults();
