@@ -5,17 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="59c10921-5c01-4c8b-a585-58d15bee79bd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Assignment/Assignment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Assignment/Courswork.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Assignment/Exam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Milestone.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Module.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/ModuleData/Work.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/UserPasswords.ser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dat/userData/b86b04e0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/team3_3/User/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/User/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/team3_3/User/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/User/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/team3_3/utils/ObjectIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/team3_3/utils/ObjectIO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$InvalidEmailAddressException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$InvalidEmailAddressException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$InvalidPasswordException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$InvalidPasswordException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$UserExistsException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login$UserExistsException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/User$UserNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/User$UserNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/User/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/User/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/team3_3/utils/ObjectIO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/team3_3/utils/ObjectIO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +59,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../NetworksVOIP" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -67,6 +71,19 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager" selected="Application.Login">
+    <configuration name="HelloFX" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.team3_3.HelloFX" />
+      <module name="Planner" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.team3_3.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.team3_3.User.Login" />
       <module name="Planner" />
@@ -94,22 +111,70 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+    <configuration name="Planner [clean,javafx:run]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
     </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="mvn" />
+                <option value="clean" />
+                <option value="javafx:run" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.HelloFX" />
+      <item itemvalue="Application.Login" />
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.User" />
+      <item itemvalue="Maven.Planner [clean,javafx:run]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Login" />
+        <item itemvalue="Application.HelloFX" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.User" />
       </list>
@@ -139,7 +204,9 @@
       <workItem from="1614607249437" duration="1999000" />
       <workItem from="1614691311761" duration="26000" />
       <workItem from="1614765062058" duration="331000" />
-      <workItem from="1614765796096" duration="1272000" />
+      <workItem from="1614765796096" duration="7827000" />
+      <workItem from="1614781180400" duration="1798000" />
+      <workItem from="1614890612005" duration="197000" />
     </task>
     <servers />
   </component>

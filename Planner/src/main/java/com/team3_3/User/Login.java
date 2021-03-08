@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  * <h2>Change Log</h2>
  *   - 01/03/2021: Defined the basic methods for the class - JS
  *   - 01/03/2021: Implemented hashed and salted password. - JS
+ *   - 03/03/2021: User can be removed. - JS
  */
 public abstract class Login {
     private static  HashMap<String, String> USER_PASSWORD_MAP;
@@ -67,6 +68,21 @@ public abstract class Login {
     public static void logOut(){
         User.saveUser(loggedInUser);
         loggedInUser.toggleLoggedIn();
+    }
+
+    /**
+     * Allows a users data to be deleted, requires the user to enter the password.
+     * @param password String: the users password.
+     * @return Boolean: True if password was correct and delete succeeded. False: Users password was incorrect.
+     */
+    public static boolean deleteUser(String password){
+        if(checkPassword(loggedInUser.getEmail(),password)){
+            System.out.println("Del User File: "+User.deleteUser(loggedInUser.getEmail()));
+            removeUserPassword(loggedInUser.getEmail());
+            loggedInUser = null;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -143,6 +159,7 @@ public abstract class Login {
 
     /**
      * Insures the password meets the requirements: Minimum eight characters, at least one letter, one number and one special character
+     * @link https://www.geeksforgeeks.org/how-to-validate-a-password-using-regular-expressions-in-java/
      * @param password the users password.
      * @throws InvalidPasswordException thrown if these conditions are not met.
      */
@@ -215,11 +232,24 @@ public abstract class Login {
     public static com.team3_3.User.User getLoggedInUser() {
         return loggedInUser;
     }
+
     private static void addUserPassword(String email, String passwordHash){
         USER_PASSWORD_MAP.put(email,passwordHash);
+        saveUserPassword();
     }
 
-    public static void main(String[] args) {
+    /**
+     * Removes a user and password from the map.
+     * @param email String: Users email.
+     */
+    private static boolean removeUserPassword(String email){
+        USER_PASSWORD_MAP.remove(email);
+        saveUserPassword();
+        return true;
+    }
+
+
+    public static void main(String[] args) throws InterruptedException {
         final String email = "afa17aeu@uea.ac.uk";
         final String password = "TestIng123456#\u2560";
 
@@ -228,6 +258,8 @@ public abstract class Login {
         //Loads in users
         System.out.println("Test Loading Passwords");
         Login.loadUserPassword();
+
+        System.out.println("Test adding a new user:");
 
         try {
             newUser("James","Sergeant",email,password);
@@ -238,6 +270,20 @@ public abstract class Login {
         } catch (UserExistsException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Test adding copy of a user:");
+
+        try {
+            newUser("James","Sergeant",email,password);
+        } catch (InvalidEmailAddressException e) {
+            e.printStackTrace();
+        } catch (InvalidPasswordException e) {
+            e.printStackTrace();
+        } catch (UserExistsException e) {
+            e.printStackTrace();
+        }
+
+        Thread.sleep(10);
 
         System.out.println("Test Login: ");
         try {
@@ -255,6 +301,15 @@ public abstract class Login {
         } catch (User.UserNotFoundException e) {
             e.printStackTrace();
         }
+
+        System.out.println("Test Remove User: ");
+        try {
+            System.out.println("Login: "+logIn(email,password));
+        } catch (User.UserNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(deleteUser(password));
 
         System.out.println("Test saving Passwords");
         System.out.println(saveUserPassword());

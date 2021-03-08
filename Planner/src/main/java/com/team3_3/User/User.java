@@ -12,12 +12,13 @@ import java.nio.charset.Charset;
  *<p>This class is used to store a user and its associated data. The User class and all its composed classes are
  * serializable so that the user and its data can be saved.</p>
  * @author  James Sergeant
- * @version 1.0
+ * @version 1.3
  * @since   01/03/2021
  *
  * <h2>Change Log</h2>
  *   - 01/03/2021: Defined the basic user object and methods that comprise it - JS
  *   - 01/03/2021: Allowed the User to be saved so that it can be stored. - JS
+ *   - 03/03/2021: Allowed the User to removed. - JS
  */
 public class User implements Serializable {
     public final transient int SSN = 1;
@@ -91,6 +92,18 @@ public class User implements Serializable {
     public static User loadUser(String email) throws UserNotFoundException {
         if(!userExists(email)){throw new UserNotFoundException(email);}
         return ObjectIO.readObject(userLocation(email));
+    }
+
+    /**
+     * Used to remove a users file from the file system.
+     * @param email String: The users email address.
+     * @return Boolean: true if the user was removed.
+     */
+    public static boolean deleteUser(String email){
+        File userFile = new File(userLocation(email));
+        if(userFile.delete()){
+            return true;
+        }return false;
     }
 
     /**
