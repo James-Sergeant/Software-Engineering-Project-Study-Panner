@@ -1,5 +1,9 @@
 package com.team3_3.UI;
 
+//import com.google.common.hash.Hashing;
+
+import java.nio.charset.StandardCharsets;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
@@ -29,15 +34,21 @@ public class Main extends Application {
         //getting scene object
         Scene scene = ((Node) actionEvent.getSource()).getScene();
 
-        //clearing all page dividers dynamically
+        //clearing all page dividers and screens dynamically
         for (String page : pages){
             Rectangle divider = (Rectangle) scene.lookup("#"+page+"Divider");
+            Pane screen = (Pane) scene.lookup("#"+page+"Pane");
+            //System.out.println("#"+page+"Pane");
             divider.setVisible(false);
+            screen.setVisible(false);
         }
 
-        //making selected page divider visible
+        //making selected page divider and screen visible
         Rectangle divider = (Rectangle) scene.lookup("#"+pageName+"Divider");
+        Pane screen = (Pane) scene.lookup("#"+pageName+"Pane");
         divider.setVisible(true);
+        screen.setVisible(true);
+
     }
 
     public static void signOut() {

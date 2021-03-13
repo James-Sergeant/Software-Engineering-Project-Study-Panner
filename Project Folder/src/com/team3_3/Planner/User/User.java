@@ -173,11 +173,7 @@ public class User implements Serializable {
     public static void main(String[] args) {
         try {
             Login.newUser("James", "Sergeant","afa19aeu@uea.ac.uk","Password123456789!");
-        } catch (Login.InvalidEmailAddressException e) {
-            e.printStackTrace();
-        } catch (Login.InvalidPasswordException e) {
-            e.printStackTrace();
-        } catch (Login.UserExistsException e) {
+        } catch (Login.InvalidEmailAddressException | Login.InvalidPasswordException | Login.UserExistsException e) {
             e.printStackTrace();
         }
         System.out.println(Login.getLoggedInUser());

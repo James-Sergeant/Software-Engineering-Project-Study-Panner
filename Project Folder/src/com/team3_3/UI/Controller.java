@@ -29,7 +29,7 @@ public class Controller {
 
         Main.changeMainScene(actionEvent, "Dashbaord.fxml");
 
-        /* following code needs to be implemented for use, null pointer exception issue
+        /*following code needs to be implemented for use, null pointer exception issue
 
         //extracting user-entered information from the login screen
         String email = usernameField.getText();
@@ -45,6 +45,7 @@ public class Controller {
         }
 
          */
+
     }
 
     public void forgottenAction(ActionEvent actionEvent) {
@@ -108,5 +109,11 @@ public class Controller {
 
     public void signOutAction() {
         Main.signOut();
+    }
+
+    /////Following controls Dashboard.fxml - mySemester\\\\\
+
+    public void addSemesterAction(ActionEvent actionEvent) {
+        System.out.println("insert: addSemesterAction");
     }
 }
