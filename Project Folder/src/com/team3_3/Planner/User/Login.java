@@ -4,9 +4,6 @@ import com.team3_3.Planner.utils.Hash;
 import com.team3_3.Planner.utils.ObjectIO;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -285,7 +282,7 @@ public abstract class Login {
             e.printStackTrace();
         }
 
-        Thread.sleep(10);
+        Thread.sleep(20);
 
         System.out.println("Test Login: ");
         try {
