@@ -4,6 +4,7 @@ package com.team3_3.UI;
 
 import java.nio.charset.StandardCharsets;
 
+import com.team3_3.Planner.User.Login;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -93,6 +94,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        //Load in users map:
+        Login.loadUserPassword();
         //loading in base starting fxml file - login screen
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         primaryStage.setTitle("My Study Planner");

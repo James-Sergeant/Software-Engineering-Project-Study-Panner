@@ -188,14 +188,14 @@ public abstract class Login {
     /**
      * Implements the password exception.
      */
-    static class InvalidPasswordException extends Exception{
+    public static class InvalidPasswordException extends Exception{
         InvalidPasswordException(){super("Passwords must contain: Minimum eight characters, at least one letter, one number and one special character:");}
     }
 
     /**
      * Implements the email exception.
      */
-    static class InvalidEmailAddressException extends Exception{
+    public static class InvalidEmailAddressException extends Exception{
         InvalidEmailAddressException(String email){
             super("Not a valid email address: "+email);
         }
@@ -204,7 +204,7 @@ public abstract class Login {
     /**
      * Implements the user exists exception.
      */
-    static class UserExistsException extends Exception{
+    public static class UserExistsException extends Exception{
         UserExistsException(String email){
             super(email+"Is already associated with a user");
         }
@@ -253,7 +253,7 @@ public abstract class Login {
 
     public static void main(String[] args) throws InterruptedException {
         final String email = "afa17aeu@uea.ac.uk";
-        final String password = "TestIng123456#\u2560";
+        final String password = "TestIng123456#";
 
         System.out.println("Create a new user: ");
 

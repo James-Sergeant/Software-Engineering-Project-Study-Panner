@@ -13,6 +13,8 @@ import javafx.scene.input.DragEvent;
 import java.io.IOException;
 import java.util.EventObject;
 
+import static com.team3_3.Planner.User.Login.newUser;
+
 
 public class Controller {
 
@@ -27,9 +29,7 @@ public class Controller {
 
     public void loginAction(ActionEvent actionEvent) throws Exception {
 
-        Main.changeMainScene(actionEvent, "Dashbaord.fxml");
-
-        /*following code needs to be implemented for use, null pointer exception issue
+        //Main.changeMainScene(actionEvent, "Dashbaord.fxml");
 
         //extracting user-entered information from the login screen
         String email = usernameField.getText();
@@ -44,7 +44,7 @@ public class Controller {
             invalidLabel.setVisible(true);
         }
 
-         */
+
 
     }
 
@@ -108,6 +108,7 @@ public class Controller {
     }
 
     public void signOutAction() {
+        Login.logOut();
         Main.signOut();
     }
 
