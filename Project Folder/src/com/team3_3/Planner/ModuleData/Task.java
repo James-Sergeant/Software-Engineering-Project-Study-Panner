@@ -1,4 +1,7 @@
 package com.team3_3.Planner.ModuleData;
+
+import java.util.HashSet;
+
 /**
  * <h1>Example Class</h1>
  *<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -17,5 +20,37 @@ package com.team3_3.Planner.ModuleData;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Task {
+public class Task
+{
+    private String name;
+
+    private int weighting;
+
+    private HashSet<Work> work = new HashSet<Work>();
+
+    public Task(String name, int weighting)
+    {
+        this.name = name;
+
+        this.weighting = weighting;
+    }
+
+    public void addWork(Work work)
+    {
+        this.work.add(work);
+    }
+
+    public int getWeighting()
+    {
+        return this.weighting;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+
+
+
 }
