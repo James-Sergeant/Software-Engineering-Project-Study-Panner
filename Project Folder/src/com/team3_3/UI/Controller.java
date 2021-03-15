@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.EventObject;
 
 import static com.team3_3.Planner.User.Login.newUser;
-
+//--module-path lib/javafx-sdk-15.0.1/lib --add-modules javafx.controls,javafx.fxml
 
 public class Controller {
 
