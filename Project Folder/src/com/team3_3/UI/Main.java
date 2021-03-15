@@ -2,8 +2,6 @@ package com.team3_3.UI;
 
 //import com.google.common.hash.Hashing;
 
-import java.nio.charset.StandardCharsets;
-
 import com.team3_3.Planner.User.Login;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -118,7 +116,6 @@ public class Main extends Application {
         window.setScene(methodScene);
         window.show();
     }
-
 
     public static void main(String[] args) {
         launch(args);

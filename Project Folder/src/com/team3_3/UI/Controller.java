@@ -1,9 +1,10 @@
 package com.team3_3.UI;
 
-import com.team3_3.Planner.User.Login;
-import com.team3_3.Planner.User.User;
+//import com.team3_3.Planner.User.Login;
+//import com.team3_3.Planner.User.User;
 
-import com.team3_3.Planner.User.User;
+//import com.team3_3.Planner.User.User;
+import com.team3_3.Planner.User.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -62,19 +63,7 @@ public class Controller {
         Main.changeMainScene(actionEvent, "CreateAccount.fxml");
     }
 
-    /////Following controls CreateAccount.fxml\\\\\
 
-    public void signUpAction(ActionEvent actionEvent) {
-        System.out.println("insert: signUpAction");
-    }
-
-    public void sendVerificationAction(ActionEvent actionEvent) {
-        System.out.println("insert: sendVerificationAction");
-    }
-
-    public void loginBackAction(ActionEvent actionEvent) throws IOException {
-        Main.changeMainScene(actionEvent, "Login.fxml");
-    }
 
     /////Following controls Dashboard.fxml\\\\\
 
