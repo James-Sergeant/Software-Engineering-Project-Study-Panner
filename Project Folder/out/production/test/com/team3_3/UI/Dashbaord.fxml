@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.DashboardScreen.Controller">
    <children>
       <VBox prefHeight="831.0" prefWidth="243.0" style="-fx-background-color: #32a8a4;">
          <children>
