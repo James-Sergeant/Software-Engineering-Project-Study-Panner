@@ -1,7 +1,9 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
-import java.text.ParseException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <h1>Example Class</h1>
@@ -18,43 +20,32 @@ import java.sql.Time;
  *   - {DATE}: {NOTES} - {INITIALS}
  *
  *
- * <h2>References: </>
- *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
+ * <h2>Refrences: </>
+ *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Exam extends Assignment
+public class Coursework extends Assignment
 {
-    private Time startTime;
-    private Time endTime;
-    private int duration; // in minutes
-    private String location;
+    private Date dueDate;
+    private Time dueTime;
 
-    Exam (String name, String deadline, int weighting, Time startTime, Time endTime, int duration, String location) throws ParseException
+    Coursework (String name, String deadline, int weighting, String dueDate, Time dueTime) throws ParseException
     {
         super(name, deadline, weighting);
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.duration = duration;
-        this.location = location;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        this.dueDate = sdf.parse(dueDate.replace(".", "/"));
+        this.dueTime = dueTime;
     }
 
-    public Time getStartTime()
+    public Date getDueDate()
     {
-        return this.startTime;
+        return this.dueDate;
     }
 
-    public Time getEndTime()
+    public Time getDueTime()
     {
-        return this.endTime;
-    }
-
-    public int getDuration()
-    {
-        return this.duration;
-    }
-
-    public String getLocation()
-    {
-        return this.location;
+        return this.dueTime;
     }
 
     // test harness
@@ -62,3 +53,4 @@ public class Exam extends Assignment
     {
     }
 }
+

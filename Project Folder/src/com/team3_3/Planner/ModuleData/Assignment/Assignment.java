@@ -1,4 +1,11 @@
 package com.team3_3.Planner.ModuleData.Assignment;
+
+import com.team3_3.Planner.ModuleData.Milestone;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+
 /**
  * <h1>Example Class</h1>
  *<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -17,5 +24,29 @@ package com.team3_3.Planner.ModuleData.Assignment;
  * <h2>References: </>
  *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public abstract class Assignment {
+public abstract class Assignment
+{
+    private String name;
+    private Date deadline;
+    private int weighting;
+    private HashMap<String, Milestone> milestones;
+
+    Assignment(String name, String deadline, int weighting) throws ParseException
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        this.name = name;
+        this.deadline = sdf.parse(deadline.replace(".", "/"));
+        this.weighting = weighting;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
+
+    public int getWeighting()
+    {
+        return this.weighting;
+    }
 }

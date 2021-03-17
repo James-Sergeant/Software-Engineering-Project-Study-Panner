@@ -1,4 +1,8 @@
-package com.team3_3.Planner.ModuleData.Assignment;
+package com.team3_3.Planner.ModuleData;
+
+import java.util.Date;
+import java.util.HashMap;
+
 /**
  * <h1>Example Class</h1>
  *<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -14,8 +18,14 @@ package com.team3_3.Planner.ModuleData.Assignment;
  *   - {DATE}: {NOTES} - {INITIALS}
  *
  *
- * <h2>Refrences: </>
- *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
+ * <h2>References: </>
+ *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Courswork extends Assignment {
+
+public class Semester
+{
+    private String semId;
+    private HashMap<String, Module> modules;
+    private Date startDate;
+    private Date endDate;
 }
