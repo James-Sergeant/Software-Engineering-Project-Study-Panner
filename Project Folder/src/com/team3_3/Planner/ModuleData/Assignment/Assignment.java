@@ -72,7 +72,7 @@ public abstract class Assignment
     }
 
     // static methods
-    static Date returnDate(String date, String time) throws ParseException
+    public static Date returnDate(String date, String time) throws ParseException
     {
         SimpleDateFormat input = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         date += " " + returnTime(time).toString();
@@ -80,7 +80,7 @@ public abstract class Assignment
         return input.parse(date.replace(".", "/"));
     }
 
-    static Time returnTime(String time)
+    public static Time returnTime(String time)
     {
         String[] words = time.replace(".", ":").split(":");
         int timeMilli = 0;

@@ -39,7 +39,7 @@ public class Semester
     private Date endDate;
 
     // constructor
-    public Semester (String semId, String startDate, String endDate) throws ParseException
+    private Semester (String semId, String startDate, String endDate) throws ParseException
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -49,7 +49,7 @@ public class Semester
     }
 
     // methods
-    static Semester newSemester(String filepath) throws FileNotFoundException, ParseException
+    public static Semester newSemester(String filepath) throws FileNotFoundException, ParseException
     {
         File semFile = new File (filepath);
         Scanner semScanner = new Scanner (semFile);
@@ -109,7 +109,7 @@ public class Semester
         return semester;
     }
 
-    public void addModule(Module module)
+    private void addModule(Module module)
     {
         modules.put(module.getName(),module);
     }
@@ -135,7 +135,7 @@ public class Semester
     }
 
     // static methods
-    static Date returnDate(String date, String time) throws ParseException
+    public static Date returnDate(String date, String time) throws ParseException
     {
         SimpleDateFormat input = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         date += " " + returnTime(time).toString();
@@ -143,7 +143,7 @@ public class Semester
         return input.parse(date.replace(".", "/"));
     }
 
-    static Time returnTime(String time)
+    public static Time returnTime(String time)
     {
         String[] words = time.replace(".", ":").split(":");
         int timeMilli = 0;
