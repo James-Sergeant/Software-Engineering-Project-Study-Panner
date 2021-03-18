@@ -1,4 +1,9 @@
 package com.team3_3.Planner.ModuleData;
+
+import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+
+import java.util.HashMap;
+
 /**
  * <h1>Example Class</h1>
  *<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -14,8 +19,35 @@ package com.team3_3.Planner.ModuleData;
  *   - {DATE}: {NOTES} - {INITIALS}
  *
  *
+ *
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Module {
+public class Module
+{
+    // instance variables
+    private String name;
+    private HashMap<String,Assignment > assignments=new HashMap<String , Assignment>();
+
+    // constructor
+    public Module(String name)
+    {
+        this.name = name;
+    }
+
+    // methods
+    public void addAssignment(Assignment assignment)
+    {
+        assignments.put(assignment.getName(),assignment);
+    }
+
+    // getters
+    public Assignment getAssignment(String name)
+    {
+        return assignments.get(name);
+    }
+    public String getName()
+    {
+        return this.name;
+    }
 }

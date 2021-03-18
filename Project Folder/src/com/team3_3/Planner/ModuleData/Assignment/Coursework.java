@@ -25,32 +25,28 @@ import java.util.Date;
  */
 public class Coursework extends Assignment
 {
-    private Date dueDate;
-    private Time dueTime;
+    // instance variables
+    private Time dueTime; // 24-hour clock
 
-    Coursework (String name, String deadline, int weighting, String dueDate, Time dueTime) throws ParseException
+    // constructor
+    public Coursework (String name, String date, int weighting,  String dueTime) throws ParseException
     {
-        super(name, deadline, weighting);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        this.dueDate = sdf.parse(dueDate.replace(".", "/"));
-        this.dueTime = dueTime;
+        super(name, returnDate(date, dueTime), weighting);
+        this.dueTime = returnTime(dueTime);
     }
 
-    public Date getDueDate()
-    {
-        return this.dueDate;
-    }
-
+    // getters
     public Time getDueTime()
     {
         return this.dueTime;
     }
 
     // test harness
-    public static void main(String[] args)
+    public static void main(String[] args) throws ParseException
     {
+        Coursework c = new Coursework("VoIP", "19/03/2021", 50, "11:30");
+        System.out.println(c.getName());
+        System.out.println(c.getWeighting());
+        System.out.println(c.getDueTime());
     }
 }
-

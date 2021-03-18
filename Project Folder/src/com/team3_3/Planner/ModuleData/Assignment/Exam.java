@@ -2,6 +2,7 @@ package com.team3_3.Planner.ModuleData.Assignment;
 
 import java.text.ParseException;
 import java.sql.Time;
+import java.util.Date;
 
 /**
  * <h1>Example Class</h1>
@@ -23,20 +24,23 @@ import java.sql.Time;
  */
 public class Exam extends Assignment
 {
+    // instance variables
     private Time startTime;
     private Time endTime;
-    private int duration; // in minutes
+    private int duration; // in hours
     private String location;
 
-    Exam (String name, String deadline, int weighting, Time startTime, Time endTime, int duration, String location) throws ParseException
+    // constructor
+    public Exam (String name, String date, int weighting, String startTime, String endTime, int duration, String location) throws ParseException
     {
-        super(name, deadline, weighting);
-        this.startTime = startTime;
-        this.endTime = endTime;
+        super(name, returnDate(date, startTime), weighting);
+        this.startTime = returnTime(startTime);
+        this.endTime = returnTime(endTime);
         this.duration = duration;
         this.location = location;
     }
 
+    // getters
     public Time getStartTime()
     {
         return this.startTime;
@@ -58,7 +62,14 @@ public class Exam extends Assignment
     }
 
     // test harness
-    public static void main(String[] args)
+    public static void main(String[] args) throws ParseException
     {
+        Exam e = new Exam("DS&A", "25/3/2021", 30, "11:30", "13:30",  2, "Online");
+        System.out.println(e.getName());
+        System.out.println(e.getWeighting());
+        System.out.println(e.getStartTime());
+        System.out.println(e.getEndTime());
+        System.out.println(e.getDate());
+        System.out.println(e.getLocation());
     }
 }
