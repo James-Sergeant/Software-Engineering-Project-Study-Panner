@@ -49,7 +49,7 @@ public class Semester
     }
 
     // methods
-    public static Semester newSemester(String filepath) throws FileNotFoundException, ParseException
+    public static Semester newSemester(String filepath) throws FileNotFoundException, ParseException, DateOutOfBoundsException
     {
         File semFile = new File (filepath);
         Scanner semScanner = new Scanner (semFile);
@@ -60,7 +60,7 @@ public class Semester
 
         String lastModule = null;
 
-        HashSet<String> modules = new HashSet<>(); // holds all unique modules
+        HashSet<String> modules = new HashSet<>(); // holds all unique modules - strings
         HashSet<String> assignments = new HashSet<>(); // holds all unique assignments - strings
 
         while (semScanner.hasNextLine())
@@ -96,17 +96,41 @@ public class Semester
 
             if (values[1].equals("COURSEWORK"))
             {
-                Coursework c = new Coursework(values[2], values[3], Integer.parseInt(values[4]), values[5]);
-                semester.getModule(values[0]).addAssignment(c);
+
+                if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
+                {
+                    Coursework c = new Coursework(values[2].trim(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim());
+                    semester.getModule(values[0]).addAssignment(c);
+                }
+                else
+                {
+                    throw new DateOutOfBoundsException(values[3]);
+                }
             }
             else if (values[1].equals("EXAM"))
             {
-                Exam e = new Exam(values[2], values[3], Integer.parseInt(values[4]), values[5], values[6], Integer.parseInt(values[7]), values[8]);
-                semester.getModule(values[0]).addAssignment(e);
+                if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
+                {
+                    Exam e = new Exam(values[2].trim(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim(), values[6].trim(), Integer.parseInt(values[7].trim()), values[8].trim());
+                    semester.getModule(values[0]).addAssignment(e);
+                }
+                else
+                {
+                    throw new DateOutOfBoundsException(values[3]);
+                }
             }
         }
 
         return semester;
+    }
+
+    public void SemesterInfo() // for testing
+    {
+        for(String s: modules.keySet())
+        {
+            System.out.println(s+":");
+            modules.get(s).AssignmentInfo();
+        }
     }
 
     private void addModule(Module module)
@@ -134,6 +158,15 @@ public class Semester
         return this.endDate;
     }
 
+    // exception
+    static class DateOutOfBoundsException extends Exception
+    {
+        DateOutOfBoundsException(String date)
+        {
+            super("Semester: assignment end date (" + date.trim() + ") is after the semester has ended.");
+        }
+    }
+
     // static methods
     public static Date returnDate(String date, String time) throws ParseException
     {
@@ -154,9 +187,9 @@ public class Semester
             {
                 switch (i)
                 {
-                    case 1 -> timeMilli = ((Integer.parseInt(words[0]) - 1) * 3600000);
-                    case 2 -> timeMilli += ((Integer.parseInt(words[1]) * 60000));
-                    case 3 -> timeMilli += ((Integer.parseInt(words[2]) * 1000));
+                    case 1 -> timeMilli = ((Integer.parseInt(words[0].trim()) - 1) * 3600000);
+                    case 2 -> timeMilli += ((Integer.parseInt(words[1].trim()) * 60000));
+                    case 3 -> timeMilli += ((Integer.parseInt(words[2].trim()) * 1000));
                 }
             }
         }
@@ -165,9 +198,10 @@ public class Semester
     }
 
     // test harness
-    public static void main(String[] args) throws FileNotFoundException, ParseException
+    public static void main(String[] args) throws Exception
     {
         Semester n = newSemester("examplehub.txt");
-        System.out.println(n.getSemId() + " | " + n.getStartDate() + " | " + n.getEndDate());
+        System.out.println(n.getSemId() + " | " + n.getStartDate() + " | " + n.getEndDate() + "\n");
+        n.SemesterInfo();
     }
 }

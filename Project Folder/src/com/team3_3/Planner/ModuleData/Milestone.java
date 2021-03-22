@@ -28,6 +28,9 @@ public class Milestone
     private int weighting;
     private HashMap<String, Task> tasks = new HashMap<>();
 
+    // milestone date - calculated by the latest end date of task within tasks
+    // date - has to be before end date of assignment
+
     // constructor
     public Milestone (String name, int weighting)
     {

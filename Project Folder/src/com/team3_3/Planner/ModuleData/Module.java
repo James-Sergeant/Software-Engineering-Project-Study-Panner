@@ -41,6 +41,16 @@ public class Module
         assignments.put(assignment.getName(),assignment);
     }
 
+    // testing
+    public void AssignmentInfo()
+    {
+        for (String s: assignments.keySet())
+        {
+            System.out.println(getAssignment(s).getClass().getSimpleName() +": "+getAssignment(s).getName()+ " ("+getAssignment(s).getDate()+")");
+        }
+        System.out.println();
+    }
+
     // getters
     public Assignment getAssignment(String name)
     {
