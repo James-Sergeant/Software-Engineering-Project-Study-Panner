@@ -1,7 +1,9 @@
+package com.team3_3.Planner.ModuleData.Assignment;
 
-package com.team3_3.Planner.ModuleData;
-
-import java.util.HashMap;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * <h1>Example Class</h1>
@@ -21,36 +23,30 @@ import java.util.HashMap;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Milestone
+public class Coursework extends Assignment
 {
     // instance variables
-    private String name;
-    private int weighting;
-    private HashMap<String, Task> tasks = new HashMap<>();
-
-    // milestone date - calculated by the latest end date of task within tasks
-    // date - has to be before end date of assignment
+    private Time dueTime; // 24-hour clock
 
     // constructor
-    public Milestone (String name, int weighting)
+    public Coursework (String name, String date, int weighting,  String dueTime) throws ParseException
     {
-        this.name = name;
-        this.weighting = weighting;
-    }
-
-    // methods
-    public void addTask(Task task)
-    {
-        tasks.put(task.getName(), task);
+        super(name, returnDate(date, dueTime), weighting);
+        this.dueTime = returnTime(dueTime);
     }
 
     // getters
-    public int getWeighting()
+    public Time getDueTime()
     {
-        return this.weighting;
+        return this.dueTime;
     }
-    public String getName()
+
+    // test harness
+    public static void main(String[] args) throws ParseException
     {
-        return this.name;
+        Coursework c = new Coursework("VoIP", "19/03/2021", 50, "11:30");
+        System.out.println(c.getName());
+        System.out.println(c.getWeighting());
+        System.out.println(c.getDueTime());
     }
 }

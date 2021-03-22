@@ -1,4 +1,7 @@
 package com.team3_3.Planner.ModuleData;
+
+import java.io.File;
+
 /**
  * <h1>Example Class</h1>
  *<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -17,5 +20,31 @@ package com.team3_3.Planner.ModuleData;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Work {
+public class Work
+{
+    private String name;
+    private int weighting;
+    private File file;
+
+    public Work (String name, int weighting, File file)
+    {
+        this.name = name;
+        this.weighting = weighting;
+        this.file = file;
+    }
+
+    public File getFile()
+    {
+        return this.file;
+    }
+
+    public int getWeighting()
+    {
+        return this.weighting;
+    }
+
+    public String getName()
+    {
+        return this.name;
+    }
 }
