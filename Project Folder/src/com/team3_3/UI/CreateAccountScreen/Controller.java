@@ -30,6 +30,7 @@ public class Controller {
         if(password1.equals(password2)){
             try {
                 Login.newUser(firstName, lastName, email, password1);
+                Main.changeMainScene(actionEvent, "Login.fxml");
             } catch (Login.InvalidEmailAddressException e) {
                 errorLabel.setText("Email is invalid");
                 errorLabel.setVisible(true);
@@ -39,12 +40,13 @@ public class Controller {
             } catch (Login.UserExistsException e) {
                 errorLabel.setText("You already have an account please login!");
                 errorLabel.setVisible(true);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }else{
             errorLabel.setText("Passwords don't match!");
             errorLabel.setVisible(true);
         }
-        System.out.println("insert: signUpAction");
     }
 
     public void sendVerificationAction(ActionEvent actionEvent) {
