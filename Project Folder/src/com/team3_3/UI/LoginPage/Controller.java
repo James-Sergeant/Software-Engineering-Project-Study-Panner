@@ -22,9 +22,6 @@ public class Controller {
     public PasswordField passwordField;
 
     public void loginAction(ActionEvent actionEvent) throws Exception {
-
-        Main.changeMainScene(actionEvent, "Dashbaord.fxml");
-
         //extracting user-entered information from the login screen
         String email = usernameField.getText();
         String password = passwordField.getText();
