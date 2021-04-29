@@ -1,12 +1,15 @@
 package com.team3_3.Planner.User;
 
 
+import com.team3_3.Planner.ModuleData.Semester;
 import com.team3_3.Planner.utils.Hash;
 import com.team3_3.Planner.utils.ObjectIO;
 
 import java.io.File;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+
 /**
  * <h1>User Class</h1>
  *<p>This class is used to store a user and its associated data. The User class and all its composed classes are
@@ -19,6 +22,7 @@ import java.nio.charset.Charset;
  *   - 01/03/2021: Defined the basic user object and methods that comprise it - JS
  *   - 01/03/2021: Allowed the User to be saved so that it can be stored. - JS
  *   - 03/03/2021: Allowed the User to removed. - JS
+ *   - 29/04/2021: Added in a hash map to store the user's semester's, and the get/set functions associated with it.
  */
 public class User implements Serializable {
     public final transient int SSN = 1;
@@ -27,6 +31,7 @@ public class User implements Serializable {
     private String surname;
     private String email;
     private boolean loggedIn;
+    private final HashMap<String, Semester> USER_SEMESTER_MAP;
 
 
     /**
@@ -44,6 +49,7 @@ public class User implements Serializable {
         this.surname = surname;
         this.email = email;
         this.loggedIn = false;
+        this.USER_SEMESTER_MAP = new HashMap<>();
     }
 
     /**
@@ -112,6 +118,39 @@ public class User implements Serializable {
     static class UserNotFoundException extends Exception{
         UserNotFoundException(String email){
             super("User: "+email+" was not found!");
+        }
+    }
+
+    /**
+     * Adds the given semester to the user, and saves the users data.
+     * @param semID: The semester id.
+     * @param semester: The semester object.
+     * @throws SemesterAlreadyExits: Thrown if the user already has this semester.
+     */
+    public void addSemester(String semID, Semester semester) throws SemesterAlreadyExits {
+        if(USER_SEMESTER_MAP.containsKey(semID)){
+            throw new SemesterAlreadyExits(semID);
+        } else{
+            USER_SEMESTER_MAP.put(semID,semester);
+            saveUser(this);
+        }
+    }
+
+    /**
+     * Removes a semester from the user and saves the users data.
+     * @param semID: The ID for the semester.
+     */
+    public void removeSemester(String semID){
+        USER_SEMESTER_MAP.remove(semID);
+        saveUser(this);
+    }
+
+    /**
+     * An exception for the case where a user has already added a semester.
+     */
+    public static class SemesterAlreadyExits extends Exception{
+        public SemesterAlreadyExits(String semID){
+            super("Semester ID: "+semID+" already added to this user.");
         }
     }
 
