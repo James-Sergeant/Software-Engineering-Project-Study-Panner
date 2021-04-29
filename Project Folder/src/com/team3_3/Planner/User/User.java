@@ -32,6 +32,7 @@ public class User implements Serializable {
     private String email;
     private boolean loggedIn;
     private final HashMap<String, Semester> USER_SEMESTER_MAP;
+    private Semester currentSemester;
 
 
     /**
@@ -132,6 +133,7 @@ public class User implements Serializable {
             throw new SemesterAlreadyExits(semID);
         } else{
             USER_SEMESTER_MAP.put(semID,semester);
+            currentSemester = semester;
             saveUser(this);
         }
     }
@@ -200,6 +202,13 @@ public class User implements Serializable {
         return email;
     }
 
+    public Semester getCurrentSemester() {
+        return currentSemester;
+    }
+
+    public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
+    }
 
     @Override
     public String toString() {

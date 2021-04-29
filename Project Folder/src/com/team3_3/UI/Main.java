@@ -69,6 +69,7 @@ public class Main extends Application {
             try {
                 mainStage.close();
                 window.setTitle("My Study Planner");
+                Login.logOut();
                 changeMainScene(actionEvent, "Login.fxml");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -99,6 +100,7 @@ public class Main extends Application {
         primaryStage.setTitle("My Study Planner");
         //setting dimensions of primaryStage
         primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

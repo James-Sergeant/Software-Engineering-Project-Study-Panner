@@ -1,7 +1,11 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
 import com.team3_3.Planner.ModuleData.Milestone;
+import javafx.scene.control.ProgressBar;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
@@ -32,18 +36,28 @@ public abstract class Assignment implements Serializable
     public final transient int SSN = 1;
     // instance variables
     private String name;
+    private String module;
     private Date date;
     private int weighting; // out of 100%
     private HashMap<String, Milestone> milestones = new HashMap<>();
+    private double progress = 0;
+    private transient ProgressBar progressBar;
 
     // constructor
-    public Assignment(String name, Date date, int weighting) throws ParseException
+    public Assignment(String name,String module, Date date, int weighting) throws ParseException
     {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         this.name = name;
         this.weighting = weighting;
         this.date = date;
+        this.module = module;
+        this.progressBar = new ProgressBar(progress);
+    }
+    @Serial
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        progressBar = new ProgressBar(progress);
     }
 
     // methods
@@ -71,6 +85,14 @@ public abstract class Assignment implements Serializable
     public int getWeighting()
     {
         return this.weighting;
+    }
+
+    public String getModule() {
+        return module;
+    }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
     }
 
     // static methods

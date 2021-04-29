@@ -33,9 +33,9 @@ public class Exam extends Assignment implements Serializable
     private String location;
 
     // constructor
-    public Exam (String name, String date, int weighting, String startTime, String endTime, int duration, String location) throws ParseException
+    public Exam (String name,String module, String date, int weighting, String startTime, String endTime, int duration, String location) throws ParseException
     {
-        super(name, returnDate(date, startTime), weighting);
+        super(name,module, returnDate(date, startTime), weighting);
         this.startTime = returnTime(startTime);
         this.endTime = returnTime(endTime);
         this.duration = duration;
@@ -66,7 +66,7 @@ public class Exam extends Assignment implements Serializable
     // test harness
     public static void main(String[] args) throws ParseException
     {
-        Exam e = new Exam("DS&A", "25/3/2021", 30, "11:30", "13:30",  2, "Online");
+        Exam e = new Exam("DS&A","TEST" ,"25/3/2021", 30, "11:30", "13:30",  2, "Online");
         System.out.println(e.getName());
         System.out.println(e.getWeighting());
         System.out.println(e.getStartTime());

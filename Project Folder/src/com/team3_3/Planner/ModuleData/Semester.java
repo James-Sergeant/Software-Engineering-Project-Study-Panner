@@ -101,7 +101,7 @@ public class Semester implements Serializable
 
                 if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
                 {
-                    Coursework c = new Coursework(values[2].trim(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim());
+                    Coursework c = new Coursework(values[2].trim(),semester.getModule(values[0]).getName(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim());
                     semester.getModule(values[0]).addAssignment(c);
                 }
                 else
@@ -113,7 +113,7 @@ public class Semester implements Serializable
             {
                 if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
                 {
-                    Exam e = new Exam(values[2].trim(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim(), values[6].trim(), Integer.parseInt(values[7].trim()), values[8].trim());
+                    Exam e = new Exam(values[2].trim(),semester.getModule(values[0]).getName(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim(), values[6].trim(), Integer.parseInt(values[7].trim()), values[8].trim());
                     semester.getModule(values[0]).addAssignment(e);
                 }
                 else
@@ -144,6 +144,8 @@ public class Semester implements Serializable
     {
         return modules.get(name);
     }
+
+    public HashMap<String,Module> getModules(){return this.modules;};
 
     public String getSemId()
     {
@@ -201,12 +203,7 @@ public class Semester implements Serializable
 
     @Override
     public String toString() {
-        return "Semester{" +
-                "semId='" + semId + '\'' +
-                ", modules=" + modules +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                '}';
+        return "Semester: "+semId+ " Starting: "+startDate+" Ending: "+endDate;
     }
 
     // test harness

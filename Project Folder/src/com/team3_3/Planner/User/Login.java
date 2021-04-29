@@ -67,6 +67,7 @@ public abstract class Login {
     public static void logOut(){
         User.saveUser(loggedInUser);
         loggedInUser.toggleLoggedIn();
+        loggedInUser = null;
     }
 
     /**

@@ -75,22 +75,20 @@
          <children>
             <TableView fx:id="mySemesterModuleTable" layoutX="86.0" layoutY="298.0" prefHeight="237.0" prefWidth="843.0">
               <columns>
-                <TableColumn prefWidth="361.0" text="Module" />
-                <TableColumn minWidth="0.0" prefWidth="119.0" text="Start Date" />
-                  <TableColumn minWidth="0.0" prefWidth="108.0" text="End Date" />
-                  <TableColumn minWidth="0.0" prefWidth="254.0" text="Progression " />
+                <TableColumn fx:id="mySemesterModuleTableModule" prefWidth="587.0" text="Module" />
+                  <TableColumn fx:id="mySemesterModuleTableProgress" minWidth="0.0" prefWidth="255.0" text="Progression " />
               </columns>
             </TableView>
             <TitledPane animated="false" layoutX="86.0" layoutY="574.0" prefHeight="237.0" prefWidth="843.0" text="Upcoming Deadlines">
               <content>
                 <AnchorPane fx:id="mySemesterDeadlines" minHeight="0.0" minWidth="0.0" prefHeight="174.0" prefWidth="841.0">
                      <children>
-                        <TableView layoutX="-1.0" layoutY="-2.0" prefHeight="215.0" prefWidth="843.0">
+                        <TableView fx:id="mySemesterDeadlineTable" layoutX="-1.0" layoutY="-2.0" prefHeight="215.0" prefWidth="843.0">
                           <columns>
-                            <TableColumn prefWidth="220.0" text="Task" />
-                            <TableColumn minWidth="0.0" prefWidth="210.0" text="Module" />
-                              <TableColumn prefWidth="132.0" text="Deadline" />
-                              <TableColumn prefWidth="280.0" text="Progression" />
+                            <TableColumn fx:id="mySemesterDeadlineTableAssignment" prefWidth="220.0" text="Assignment" />
+                            <TableColumn fx:id="mySemesterDeadlineTableModule" minWidth="0.0" prefWidth="210.0" text="Module" />
+                              <TableColumn fx:id="mySemesterDeadlineTableDeadline" prefWidth="132.0" text="Deadline" />
+                              <TableColumn fx:id="mySemesterDeadlineTableProgression" prefWidth="280.0" text="Progression" />
                           </columns>
                         </TableView>
                      </children>
@@ -102,7 +100,10 @@
             <Label fx:id="invalidFileLabel" alignment="CENTER" layoutX="752.0" layoutY="14.0" prefHeight="31.0" prefWidth="177.0" text="Invalid FIle, please try again" textFill="RED" visible="false" />
          </children>
       </Pane>
-      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
+      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
+         <children>
+            <ComboBox fx:id="myModulesSelector" layoutX="39.0" layoutY="35.0" prefHeight="25.0" prefWidth="661.0" promptText="Select a Semester" />
+         </children></Pane>
       <Pane fx:id="myTasksPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
       <Pane fx:id="settingsPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
       <Rectangle fx:id="settingsDivider" arcHeight="5.0" arcWidth="5.0" fill="#ffbb87" height="60.0" layoutX="231.0" layoutY="428.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />

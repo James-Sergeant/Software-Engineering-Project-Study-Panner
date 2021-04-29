@@ -31,9 +31,9 @@ public class Coursework extends Assignment implements Serializable
     private Time dueTime; // 24-hour clock
 
     // constructor
-    public Coursework (String name, String date, int weighting,  String dueTime) throws ParseException
+    public Coursework (String name,String module, String date, int weighting,  String dueTime) throws ParseException
     {
-        super(name, returnDate(date, dueTime), weighting);
+        super(name,module, returnDate(date, dueTime), weighting);
         this.dueTime = returnTime(dueTime);
     }
 
@@ -46,7 +46,7 @@ public class Coursework extends Assignment implements Serializable
     // test harness
     public static void main(String[] args) throws ParseException
     {
-        Coursework c = new Coursework("VoIP", "19/03/2021", 50, "11:30");
+        Coursework c = new Coursework("VoIP", "TEST","19/03/2021", 50, "11:30");
         System.out.println(c.getName());
         System.out.println(c.getWeighting());
         System.out.println(c.getDueTime());

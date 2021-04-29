@@ -1,7 +1,11 @@
 package com.team3_3.Planner.ModuleData;
 
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+import javafx.scene.control.ProgressBar;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -28,13 +32,20 @@ public class Module implements Serializable
 {
     // instance variables
     public final transient int SSN = 1;
-    private String name;
-    private HashMap<String,Assignment > assignments=new HashMap<String , Assignment>();
-
+    private final String name;
+    private HashMap<String,Assignment> assignments=new HashMap<String , Assignment>();
+    private double progress;
+    private transient ProgressBar progressBar;
     // constructor
     public Module(String name)
     {
         this.name = name;
+        this.progressBar = new ProgressBar(0);
+    }
+    @Serial
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+        ois.defaultReadObject();
+        progressBar = new ProgressBar(progress);
     }
 
     // methods
@@ -58,8 +69,16 @@ public class Module implements Serializable
     {
         return assignments.get(name);
     }
+    public HashMap<String, Assignment> getAssignments(){
+        return assignments;
+    }
     public String getName()
     {
         return this.name;
     }
+
+    public ProgressBar getProgressBar() {
+        return progressBar;
+    }
+
 }
