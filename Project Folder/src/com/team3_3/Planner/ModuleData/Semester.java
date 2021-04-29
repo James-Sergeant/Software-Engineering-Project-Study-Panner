@@ -159,9 +159,9 @@ public class Semester
     }
 
     // exception
-    static class DateOutOfBoundsException extends Exception
+    public static class DateOutOfBoundsException extends Exception
     {
-        DateOutOfBoundsException(String date)
+        public DateOutOfBoundsException(String date)
         {
             super("Semester: assignment end date (" + date.trim() + ") is after the semester has ended.");
         }
@@ -195,6 +195,16 @@ public class Semester
         }
 
         return new Time(timeMilli);
+    }
+
+    @Override
+    public String toString() {
+        return "Semester{" +
+                "semId='" + semId + '\'' +
+                ", modules=" + modules +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                '}';
     }
 
     // test harness

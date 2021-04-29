@@ -91,7 +91,7 @@
                   </Tooltip>
                </tooltip>
             </PasswordField>
-            <Label fx:id="invalidLabel" alignment="CENTER" layoutX="17.0" layoutY="90.0" prefHeight="19.0" prefWidth="291.0" style="-fx-border-color: #ff0000;" textAlignment="CENTER" visible="false">
+            <Label fx:id="errorLabel" alignment="CENTER" layoutX="17.0" layoutY="90.0" prefHeight="19.0" prefWidth="291.0" style="-fx-border-color: #ff0000;" textAlignment="CENTER" visible="false">
                <font>
                   <Font name="Lucida Console" size="12.0" />
                </font>

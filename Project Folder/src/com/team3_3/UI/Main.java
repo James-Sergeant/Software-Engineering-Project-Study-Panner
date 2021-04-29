@@ -23,7 +23,7 @@ import java.io.IOException;
 public class Main extends Application {
 
     //keep track of inaccessible stages (Modality.APPLICATION_MODAL event)
-    private static Stage mainStage;
+    public static Stage mainStage;
 
     //hold program's associated fxml file names for loading
     private static final String[] pages = {"settings", "mySemester", "myModules", "myTasks"};
