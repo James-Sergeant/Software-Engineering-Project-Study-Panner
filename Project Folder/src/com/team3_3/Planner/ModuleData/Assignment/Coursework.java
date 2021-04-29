@@ -1,5 +1,6 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,8 +24,9 @@ import java.util.Date;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Coursework extends Assignment
+public class Coursework extends Assignment implements Serializable
 {
+    public final transient int SSN = 1;
     // instance variables
     private Time dueTime; // 24-hour clock
 

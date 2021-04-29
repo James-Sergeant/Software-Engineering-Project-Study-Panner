@@ -2,6 +2,7 @@ package com.team3_3.Planner.ModuleData;
 
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -23,9 +24,10 @@ import java.util.HashMap;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Module
+public class Module implements Serializable
 {
     // instance variables
+    public final transient int SSN = 1;
     private String name;
     private HashMap<String,Assignment > assignments=new HashMap<String , Assignment>();
 

@@ -1,5 +1,6 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.sql.Time;
 import java.util.Date;
@@ -22,8 +23,9 @@ import java.util.Date;
  * <h2>References: </>
  *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Exam extends Assignment
+public class Exam extends Assignment implements Serializable
 {
+    public final transient int SSN = 1;
     // instance variables
     private Time startTime;
     private Time endTime;

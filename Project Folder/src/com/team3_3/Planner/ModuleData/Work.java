@@ -1,6 +1,7 @@
 package com.team3_3.Planner.ModuleData;
 
 import java.io.File;
+import java.io.Serializable;
 
 /**
  * <h1>Example Class</h1>
@@ -20,8 +21,9 @@ import java.io.File;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Work
+public class Work implements Serializable
 {
+    public final transient int SSN = 1;
     private String name;
     private int weighting;
     private File file;

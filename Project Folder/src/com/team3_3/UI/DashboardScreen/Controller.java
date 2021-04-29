@@ -83,6 +83,7 @@ public class Controller {
                 invalidFileLabel.setVisible(true);
             }
         }
+        System.out.println(Login.getLoggedInUser().getUSER_SEMESTER_MAP());
         System.out.println("insert: display data.");
     }
 

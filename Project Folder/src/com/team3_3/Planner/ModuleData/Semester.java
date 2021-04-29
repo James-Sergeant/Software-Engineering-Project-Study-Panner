@@ -3,6 +3,7 @@ package com.team3_3.Planner.ModuleData;
 import com.team3_3.Planner.ModuleData.Assignment.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,9 +31,10 @@ import java.util.Scanner;
  *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
 
-public class Semester
+public class Semester implements Serializable
 {
     // instance variables
+    public final transient int SSN = 1;
     private String semId;
     private HashMap<String, Module> modules = new HashMap<>();
     private Date startDate;

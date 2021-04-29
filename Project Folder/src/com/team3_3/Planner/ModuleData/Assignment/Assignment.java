@@ -1,6 +1,8 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
 import com.team3_3.Planner.ModuleData.Milestone;
+
+import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,8 +27,9 @@ import java.util.HashMap;
  * <h2>References: </>
  *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public abstract class Assignment
+public abstract class Assignment implements Serializable
 {
+    public final transient int SSN = 1;
     // instance variables
     private String name;
     private Date date;

@@ -146,6 +146,13 @@ public class User implements Serializable {
     }
 
     /**
+     * @return The user's semester hash map.
+     */
+    public HashMap<String, Semester> getUSER_SEMESTER_MAP(){
+        return USER_SEMESTER_MAP;
+    }
+
+    /**
      * An exception for the case where a user has already added a semester.
      */
     public static class SemesterAlreadyExits extends Exception{

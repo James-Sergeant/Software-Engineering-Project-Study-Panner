@@ -1,6 +1,7 @@
 
 package com.team3_3.Planner.ModuleData;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -21,9 +22,10 @@ import java.util.HashMap;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Milestone
+public class Milestone implements Serializable
 {
     // instance variables
+    public final transient int SSN = 1;
     private String name;
     private int weighting;
     private HashMap<String, Task> tasks = new HashMap<>();
