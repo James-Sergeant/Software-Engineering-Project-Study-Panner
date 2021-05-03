@@ -13,7 +13,7 @@ public class UITest extends Application {
         System.out.println(Controller.class.getResource("test.fxml"));
         Parent root = FXMLLoader.load(Controller.class.getResource("test.fxml"));
         primaryStage.setTitle("Login");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 300));
         primaryStage.show();
     }
 

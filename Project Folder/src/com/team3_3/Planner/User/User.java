@@ -1,12 +1,15 @@
 package com.team3_3.Planner.User;
 
 
+import com.team3_3.Planner.ModuleData.Semester;
 import com.team3_3.Planner.utils.Hash;
 import com.team3_3.Planner.utils.ObjectIO;
 
 import java.io.File;
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.HashMap;
+
 /**
  * <h1>User Class</h1>
  *<p>This class is used to store a user and its associated data. The User class and all its composed classes are
@@ -19,6 +22,7 @@ import java.nio.charset.Charset;
  *   - 01/03/2021: Defined the basic user object and methods that comprise it - JS
  *   - 01/03/2021: Allowed the User to be saved so that it can be stored. - JS
  *   - 03/03/2021: Allowed the User to removed. - JS
+ *   - 29/04/2021: Added in a hash map to store the user's semester's, and the get/set functions associated with it.
  */
 public class User implements Serializable {
     public final transient int SSN = 1;
@@ -27,6 +31,8 @@ public class User implements Serializable {
     private String surname;
     private String email;
     private boolean loggedIn;
+    private final HashMap<String, Semester> USER_SEMESTER_MAP;
+    private Semester currentSemester;
 
 
     /**
@@ -34,16 +40,17 @@ public class User implements Serializable {
      * @param firstname the users first name.
      * @param surname the user surname.
      * @param email the users email address, this has to be unique.
-     * @throws Login.UserExistsException is thrown if the user already exists in the system.
-     * @throws Login.InvalidEmailAddressException Is thrown if the supplied email dose not match the standard for emails.
+     * @throws .Login.UserExistsException is thrown if the user already exists in the system.
+     * @throws .Login.InvalidEmailAddressException Is thrown if the supplied email dose not match the standard for emails.
      * @link www.emailregex.com
-     * @throws Login.InvalidPasswordException The password dose not meet the requirements: Minimum eight characters, at least one letter, one number and one special character
+     * @throws .Login.InvalidPasswordException The password dose not meet the requirements: Minimum eight characters, at least one letter, one number and one special character
      */
     protected User(String firstname,String surname, String email){
         this.firstname = firstname;
         this.surname = surname;
         this.email = email;
         this.loggedIn = false;
+        this.USER_SEMESTER_MAP = new HashMap<>();
     }
 
     /**
@@ -116,6 +123,47 @@ public class User implements Serializable {
     }
 
     /**
+     * Adds the given semester to the user, and saves the users data.
+     * @param semID: The semester id.
+     * @param semester: The semester object.
+     * @throws SemesterAlreadyExits: Thrown if the user already has this semester.
+     */
+    public void addSemester(String semID, Semester semester) throws SemesterAlreadyExits {
+        if(USER_SEMESTER_MAP.containsKey(semID)){
+            throw new SemesterAlreadyExits(semID);
+        } else{
+            USER_SEMESTER_MAP.put(semID,semester);
+            currentSemester = semester;
+            saveUser(this);
+        }
+    }
+
+    /**
+     * Removes a semester from the user and saves the users data.
+     * @param semID: The ID for the semester.
+     */
+    public void removeSemester(String semID){
+        USER_SEMESTER_MAP.remove(semID);
+        saveUser(this);
+    }
+
+    /**
+     * @return The user's semester hash map.
+     */
+    public HashMap<String, Semester> getUSER_SEMESTER_MAP(){
+        return USER_SEMESTER_MAP;
+    }
+
+    /**
+     * An exception for the case where a user has already added a semester.
+     */
+    public static class SemesterAlreadyExits extends Exception{
+        public SemesterAlreadyExits(String semID){
+            super("Semester ID: "+semID+" already added to this user.");
+        }
+    }
+
+    /**
      * Toggles the users login status.
      */
     public void toggleLoggedIn(){
@@ -154,6 +202,13 @@ public class User implements Serializable {
         return email;
     }
 
+    public Semester getCurrentSemester() {
+        return currentSemester;
+    }
+
+    public void setCurrentSemester(Semester currentSemester) {
+        this.currentSemester = currentSemester;
+    }
 
     @Override
     public String toString() {
@@ -173,11 +228,7 @@ public class User implements Serializable {
     public static void main(String[] args) {
         try {
             Login.newUser("James", "Sergeant","afa19aeu@uea.ac.uk","Password123456789!");
-        } catch (Login.InvalidEmailAddressException e) {
-            e.printStackTrace();
-        } catch (Login.InvalidPasswordException e) {
-            e.printStackTrace();
-        } catch (Login.UserExistsException e) {
+        } catch (Login.InvalidEmailAddressException | Login.InvalidPasswordException | Login.UserExistsException e) {
             e.printStackTrace();
         }
         System.out.println(Login.getLoggedInUser());

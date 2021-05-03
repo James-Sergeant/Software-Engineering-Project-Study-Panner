@@ -4,9 +4,6 @@ import com.team3_3.Planner.utils.Hash;
 import com.team3_3.Planner.utils.ObjectIO;
 
 import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,6 +67,7 @@ public abstract class Login {
     public static void logOut(){
         User.saveUser(loggedInUser);
         loggedInUser.toggleLoggedIn();
+        loggedInUser = null;
     }
 
     /**
@@ -188,14 +186,14 @@ public abstract class Login {
     /**
      * Implements the password exception.
      */
-    static class InvalidPasswordException extends Exception{
+    public static class InvalidPasswordException extends Exception{
         InvalidPasswordException(){super("Passwords must contain: Minimum eight characters, at least one letter, one number and one special character:");}
     }
 
     /**
      * Implements the email exception.
      */
-    static class InvalidEmailAddressException extends Exception{
+    public static class InvalidEmailAddressException extends Exception{
         InvalidEmailAddressException(String email){
             super("Not a valid email address: "+email);
         }
@@ -204,7 +202,7 @@ public abstract class Login {
     /**
      * Implements the user exists exception.
      */
-    static class UserExistsException extends Exception{
+    public static class UserExistsException extends Exception{
         UserExistsException(String email){
             super(email+"Is already associated with a user");
         }
@@ -253,7 +251,7 @@ public abstract class Login {
 
     public static void main(String[] args) throws InterruptedException {
         final String email = "afa17aeu@uea.ac.uk";
-        final String password = "TestIng123456#\u2560";
+        final String password = "TestIng123456#";
 
         System.out.println("Create a new user: ");
 
@@ -285,7 +283,7 @@ public abstract class Login {
             e.printStackTrace();
         }
 
-        Thread.sleep(10);
+        Thread.sleep(20);
 
         System.out.println("Test Login: ");
         try {
