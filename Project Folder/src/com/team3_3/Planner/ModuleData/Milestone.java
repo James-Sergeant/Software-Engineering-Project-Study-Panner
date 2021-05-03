@@ -1,6 +1,8 @@
 
 package com.team3_3.Planner.ModuleData;
 
+import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -28,22 +30,32 @@ public class Milestone implements Serializable
     public final transient int SSN = 1;
     private String name;
     private int weighting;
+    private boolean finished = false; // task not finished by default
     private HashMap<String, Task> tasks = new HashMap<>();
 
     // milestone date - calculated by the latest end date of task within tasks
     // date - has to be before end date of assignment
 
     // constructor
-    public Milestone (String name, int weighting)
+    public Milestone (String name, int weighting) throws Assignment.MilestoneWeightingOutOfBoundsException
     {
         this.name = name;
         this.weighting = weighting;
+        if (weighting > 100)
+        {
+            throw new Assignment.MilestoneWeightingOutOfBoundsException(weighting);
+        }
     }
 
     // methods
     public void addTask(Task task)
     {
         tasks.put(task.getName(), task);
+    }
+
+    public void setFinished() // works like a lightswitch - either finished or not finished
+    {
+        this.finished = !finished;
     }
 
     // getters
@@ -54,5 +66,9 @@ public class Milestone implements Serializable
     public String getName()
     {
         return this.name;
+    }
+    public boolean getFinished()
+    {
+        return this.finished;
     }
 }

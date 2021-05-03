@@ -1,5 +1,7 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
+import com.team3_3.Planner.ModuleData.Semester;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.sql.Time;
@@ -33,7 +35,7 @@ public class Exam extends Assignment implements Serializable
     private String location;
 
     // constructor
-    public Exam (String name,String module, String date, int weighting, String startTime, String endTime, int duration, String location) throws ParseException
+    public Exam (String name, String module, String date, int weighting, String startTime, String endTime, int duration, String location) throws ParseException, Semester.AssignmentWeightingOutOfBoundsException
     {
         super(name,module, returnDate(date, startTime), weighting);
         this.startTime = returnTime(startTime);
@@ -64,7 +66,7 @@ public class Exam extends Assignment implements Serializable
     }
 
     // test harness
-    public static void main(String[] args) throws ParseException
+    public static void main(String[] args) throws ParseException, Semester.AssignmentWeightingOutOfBoundsException
     {
         Exam e = new Exam("DS&A","TEST" ,"25/3/2021", 30, "11:30", "13:30",  2, "Online");
         System.out.println(e.getName());

@@ -148,7 +148,8 @@ public class Controller {
      * Adds the semester to the user if is valid.
      * @param actionEvent
      */
-    public void addSemesterAction(ActionEvent actionEvent) {
+    public void addSemesterAction(ActionEvent actionEvent)
+    {
         Semester semester;
         //Reset the label:
         invalidFileLabel.setVisible(false);
@@ -169,12 +170,12 @@ public class Controller {
         System.out.println("insert: display data.");
     }
 
-
     /**
      * Shows the file explore and handles any errors that can occur.
      * @return
      */
-    private Semester semesterFileHandler(){
+    private Semester semesterFileHandler()
+    {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select hub file");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT","*.txt"));
@@ -190,6 +191,10 @@ public class Controller {
             invalidFileLabel.setVisible(true);
         } catch (Semester.DateOutOfBoundsException e) {
             invalidFileLabel.setText("The date on this file is invalid");
+            invalidFileLabel.setVisible(true);
+        } catch(Semester.AssignmentWeightingOutOfBoundsException e)
+        {
+            invalidFileLabel.setText("This is not a valid weighting as it's over 100");
             invalidFileLabel.setVisible(true);
         }
         return null;
