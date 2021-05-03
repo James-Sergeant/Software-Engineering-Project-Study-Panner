@@ -102,7 +102,7 @@
       </Pane>
       <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
          <children>
-            <ComboBox fx:id="myModulesSelector" layoutX="39.0" layoutY="35.0" prefHeight="25.0" prefWidth="661.0" promptText="Select a Semester" />
+            <ComboBox fx:id="myModulesSelector" layoutX="177.0" layoutY="39.0" prefHeight="25.0" prefWidth="661.0" promptText="Select a Module " />
          </children></Pane>
       <Pane fx:id="myTasksPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
       <Pane fx:id="settingsPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
