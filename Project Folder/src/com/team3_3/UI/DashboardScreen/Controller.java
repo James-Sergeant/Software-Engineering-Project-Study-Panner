@@ -7,6 +7,7 @@ import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
 import com.team3_3.UI.Main;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
@@ -34,6 +35,8 @@ import java.util.HashMap;
 public class Controller {
 
     /////Following controls Dashboard.fxml\\\\\
+    //Semester Page
+    public Semester selectedSemester;
     public Label invalidFileLabel;
     public ComboBox<Semester> mySemesterSelector;
     public TableView<Module> mySemesterModuleTable;
@@ -44,11 +47,21 @@ public class Controller {
     public TableColumn<Assignment,String> mySemesterDeadlineTableModule;
     public TableColumn<Assignment,Date> mySemesterDeadlineTableDeadline;
     public TableColumn<Assignment,ProgressBar> mySemesterDeadlineTableProgression;
-    private Semester selectedSemester;
-    private final User user = Login.getLoggedInUser();
+    private SemesterController semesterController;
+    public Button mySemesterAddSemester;
+
+    //Module Page
+    private ModulesController modulesController;
+    public Module selectedModule;
+    public ComboBox<Module> myModulesSelector;
+
+    //Other
+    public final User user = Login.getLoggedInUser();
 
     public Controller(){
         selectedSemester = user.getCurrentSemester();
+        semesterController = new SemesterController(this);
+        modulesController = new ModulesController(this);
     }
 
     public void clearDashboardAction(ActionEvent actionEvent) throws IOException {
@@ -65,69 +78,30 @@ public class Controller {
 
     // My Semester Page:
     public void mySemesterAction(ActionEvent actionEvent) throws IOException, InterruptedException {
-        Main.dashboardLoad(actionEvent, "mySemester");
-        if(selectedSemester != null){
-            loadSemestersSelector();
-            loadModulesOverview();
-            loadTaskOverview();
-        }
 
-    }
-
-    // Semester selector controls:
-    private void loadSemestersSelector(){
-        mySemesterSelector.getItems().clear();
-        HashMap<String, Semester> semestersMap = user.getUSER_SEMESTER_MAP();
-        mySemesterSelector.getItems().addAll(semestersMap.values());
-        mySemesterSelector.setValue(user.getCurrentSemester());
-        selectedSemester =user.getCurrentSemester();
-
-        //Listener:
-        mySemesterSelector.setOnAction((event)->{
-            Semester selected = mySemesterSelector.getSelectionModel().getSelectedItem();
-            if(selected != null && !selected.getSemId().equals(selectedSemester.getSemId())){
-                selectedSemester = selected;
-                loadModulesOverview();
-                loadTaskOverview();
+        //Add semester button event handler.
+        mySemesterAddSemester.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                semesterController.addSemesterAction(actionEvent);
             }
         });
-    }
 
-    // Module Overview:
-    private void loadModulesOverview(){
-        mySemesterModuleTable.getItems().clear();
-        HashMap<String, Module> modules = selectedSemester.getModules();
-        mySemesterModuleTableModule.setCellValueFactory(new PropertyValueFactory<>("name"));
-        mySemesterModuleTableProgress.setCellValueFactory(new PropertyValueFactory<>("progressBar"));
-
-        mySemesterModuleTable.getItems().addAll(modules.values());
-
-    }
-
-    // Tasks Overview
-    private void loadTaskOverview(){
-        mySemesterDeadlineTable.getItems().clear();
-        ArrayList<Assignment> assignments = new ArrayList<>();
-        //Get all the current assignments.
-        for (Module module:
-             selectedSemester.getModules().values()) {
-            for(Assignment assignment: module.getAssignments().values()){
-                assignments.add(assignment);
-            }
+        Main.dashboardLoad(actionEvent, "mySemester");
+        if(selectedSemester != null){
+            semesterController.updateSemesterPage();
         }
-
-        //Define table layout.
-        mySemesterDeadlineTableAssignment.setCellValueFactory(new PropertyValueFactory<>("name"));
-        mySemesterDeadlineTableModule.setCellValueFactory(new PropertyValueFactory<>("module"));
-        mySemesterDeadlineTableDeadline.setCellValueFactory(new PropertyValueFactory<>("date"));
-        mySemesterDeadlineTableProgression.setCellValueFactory(new PropertyValueFactory<>("progressBar"));
-
-        mySemesterDeadlineTable.getItems().addAll(assignments);
     }
 
+
+    // My Modules Page:
     public void myModulesAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myModules");
+        if(selectedModule != null){
+            modulesController.updateModulesPage();
+        }
     }
+
 
     public void myTasksAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myTasks");
@@ -144,55 +118,8 @@ public class Controller {
 
     /////Following controls Dashboard.fxml - mySemester\\\\\
 
-    /**
-     * Adds the semester to the user if is valid.
-     * @param actionEvent
-     */
-    public void addSemesterAction(ActionEvent actionEvent) {
-        Semester semester;
-        //Reset the label:
-        invalidFileLabel.setVisible(false);
-
-        //If the semester file is valid, add it to the user:
-        if((semester = semesterFileHandler()) != null){
-            try {
-                Login.getLoggedInUser().addSemester(semester.getSemId(),semester);
-            } catch (User.SemesterAlreadyExits semesterAlreadyExits) {
-                invalidFileLabel.setText("You already have added this semester.");
-                invalidFileLabel.setVisible(true);
-            }
-        }
-        System.out.println(Login.getLoggedInUser().getUSER_SEMESTER_MAP());
-        loadSemestersSelector();
-        loadModulesOverview();
-        loadTaskOverview();
-        System.out.println("insert: display data.");
-    }
 
 
-    /**
-     * Shows the file explore and handles any errors that can occur.
-     * @return
-     */
-    private Semester semesterFileHandler(){
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Select hub file");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT","*.txt"));
-        File file =fileChooser.showOpenDialog(Main.mainStage);
-        String path = file.getPath();
-        try {
-            Semester semester = Semester.newSemester(path);
-            return semester;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
-            invalidFileLabel.setText("This is not a valid file");
-            invalidFileLabel.setVisible(true);
-        } catch (Semester.DateOutOfBoundsException e) {
-            invalidFileLabel.setText("The date on this file is invalid");
-            invalidFileLabel.setVisible(true);
-        }
-        return null;
-    }
+
 
 }

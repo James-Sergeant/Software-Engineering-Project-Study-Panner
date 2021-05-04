@@ -73,7 +73,7 @@
       </ImageView>
       <Line endX="-101.0" endY="818.0" layoutX="345.0" layoutY="13.0" startX="-101.0" startY="-13.0" />
       <Line endX="-100.0" layoutX="359.0" startX="-100.0" />
-      <Pane fx:id="mySemesterPane" layoutX="244.0" prefHeight="832.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
+      <Pane fx:id="mySemesterPane" layoutX="244.0" prefHeight="832.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
          <children>
             <TableView fx:id="mySemesterModuleTable" layoutX="86.0" layoutY="298.0" prefHeight="237.0" prefWidth="843.0">
               <columns>
@@ -98,7 +98,7 @@
               </content>
             </TitledPane>
             <ComboBox fx:id="mySemesterSelector" layoutX="86.0" layoutY="50.0" prefHeight="25.0" prefWidth="661.0" promptText="Select a Semester" />
-            <Button fx:id="mySemesterAddSemester" layoutX="752.0" layoutY="50.0" mnemonicParsing="false" onAction="#addSemesterAction" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #4561ff;" text="Add Semester" textFill="WHITE" />
+            <Button fx:id="mySemesterAddSemester" layoutX="752.0" layoutY="50.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" style="-fx-background-color: #4561ff;" text="Add Semester" textFill="WHITE" />
             <Label fx:id="invalidFileLabel" alignment="CENTER" layoutX="752.0" layoutY="14.0" prefHeight="31.0" prefWidth="177.0" text="Invalid FIle, please try again" textFill="RED" visible="false" />
          </children>
       </Pane>
