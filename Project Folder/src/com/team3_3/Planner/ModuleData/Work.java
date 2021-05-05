@@ -28,9 +28,12 @@ public class Work implements Serializable
     private int weighting;
     private File file;
 
-    public Work (String name, int weighting, File file)
-    {
+    public Work (String name, int weighting, File file) throws ProgressOver100Exception {
         this.name = name;
+        if (weighting > 100)
+        {
+            throw new ProgressOver100Exception("The weighting is over 100");
+        }
         this.weighting = weighting;
         this.file = file;
     }

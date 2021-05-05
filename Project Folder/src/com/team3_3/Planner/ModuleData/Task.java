@@ -4,8 +4,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * <h1>Example Class</h1>
@@ -32,18 +31,32 @@ public class Task implements Serializable
     private int weighting;
     private Date startDate; // need to set up
     private Date endDate; // need to set up
-    private HashSet<Work> work = new HashSet<>();
+    private Set<Work> work = new HashSet<>();//changed from hashset<work> to set<work>
+    private ArrayList<Work> nameStore = new ArrayList<>();
 
     // start date and end date (needed for Gantt?)
 
-    public Task (String name, int weighting)
-    {
+    public Task (String name, int weighting) throws ProgressOver100Exception {
         this.name = name;
+        if (weighting > 100)
+        {
+            throw new ProgressOver100Exception("The weighting is over 100");
+        }
         this.weighting = weighting;
     }
 
-    public void addWork(Work work)
-    {
+    public void addWork(Work work) throws NameAlreadyExistsException {
+        for (int i = 0; i < nameStore.size(); i++)
+        {
+            if (nameStore.get(i).getName() != null && nameStore.get(i).getName().equals(work.getName()))
+            {
+
+                throw new NameAlreadyExistsException("A task with this name already exists");
+            }
+        }
+
+
+        nameStore.add(work);
         this.work.add(work);
     }
 
@@ -87,4 +100,5 @@ public class Task implements Serializable
 
         return new Time(timeMilli);
     }
+
 }

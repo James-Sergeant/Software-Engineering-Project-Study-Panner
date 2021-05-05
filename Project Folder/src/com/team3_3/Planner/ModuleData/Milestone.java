@@ -2,6 +2,7 @@
 package com.team3_3.Planner.ModuleData;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -29,20 +30,33 @@ public class Milestone implements Serializable
     private String name;
     private int weighting;
     private HashMap<String, Task> tasks = new HashMap<>();
+    private ArrayList<Task> taskStore = new ArrayList<>(;)
 
     // milestone date - calculated by the latest end date of task within tasks
     // date - has to be before end date of assignment
 
     // constructor
-    public Milestone (String name, int weighting)
-    {
+    public Milestone (String name, int weighting) throws ProgressOver100Exception {
         this.name = name;
+        if (weighting > 100)
+        {
+            throw new ProgressOver100Exception("The weighting is over 100");
+        }
         this.weighting = weighting;
     }
 
     // methods
-    public void addTask(Task task)
-    {
+    public void addTask(Task task) throws NameAlreadyExistsException {
+        for (int i = 0; i < taskStore.size(); i++)
+        {
+            if (taskStore.get(i).getName() != null && taskStore.get(i).getName().equals(task.getName()))
+            {
+
+                throw new NameAlreadyExistsException("A task with this name already exists");
+            }
+        }
+
+        taskStore.add(task);
         tasks.put(task.getName(), task);
     }
 
