@@ -5,9 +5,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,9 +20,11 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.DashboardScreen.Controller">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.DashboardScreen.Controller">
    <children>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
       <VBox prefHeight="831.0" prefWidth="243.0" style="-fx-background-color: #32a8a4;">
          <children>
             <Button fx:id="clearDashboardButton" mnemonicParsing="false" onAction="#clearDashboardAction" prefHeight="110.0" prefWidth="243.0" style="-fx-background-color: #32a8a4;" text="{My Study Planner}">
@@ -28,7 +34,7 @@
             <Line endX="279.79290771484375" endY="374.5" startX="37.5" startY="374.5" />
             <MenuButton fx:id="myAccountMenuButton" mnemonicParsing="false" prefHeight="67.0" prefWidth="244.0" text="My Account">
               <items>
-                <MenuItem fx:id="accountSettings" mnemonicParsing="false" onAction="#accountSettingsAction" text="Account Settings" />
+                <MenuItem fx:id="accountSettings" mnemonicParsing="false" onAction="#editAccountButtonAction" text="Account Settings" />
                 <MenuItem fx:id="signOut" mnemonicParsing="false" onAction="#signOutAction" text="Sign Out" />
               </items>
                <font>
@@ -62,6 +68,7 @@
                </font>
             </Button>
             <Line endX="279.79290771484375" endY="374.5" startX="37.5" startY="374.5" />
+            <Rectangle fx:id="myTasksDivider1" arcHeight="5.0" arcWidth="5.0" fill="#b2b0c2" height="60.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
          </children>
       </VBox>
       <ImageView fx:id="myStudyPlannerImage" fitHeight="661.0" fitWidth="829.0" layoutX="412.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
@@ -100,15 +107,126 @@
             <Label fx:id="invalidFileLabel" alignment="CENTER" layoutX="752.0" layoutY="14.0" prefHeight="31.0" prefWidth="177.0" text="Invalid FIle, please try again" textFill="RED" visible="false" />
          </children>
       </Pane>
-      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
+      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
          <children>
             <ComboBox fx:id="myModulesSelector" layoutX="177.0" layoutY="39.0" prefHeight="25.0" prefWidth="661.0" promptText="Select a Module " />
          </children></Pane>
       <Pane fx:id="myTasksPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
-      <Pane fx:id="settingsPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
+      <Pane fx:id="settingsPane" layoutX="247.0" layoutY="1.0" prefHeight="831.0" prefWidth="1008.0" style="-fx-background-color: #dbdbdb;" visible="false">
+         <children>
+            <Line fx:id="settingsBreaker1" endX="266.2000732421875" endY="237.99998474121094" layoutX="-42.0" layoutY="1.0" startX="825.0" startY="237.99998474121094" />
+            <ImageView fx:id="imageLight" fitHeight="150.0" fitWidth="200.0" layoutX="149.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/generic_user_icon.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="userEmail" layoutX="325.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="458.13671875">
+               <font>
+                  <Font name="Lucida Console" size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="userFullName" layoutX="325.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" wrappingWidth="300.13671875">
+               <font>
+                  <Font name="Lucida Console" size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="userStatus" layoutX="325.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{student}" wrappingWidth="138.13671875">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button fx:id="editAccountButton" layoutX="669.0" layoutY="106.0" mnemonicParsing="false" onAction="#editAccountButtonAction" prefHeight="32.0" prefWidth="110.0" text="Edit Account" />
+            <Text fx:id="themesText" layoutX="463.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Themes" wrappingWidth="150.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Line fx:id="settingsBreaker2" endX="266.2000732421875" endY="237.99998474121094" layoutX="-42.0" layoutY="165.0" startX="825.0" startY="237.99998474121094" />
+            <ToggleButton fx:id="matrixThemeToggle" layoutX="263.0" layoutY="312.0" mnemonicParsing="false" onAction="#matrixThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Matrix">
+               <toggleGroup>
+                  <ToggleGroup fx:id="themesToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="lightThemeToggle" layoutX="442.0" layoutY="312.0" mnemonicParsing="false" onAction="#lightThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Light" toggleGroup="$themesToggleGroup" />
+            <ToggleButton fx:id="darkThemeToggle" layoutX="625.0" layoutY="312.0" mnemonicParsing="false" onAction="#darkThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Dark" toggleGroup="$themesToggleGroup" />
+            <ImageView fx:id="imageMatrix" fitHeight="150.0" fitWidth="200.0" layoutX="149.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/user_icon_Matrix.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDark" fitHeight="150.0" fitWidth="200.0" layoutX="149.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/user_icon_Dark.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
       <Rectangle fx:id="settingsDivider" arcHeight="5.0" arcWidth="5.0" fill="#ffbb87" height="60.0" layoutX="231.0" layoutY="428.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="mySemesterDivider" arcHeight="5.0" arcWidth="5.0" fill="#64c93c" height="60.0" layoutX="231.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myModulesDivider" arcHeight="5.0" arcWidth="5.0" fill="#c93c48" height="60.0" layoutX="231.0" layoutY="308.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myTasksDivider" arcHeight="5.0" arcWidth="5.0" fill="#b2b0c2" height="60.0" layoutX="231.0" layoutY="368.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
+      <Pane fx:id="myAccountSettingsPane" layoutX="247.0" layoutY="-1.0" prefHeight="831.0" prefWidth="1008.0" style="-fx-background-color: #dbdbdb;" visible="false">
+         <children>
+            <Text layoutX="44.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Line endX="-6.0" endY="768.0" layoutX="510.0" layoutY="63.0" startX="-6.0" startY="-74.0" />
+            <TextField fx:id="emailEntry" layoutX="44.0" layoutY="111.0" prefHeight="29.0" prefWidth="369.0" promptText="addEmail">
+               <font>
+                  <Font name="Lucida Console" size="12.0" />
+               </font>
+            </TextField>
+            <Text layoutX="41.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <TextField fx:id="firstNameEntry" layoutX="41.0" layoutY="301.0" prefHeight="29.0" prefWidth="369.0" promptText="addFirstName">
+               <font>
+                  <Font name="Lucida Console" size="12.0" />
+               </font>
+            </TextField>
+            <Text layoutX="48.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <TextField fx:id="lastNameEntry" layoutX="48.0" layoutY="428.0" prefHeight="29.0" prefWidth="369.0" promptText="addLastName">
+               <font>
+                  <Font name="Lucida Console" size="12.0" />
+               </font>
+            </TextField>
+            <Line endX="100.0" layoutX="237.0" layoutY="201.0" startX="-100.0" />
+            <Text layoutX="550.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old Password" wrappingWidth="215.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Line endX="100.0" layoutX="734.0" layoutY="199.0" startX="-100.0" />
+            <Text layoutX="550.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="543.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-Enter New Password" wrappingWidth="384.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="543.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verification Code" wrappingWidth="209.0">
+               <font>
+                  <Font name="Lucida Console" size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="verificationCodeEntry" layoutX="759.0" layoutY="561.0" promptText="enter verification code" />
+            <Button fx:id="saveAccountButton" layoutX="860.0" layoutY="766.0" mnemonicParsing="false" onAction="#saveAccountButtonAction" prefHeight="38.0" prefWidth="118.0" text="Save" />
+            <Button fx:id="sendVerificationButton" layoutX="530.0" layoutY="766.0" mnemonicParsing="false" onAction="#sendVerificationButtonAction" prefHeight="38.0" prefWidth="221.0" text="Send Verification Code" />
+            <PasswordField fx:id="oldPasswordEntry" layoutX="543.0" layoutY="113.0" prefHeight="26.0" prefWidth="369.0" promptText="enterOldPassword" />
+            <PasswordField fx:id="newPasswordEntry1" layoutX="530.0" layoutY="303.0" prefHeight="26.0" prefWidth="369.0" promptText="enterNewPassword" />
+            <PasswordField fx:id="newPasswordEntry11" layoutX="530.0" layoutY="430.0" prefHeight="26.0" prefWidth="369.0" promptText="reEnterNewPassword" />
+         </children>
+      </Pane>
+      <Rectangle fx:id="myAccountSettingsDivider" arcHeight="5.0" arcWidth="5.0" fill="#c93c48" height="60.0" layoutX="241.0" layoutY="318.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
    </children>
 </Pane>

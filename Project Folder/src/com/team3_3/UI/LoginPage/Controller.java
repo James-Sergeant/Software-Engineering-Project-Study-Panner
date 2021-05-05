@@ -10,6 +10,8 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+import com.team3_3.UI.DashboardScreen.Controller.*;
+
 public class Controller {
 
     //Following controls Login.fxml
