@@ -59,4 +59,9 @@ public class Milestone implements Serializable
     public HashMap<String, Task> getTasks() {
         return tasks;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

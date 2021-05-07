@@ -1,6 +1,7 @@
 package com.team3_3.UI.DashboardScreen;
 
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+import com.team3_3.Planner.ModuleData.Milestone;
 import com.team3_3.Planner.ModuleData.Module;
 import com.team3_3.Planner.ModuleData.Semester;
 import com.team3_3.Planner.ModuleData.Task;
@@ -11,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -65,6 +68,26 @@ public class Controller {
     public TableColumn<Task, ProgressBar> moduleUpcomingTaskTableProgress;
 
     //Tasks page
+    private TasksController tasksController;
+    public Assignment selectedAssignment;
+    public Milestone selectedMilestone;
+    public Task selectedTask;
+    //Drop Downs:
+    public ComboBox<Module> myTaskSelectModule;
+    public ComboBox<Assignment> myTaskSelectAssignement;
+    public ComboBox<Milestone> myTaskSelectMilestone;
+    public ComboBox<Task> myTaskSelectTask;
+    //Add Milestone:
+    public Button myTaskAddMilestoneButton;
+    public Pane addMilestoneBox;
+    public TextField myTaskAddMilestoneName;
+    public Slider myTaskAddMilestoneWeighting;
+    public TextField myTaskAddMilestoneWeightingBox;
+    public Label myTaskAddMilestoneError;
+    public Button myTaskAddMilestoneAdd;
+    //Add Task:
+    public Button myTaskAddtaskButton;
+
 
 
     //Other
@@ -74,6 +97,7 @@ public class Controller {
         selectedSemester = user.getCurrentSemester();
         semesterController = new SemesterController(this);
         modulesController = new ModulesController(this);
+        tasksController = new TasksController(this);
     }
 
     public void clearDashboardAction(ActionEvent actionEvent) throws IOException {
@@ -117,6 +141,7 @@ public class Controller {
 
     public void myTasksAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myTasks");
+        tasksController.onLoad();
     }
 
 
