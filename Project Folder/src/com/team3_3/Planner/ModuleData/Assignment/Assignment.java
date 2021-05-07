@@ -91,6 +91,10 @@ public abstract class Assignment implements Serializable
         return module;
     }
 
+    public HashMap<String, Milestone> getMilestones() {
+        return milestones;
+    }
+
     public ProgressBar getProgressBar() {
         return progressBar;
     }

@@ -3,6 +3,7 @@ package com.team3_3.UI.DashboardScreen;
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 import com.team3_3.Planner.ModuleData.Module;
 import com.team3_3.Planner.ModuleData.Semester;
+import com.team3_3.Planner.ModuleData.Task;
 import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
 import com.team3_3.UI.Main;
@@ -54,6 +55,17 @@ public class Controller {
     private ModulesController modulesController;
     public Module selectedModule;
     public ComboBox<Module> myModulesSelector;
+    public TableView<Assignment> moduleDeliverableTable;
+    public TableColumn<Assignment,String> moduleDeliverableTableDeliverable;
+    public TableColumn<Assignment, Date> moduleDeliverableTableDueDate;
+    public TableColumn<Assignment, ProgressBar> moduleDeliverableTableProgress;
+    public TableView<Task> moduleUpcomingTaskTable;
+    public TableColumn<Task, String> moduleUpcomingTaskTableTask;
+    public TableColumn<Task, Date> moduleUpcomingTaskTableDueDate;
+    public TableColumn<Task, ProgressBar> moduleUpcomingTaskTableProgress;
+
+    //Tasks page
+
 
     //Other
     public final User user = Login.getLoggedInUser();
@@ -97,7 +109,7 @@ public class Controller {
     // My Modules Page:
     public void myModulesAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myModules");
-        if(selectedModule != null){
+        if(user.getCurrentSemester() != null){
             modulesController.updateModulesPage();
         }
     }

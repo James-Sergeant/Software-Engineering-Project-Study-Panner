@@ -73,7 +73,7 @@
       </ImageView>
       <Line endX="-101.0" endY="818.0" layoutX="345.0" layoutY="13.0" startX="-101.0" startY="-13.0" />
       <Line endX="-100.0" layoutX="359.0" startX="-100.0" />
-      <Pane fx:id="mySemesterPane" layoutX="244.0" prefHeight="832.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
+      <Pane fx:id="mySemesterPane" layoutX="244.0" prefHeight="832.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
          <children>
             <TableView fx:id="mySemesterModuleTable" layoutX="86.0" layoutY="298.0" prefHeight="237.0" prefWidth="843.0">
               <columns>
@@ -102,7 +102,7 @@
             <Label fx:id="invalidFileLabel" alignment="CENTER" layoutX="752.0" layoutY="14.0" prefHeight="31.0" prefWidth="177.0" text="Invalid FIle, please try again" textFill="RED" visible="false" />
          </children>
       </Pane>
-      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
+      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
          <children>
             <ComboBox fx:id="myModulesSelector" layoutX="177.0" layoutY="39.0" prefHeight="25.0" prefWidth="660.0" promptText="Select a Module " />
             <TableView fx:id="moduleDeliverableTable" layoutX="169.0" layoutY="173.0" prefHeight="228.0" prefWidth="660.0">
@@ -126,11 +126,11 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <TableView fx:id="moduleUpcomingTaskTableProgress" layoutX="169.0" layoutY="452.0" prefHeight="307.0" prefWidth="660.0">
+            <TableView fx:id="moduleUpcomingTaskTable" layoutX="169.0" layoutY="452.0" prefHeight="307.0" prefWidth="660.0">
                <columns>
                   <TableColumn fx:id="moduleUpcomingTaskTableTask" prefWidth="220.0" text="Task" />
                   <TableColumn fx:id="moduleUpcomingTaskTableDueDate" prefWidth="220.0" text="Due Date" />
-                  <TableColumn fx:id="moduleDeliverableTableProgress1" prefWidth="220.0" text="Progress" />
+                  <TableColumn fx:id="moduleUpcomingTaskTableProgress" prefWidth="220.0" text="Progress" />
                </columns>
             </TableView>
          </children></Pane>

@@ -55,4 +55,8 @@ public class Milestone implements Serializable
     {
         return this.name;
     }
+
+    public HashMap<String, Task> getTasks() {
+        return tasks;
+    }
 }
