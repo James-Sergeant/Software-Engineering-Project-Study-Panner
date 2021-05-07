@@ -1,6 +1,8 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
 import com.team3_3.Planner.ModuleData.Milestone;
+import com.team3_3.Planner.User.Login;
+import com.team3_3.Planner.User.User;
 import javafx.scene.control.ProgressBar;
 
 import java.io.IOException;
@@ -64,6 +66,7 @@ public abstract class Assignment implements Serializable
     public void addMilestone(Milestone milestone)
     {
         milestones.put(milestone.getName(),milestone);
+        User.saveUser(Login.getLoggedInUser());
     }
 
     public Milestone getMilestone(String name)
@@ -89,6 +92,10 @@ public abstract class Assignment implements Serializable
 
     public String getModule() {
         return module;
+    }
+
+    public HashMap<String, Milestone> getMilestones() {
+        return milestones;
     }
 
     public ProgressBar getProgressBar() {

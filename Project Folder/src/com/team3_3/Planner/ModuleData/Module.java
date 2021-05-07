@@ -81,4 +81,8 @@ public class Module implements Serializable
         return progressBar;
     }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }
