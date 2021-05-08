@@ -1,8 +1,10 @@
 package com.team3_3.UI.DashboardScreen;
 
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+import com.team3_3.Planner.ModuleData.Milestone;
 import com.team3_3.Planner.ModuleData.Module;
 import com.team3_3.Planner.ModuleData.Semester;
+import com.team3_3.Planner.ModuleData.Task;
 import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
 import com.team3_3.UI.Main;
@@ -10,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -54,6 +58,37 @@ public class Controller {
     private ModulesController modulesController;
     public Module selectedModule;
     public ComboBox<Module> myModulesSelector;
+    public TableView<Assignment> moduleDeliverableTable;
+    public TableColumn<Assignment,String> moduleDeliverableTableDeliverable;
+    public TableColumn<Assignment, Date> moduleDeliverableTableDueDate;
+    public TableColumn<Assignment, ProgressBar> moduleDeliverableTableProgress;
+    public TableView<Task> moduleUpcomingTaskTable;
+    public TableColumn<Task, String> moduleUpcomingTaskTableTask;
+    public TableColumn<Task, Date> moduleUpcomingTaskTableDueDate;
+    public TableColumn<Task, ProgressBar> moduleUpcomingTaskTableProgress;
+
+    //Tasks page
+    private TasksController tasksController;
+    public Assignment selectedAssignment;
+    public Milestone selectedMilestone;
+    public Task selectedTask;
+    //Drop Downs:
+    public ComboBox<Module> myTaskSelectModule;
+    public ComboBox<Assignment> myTaskSelectAssignement;
+    public ComboBox<Milestone> myTaskSelectMilestone;
+    public ComboBox<Task> myTaskSelectTask;
+    //Add Milestone:
+    public Button myTaskAddMilestoneButton;
+    public Pane addMilestoneBox;
+    public TextField myTaskAddMilestoneName;
+    public Slider myTaskAddMilestoneWeighting;
+    public TextField myTaskAddMilestoneWeightingBox;
+    public Label myTaskAddMilestoneError;
+    public Button myTaskAddMilestoneAdd;
+    //Add Task:
+    public Button myTaskAddtaskButton;
+
+
 
     //Other
     public final User user = Login.getLoggedInUser();
@@ -62,6 +97,7 @@ public class Controller {
         selectedSemester = user.getCurrentSemester();
         semesterController = new SemesterController(this);
         modulesController = new ModulesController(this);
+        tasksController = new TasksController(this);
     }
 
     public void clearDashboardAction(ActionEvent actionEvent) throws IOException {
@@ -97,7 +133,7 @@ public class Controller {
     // My Modules Page:
     public void myModulesAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myModules");
-        if(selectedModule != null){
+        if(user.getCurrentSemester() != null){
             modulesController.updateModulesPage();
         }
     }
@@ -105,6 +141,7 @@ public class Controller {
 
     public void myTasksAction(ActionEvent actionEvent) throws IOException, InterruptedException {
         Main.dashboardLoad(actionEvent, "myTasks");
+        tasksController.onLoad();
     }
 
 
