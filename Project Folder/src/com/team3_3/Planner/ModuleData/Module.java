@@ -85,4 +85,10 @@ public class Module implements Serializable
     public String toString() {
         return name;
     }
+
+    public HashMap<String, Assignment> getAssigments()
+    {
+        return assignments;
+    }
+
 }

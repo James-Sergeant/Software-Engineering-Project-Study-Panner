@@ -30,7 +30,7 @@ public class Milestone implements Serializable
     private String name;
     private int weighting;
     private HashMap<String, Task> tasks = new HashMap<>();
-    private ArrayList<Task> taskStore = new ArrayList<>(;)
+    private ArrayList<Task> taskStore = new ArrayList<>();
 
     // milestone date - calculated by the latest end date of task within tasks
     // date - has to be before end date of assignment

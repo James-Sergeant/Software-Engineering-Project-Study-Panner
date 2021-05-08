@@ -36,13 +36,16 @@ public class Task implements Serializable
 
     // start date and end date (needed for Gantt?)
 
-    public Task (String name, int weighting) throws ProgressOver100Exception {
+    public Task (String name, int weighting, Date st, Date en) throws ProgressOver100Exception {
         this.name = name;
         if (weighting > 100)
         {
             throw new ProgressOver100Exception("The weighting is over 100");
         }
         this.weighting = weighting;
+        this.startDate = st;
+        this.endDate = en;
+
     }
 
     public void addWork(Work work) throws NameAlreadyExistsException {
@@ -70,6 +73,14 @@ public class Task implements Serializable
         return this.name;
     }
 
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
 
     // static methods
     public static Date returnDate(String date, String time) throws ParseException
