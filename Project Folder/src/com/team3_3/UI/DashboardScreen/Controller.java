@@ -1,10 +1,8 @@
 package com.team3_3.UI.DashboardScreen;
 
+import com.team3_3.Planner.ModuleData.*;
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
-import com.team3_3.Planner.ModuleData.Milestone;
 import com.team3_3.Planner.ModuleData.Module;
-import com.team3_3.Planner.ModuleData.Semester;
-import com.team3_3.Planner.ModuleData.Task;
 import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
 import com.team3_3.UI.Main;
@@ -16,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,6 +23,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.Date;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.category.IntervalCategoryDataset;
+import org.jfree.data.gantt.Task;
+import org.jfree.data.gantt.TaskSeries;
+import org.jfree.data.gantt.TaskSeriesCollection;
 
 /**
  * <h1>Dashboard Controller</h1>
@@ -151,6 +164,17 @@ public class Controller {
 
     public void signOutAction() {
         Main.signOut();
+    }
+
+    public void showGanttChart(ActionEvent actionEvent) { SwingUtilities.invokeLater(() ->
+            {
+                GanttChart ganttchart = new GanttChart(selectedModule);
+                ganttchart.setSize(400,268);
+                ganttchart.setLocationRelativeTo(null);
+                ganttchart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                ganttchart.setVisible(true);
+
+            });
     }
 
     /////Following controls Dashboard.fxml - mySemester\\\\\
