@@ -34,12 +34,12 @@ public class GanttChart extends JFrame
         TaskSeriesCollection dataset = new TaskSeriesCollection();
         for (int i = 0; i < module.getAssigments().size(); i++)
         {
-            for (int j = 0; j < module.getAssigments().get(i).getMilestones().size(); j++)
+            for (int j = 0; j < module.getAssigments().get(module.getAssigmentStore().get(i)).getMilestones().size(); j++)
             {
-                TaskSeries series1 = new TaskSeries(module.getAssigments().get(i).getMilestones().get(j).getName());
-                for (int k = 0; k < module.getAssigments().get(i).getMilestones().get(j).getTasks().size(); k++)
+                TaskSeries series1 = new TaskSeries(module.getAssigments().get(module.getAssigmentStore().get(i)).getMilestones().get(module.getAssigments().get(module.getAssigmentStore().get(i)).getNameStore().get(j)).getName());
+                for (int k = 0; k < module.getAssigments().get(module.getAssigmentStore().get(i)).getMilestones().get(module.getAssigments().get(module.getAssigmentStore().get(i)).getNameStore().get(j)).getTasks().size(); k++)
                 {
-                    com.team3_3.Planner.ModuleData.Task tk = module.getAssigments().get(i).getMilestones().get(j).getTasks().get(k);
+                    com.team3_3.Planner.ModuleData.Task tk = module.getAssigments().get(module.getAssigmentStore().get(i)).getMilestones().get(module.getAssigments().get(module.getAssigmentStore().get(i)).getNameStore().get(j)).getTasks().get(module.getAssigments().get(module.getAssigmentStore().get(i)).getMilestones().get(module.getAssigments().get(module.getAssigmentStore().get(i)).getNameStore().get(j)).getTaskStore().get(k).getName());
                     series1.add(new Task(tk.getName(), Date.from(LocalDate.of(tk.getStartDate().getYear(), tk.getStartDate().getMonth(),tk.getStartDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(tk.getEndDate().getYear(), tk.getEndDate().getMonth(), tk.getEndDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC))
                     ));
                 }

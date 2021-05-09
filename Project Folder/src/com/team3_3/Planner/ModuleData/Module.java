@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -36,6 +37,7 @@ public class Module implements Serializable
     private HashMap<String,Assignment> assignments=new HashMap<String , Assignment>();
     private double progress;
     private transient ProgressBar progressBar;
+    private ArrayList<String> assigmentStore = new ArrayList<String>();
     // constructor
     public Module(String name)
     {
@@ -52,6 +54,12 @@ public class Module implements Serializable
     public void addAssignment(Assignment assignment)
     {
         assignments.put(assignment.getName(),assignment);
+        assigmentStore.add(assignment.getName());
+    }
+
+    public ArrayList<String> getAssigmentStore()
+    {
+        return assigmentStore;
     }
 
     // testing

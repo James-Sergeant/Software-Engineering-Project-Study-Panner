@@ -74,6 +74,11 @@ public class Milestone implements Serializable
         return tasks;
     }
 
+    public ArrayList<Task> getTaskStore()
+    {
+        return taskStore;
+    }
+
     @Override
     public String toString() {
         return name;

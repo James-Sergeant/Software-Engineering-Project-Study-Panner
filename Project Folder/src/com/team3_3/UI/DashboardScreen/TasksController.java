@@ -3,6 +3,7 @@ package com.team3_3.UI.DashboardScreen;
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 import com.team3_3.Planner.ModuleData.Milestone;
 import com.team3_3.Planner.ModuleData.Module;
+import com.team3_3.Planner.ModuleData.ProgressOver100Exception;
 import com.team3_3.Planner.ModuleData.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -112,7 +113,11 @@ public class TasksController {
 
     private void setupMilestoneBox(){
         controller.myTaskAddMilestoneAdd.setOnAction(actionEvent -> {
-            addNewMilestone();
+            try {
+                addNewMilestone();
+            } catch (ProgressOver100Exception e) {
+                e.printStackTrace();
+            }
         });
         controller.myTaskAddMilestoneWeighting.setOnMouseReleased(new EventHandler<MouseEvent>() {
             @Override
@@ -136,7 +141,7 @@ public class TasksController {
     }
 
 
-    private void addNewMilestone(){
+    private void addNewMilestone() throws ProgressOver100Exception {
         String name = controller.myTaskAddMilestoneName.getText();
         double weighting = controller.myTaskAddMilestoneWeighting.getValue();
         Milestone milestone = new Milestone(name,(int)weighting);

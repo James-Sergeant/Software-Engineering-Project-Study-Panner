@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -44,6 +45,7 @@ public abstract class Assignment implements Serializable
     private HashMap<String, Milestone> milestones = new HashMap<>();
     private double progress = 0;
     private transient ProgressBar progressBar;
+    private ArrayList<String> nameStore = new ArrayList<String>();
 
     // constructor
     public Assignment(String name,String module, Date date, int weighting) throws ParseException
@@ -66,6 +68,7 @@ public abstract class Assignment implements Serializable
     public void addMilestone(Milestone milestone)
     {
         milestones.put(milestone.getName(),milestone);
+        nameStore.add(milestone.getName());
         User.saveUser(Login.getLoggedInUser());
     }
 
@@ -101,6 +104,12 @@ public abstract class Assignment implements Serializable
     public ProgressBar getProgressBar() {
         return progressBar;
     }
+
+    public ArrayList<String> getNameStore()
+    {
+        return nameStore;
+    }
+
 
     // static methods
     public static Date returnDate(String date, String time) throws ParseException
