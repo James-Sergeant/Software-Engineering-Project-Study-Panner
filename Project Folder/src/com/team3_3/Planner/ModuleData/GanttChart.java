@@ -20,7 +20,7 @@ public class GanttChart extends JFrame
     {
         super(module.getName());
         IntervalCategoryDataset dataset = makeCategoryDataset(module);
-        JFreeChart ganttChart = ChartFactory.createGanttChart(module.getName(),"Milestones", "Time", dataset,false,false,false);
+        JFreeChart ganttChart = ChartFactory.createGanttChart(module.getName(),"Tasks", "Time", dataset,false,false,false);
 
         ChartPanel panel = new ChartPanel(ganttChart);
         setContentPane(panel);
@@ -48,8 +48,7 @@ public class GanttChart extends JFrame
             }
         }
 
-        //TaskSeries series1 = new TaskSeries(""); series1.add(new Task
-        //module.getAssigments().get(1).getMilestones();
+
         return dataset;
     }
 
