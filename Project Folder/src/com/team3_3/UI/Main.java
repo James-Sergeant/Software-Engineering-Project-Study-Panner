@@ -26,7 +26,7 @@ public class Main extends Application {
     public static Stage mainStage;
 
     //hold program's associated fxml file names for loading
-    private static final String[] pages = {"settings", "mySemester", "myModules", "myTasks", "myAccountSettings"};
+    private static final String[] pages = {"settings", "mySemester", "myModules", "myTasks"};
 
 
     public static void dashboardLoad(ActionEvent actionEvent, String pageName) {
