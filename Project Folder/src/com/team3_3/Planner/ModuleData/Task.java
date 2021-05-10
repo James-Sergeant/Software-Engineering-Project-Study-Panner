@@ -25,25 +25,45 @@ import java.util.HashSet;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
+
 public class Task implements Serializable
 {
     public final transient int SSN = 1;
     private String name;
     private int weighting;
-    private Date startDate; // need to set up
-    private Date endDate; // need to set up
+    private Date startDate;
+    private Date endDate;
     private HashSet<Work> work = new HashSet<>();
 
-    // start date and end date (needed for Gantt?)
-
-    public Task (String name, int weighting)
+    public Task (String name, int weighting, String startDate, String endDate) throws Semester.ProgressOver100Exception, ParseException
     {
         this.name = name;
+        if (weighting > 100)
+        {
+            throw new Semester.ProgressOver100Exception(weighting);
+        }
         this.weighting = weighting;
+        this.startDate = returnDate(startDate, "0:00");
+        this.endDate = returnDate(endDate, "23:59");
     }
 
-    public void addWork(Work work)
+    public void addWork (Work work) throws Semester.NameAlreadyExistsException, Semester.ProgressOver100Exception
     {
+        int cumulative = 0;
+        for (Work w : this.work) // checking work doesn't have same name
+        {
+            cumulative += w.getWeighting();
+            if (work.getName().equals(w.getName()))
+            {
+                throw new Semester.NameAlreadyExistsException(work.getName());
+            }
+        }
+
+        if (cumulative + work.getWeighting() > 100)
+        {
+            throw new Semester.ProgressOver100Exception(work.getWeighting());
+        }
+
         this.work.add(work);
     }
 
@@ -57,6 +77,45 @@ public class Task implements Serializable
         return this.name;
     }
 
+    public Date getStartDate()
+    {
+        return this.startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return this.endDate;
+    }
+
+    public boolean getFinished()
+    {
+        for (Work w : work)
+        {
+            if (!w.getFinished()) // if the work isn't finished
+            {
+                return false;
+            }
+        }
+
+        return true; // if all work is finished
+    }
+
+    public int getMaximum()
+    {
+        int cumulative = 0;
+        for (Work w : work)
+        {
+            cumulative += w.getWeighting();
+        }
+
+        int maximum = 100 - cumulative;
+        if (maximum < 0)
+        {
+            maximum = 0;
+        }
+
+        return maximum;
+    }
 
     // static methods
     public static Date returnDate(String date, String time) throws ParseException

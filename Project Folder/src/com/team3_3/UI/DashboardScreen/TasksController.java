@@ -3,6 +3,7 @@ package com.team3_3.UI.DashboardScreen;
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 import com.team3_3.Planner.ModuleData.Milestone;
 import com.team3_3.Planner.ModuleData.Module;
+import com.team3_3.Planner.ModuleData.Semester;
 import com.team3_3.Planner.ModuleData.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -139,11 +140,15 @@ public class TasksController {
     private void addNewMilestone(){
         String name = controller.myTaskAddMilestoneName.getText();
         double weighting = controller.myTaskAddMilestoneWeighting.getValue();
-        Milestone milestone = new Milestone(name,(int)weighting);
-        controller.selectedAssignment.addMilestone(milestone);
-        selectMilestoneUpdate();
-        controller.addMilestoneBox.setVisible(false);
-        controller.myTaskSelectMilestone.setValue(milestone);
+        try {
+            Milestone milestone = new Milestone(name,(int)weighting);
+            controller.selectedAssignment.addMilestone(milestone);
+            selectMilestoneUpdate();
+            controller.addMilestoneBox.setVisible(false);
+            controller.myTaskSelectMilestone.setValue(milestone);
+        } catch (Semester.ProgressOver100Exception | Semester.NameAlreadyExistsException e) {
+            e.printStackTrace();
+        }
     }
 
     private void selectTaskUpdate(){

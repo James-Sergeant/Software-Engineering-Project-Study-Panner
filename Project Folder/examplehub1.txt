@@ -11,18 +11,18 @@ COURSEWORK: Experimental Project    // 17/12/2020   // 50        // 11:30
 MODULE: PROGRAMMING 3
 
             NAME                    DATE            WEIGHTING    DUE TIME
-COURSEWORK: Blackboard tests        // 17/11/2020   // 50        // 11:30
-COURSEWORK: Timed exercise 10        // 17/12/2020   // 50        // 11:30
-COURSEWORK: Timed exercise 22        // 17/12/2020   // 50        // 11:30
+COURSEWORK: Blackboard tests         // 17/11/2020   // 50        // 11:30
+COURSEWORK: Timed exercise 10        // 17/12/2020   // 30        // 11:30
+COURSEWORK: Timed exercise 22        // 17/12/2020   // 20        // 11:30
 
 MODULE: ARCHITECTURES AND OPERATING SYSTEMS
 
             NAME                    DATE            WEIGHTING    DUE TIME
-COURSEWORK: Architectures 14        // 16/12/2020   // 50        // 11:30
-COURSEWORK: Architectures 2         // 17/12/2020   // 50        // 11:30
-COURSEWORK: Architectures 3         // 17/12/2020   // 50        // 11:30
-COURSEWORK: Operating Systems 1     // 17/12/2020   // 50        // 11:30
-COURSEWORK: Operating Systems 2     // 17/12/2020   // 50        // 11:30
+COURSEWORK: Architectures 1         // 16/12/2020   // 10        // 11:30
+COURSEWORK: Architectures 2         // 17/12/2020   // 10        // 11:30
+COURSEWORK: Architectures 3         // 17/12/2020   // 10        // 11:30
+COURSEWORK: Operating Systems 1     // 17/12/2020   // 10        // 11:30
+COURSEWORK: Operating Systems 2     // 17/12/2020   // 10        // 11:30
 
       NAME          DATE           WEIGHTING     START     END       LENGTH   LOCATION
-EXAM: Final exam    // 17/12/2020  // 30         // 11:30  // 13:30  // 2     // Online
+EXAM: Final exam    // 17/12/2020  // 50         // 11:30  // 13:30  // 2     // Online

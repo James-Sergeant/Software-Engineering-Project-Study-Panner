@@ -125,8 +125,10 @@ public class SemesterController {
         } catch (Semester.DateOutOfBoundsException e) {
             controller. invalidFileLabel.setText("The date on this file is invalid");
             controller.invalidFileLabel.setVisible(true);
+        } catch (Semester.ProgressOver100Exception e) {
+            controller.invalidFileLabel.setText("The progress is too large");
+            controller.invalidFileLabel.setVisible(true);
         }
         return null;
     }
-
 }

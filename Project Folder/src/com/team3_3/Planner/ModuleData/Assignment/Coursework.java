@@ -1,5 +1,7 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
+import com.team3_3.Planner.ModuleData.Semester;
+
 import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
@@ -31,7 +33,7 @@ public class Coursework extends Assignment implements Serializable
     private Time dueTime; // 24-hour clock
 
     // constructor
-    public Coursework (String name,String module, String date, int weighting,  String dueTime) throws ParseException
+    public Coursework (String name, String module, String date, int weighting,  String dueTime) throws ParseException, Semester.ProgressOver100Exception
     {
         super(name,module, returnDate(date, dueTime), weighting);
         this.dueTime = returnTime(dueTime);
@@ -44,7 +46,7 @@ public class Coursework extends Assignment implements Serializable
     }
 
     // test harness
-    public static void main(String[] args) throws ParseException
+    public static void main(String[] args) throws ParseException, Semester.ProgressOver100Exception
     {
         Coursework c = new Coursework("VoIP", "TEST","19/03/2021", 50, "11:30");
         System.out.println(c.getName());

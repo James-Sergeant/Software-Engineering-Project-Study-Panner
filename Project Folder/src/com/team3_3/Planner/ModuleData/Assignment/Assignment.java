@@ -1,14 +1,9 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
-import com.team3_3.Planner.ModuleData.Milestone;
-import com.team3_3.Planner.User.Login;
-import com.team3_3.Planner.User.User;
+import com.team3_3.Planner.ModuleData.*;
 import javafx.scene.control.ProgressBar;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,9 +28,11 @@ import java.util.HashMap;
  * <h2>References: </>
  *  -Official JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public abstract class Assignment implements Serializable
+public abstract class Assignment implements Serializable, Updatable
 {
+    // serializable
     public final transient int SSN = 1;
+
     // instance variables
     private String name;
     private String module;
@@ -46,32 +43,17 @@ public abstract class Assignment implements Serializable
     private transient ProgressBar progressBar;
 
     // constructor
-    public Assignment(String name,String module, Date date, int weighting) throws ParseException
+    public Assignment(String name,String module, Date date, int weighting) throws Semester.ProgressOver100Exception
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
         this.name = name;
-        this.weighting = weighting;
         this.date = date;
         this.module = module;
         this.progressBar = new ProgressBar(progress);
-    }
-    @Serial
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
-        ois.defaultReadObject();
-        progressBar = new ProgressBar(progress);
-    }
-
-    // methods
-    public void addMilestone(Milestone milestone)
-    {
-        milestones.put(milestone.getName(),milestone);
-        User.saveUser(Login.getLoggedInUser());
-    }
-
-    public Milestone getMilestone(String name)
-    {
-        return milestones.get(name);
+        if (weighting > 100)
+        {
+            throw new Semester.ProgressOver100Exception(weighting);
+        }
+        this.weighting = weighting;
     }
 
     // getters
@@ -94,12 +76,99 @@ public abstract class Assignment implements Serializable
         return module;
     }
 
-    public HashMap<String, Milestone> getMilestones() {
-        return milestones;
+    public HashMap<String, Milestone> getMilestones()
+    {
+        return this.milestones;
     }
 
-    public ProgressBar getProgressBar() {
+    public boolean getFinished()
+    {
+        for (Milestone m : milestones.values())
+        {
+            if (!m.getFinished()) // if milestone isn't finished
+            {
+                return false;
+            }
+        }
+
+        return true; // all milestones finished
+    }
+
+    public ProgressBar getProgressBar()
+    {
         return progressBar;
+    }
+
+    // overridden/serializable methods
+    @Serial
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException
+    {
+        ois.defaultReadObject();
+        progressBar = new ProgressBar(progress);
+    }
+
+    @Override
+    public void update()
+    {
+        this.progress = getAssignmentCompletion();
+        this.progressBar.setProgress(progress);
+    }
+
+    // methods
+    public void addMilestone(Milestone milestone) throws Semester.ProgressOver100Exception, Semester.NameAlreadyExistsException
+    {
+        int cumulative = 0;
+        for (Milestone ms : milestones.values())
+        {
+            cumulative += ms.getWeighting();
+            if (milestone.getName().equals(ms.getName()))
+            {
+                throw new Semester.NameAlreadyExistsException(milestone.getName());
+            }
+        }
+
+        if (cumulative + milestone.getWeighting() > 100)
+        {
+            throw new Semester.ProgressOver100Exception(milestone.getWeighting());
+        }
+
+        milestones.put(milestone.getName(),milestone);
+    }
+
+    public int getMaximum()
+    {
+        int cumulative = 0;
+        for (Milestone ms : milestones.values())
+        {
+            cumulative += ms.getWeighting();
+        }
+        int maximum = 100 - cumulative;
+        if (maximum < 0)
+        {
+            maximum = 0;
+        }
+
+        return maximum;
+    }
+
+    public Milestone getMilestone(String name)
+    {
+        return milestones.get(name);
+    }
+
+    public double getAssignmentCompletion()
+    {
+        double progress = 0; // starts off with 0% completion
+
+        for (Milestone a : milestones.values())
+        {
+            if (a.getFinished()) // if the assignment is finished
+            {
+                progress += (a.getWeighting()*0.01);
+            }
+        }
+
+        return progress;
     }
 
     // static methods
@@ -130,5 +199,22 @@ public abstract class Assignment implements Serializable
         }
 
         return new Time(timeMilli);
+    }
+
+    // test harness
+    public static void main(String[] args) throws ParseException, Semester.ProgressOver100Exception, Semester.NameAlreadyExistsException
+    {
+        Work work = new Work("Work 1", 10, new File("File"));
+        work.setFinished();
+        Task task = new Task("Task 1", 20, "10/10/2020", "11/10/2020");
+        Task task2 = new Task("Task 2", 20, "10/10/2020", "13/10/2020");
+        task.addWork(work);
+        Milestone milestone = new Milestone("Milestone 1", 30);
+        milestone.addTask(task);
+        milestone.addTask(task2);
+        System.out.println(milestone.getEndDate());
+        Exam exam = new Exam("Exam", "PROGRAMMING 3", "12/2/2020", 50, "1:30", "2:30", 60, "Exam hall");
+        exam.addMilestone(milestone);
+        System.out.println(exam.getAssignmentCompletion());
     }
 }

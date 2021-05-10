@@ -19,7 +19,7 @@ import java.util.Scanner;
  *  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur
  *  sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
  *
- * @author  {YOUR NAME HERE}
+ * @author  Max James
  * @version 1.0
  * @since   01/03/2021
  *
@@ -43,16 +43,24 @@ public class Semester implements Serializable
     // constructor
     private Semester (String semId, String startDate, String endDate) throws ParseException
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
         this.semId = semId;
         this.startDate = returnDate(startDate, "00:00:00");
         this.endDate = returnDate(endDate, "23:59:59");
     }
 
-    // methods
-    public static Semester newSemester(String filepath) throws FileNotFoundException, ParseException, DateOutOfBoundsException
+    // getters
+    public Date getStartDate()
     {
+        return this.startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return this.endDate;
+    }
+
+    // methods
+    public static Semester newSemester(String filepath) throws FileNotFoundException, ParseException, DateOutOfBoundsException, ProgressOver100Exception {
         File semFile = new File (filepath);
         Scanner semScanner = new Scanner (semFile);
 
@@ -86,8 +94,11 @@ public class Semester implements Serializable
 
         Semester semester = new Semester(semid, start, end); // creates semester object
 
+        HashMap<String, Integer> weightings = new HashMap<>(); // holds weightings for each module
+
         for (String m : modules) // adds in modules
         {
+            weightings.put(m, 0);
             Module d = new Module(m);
             semester.addModule(d);
         }
@@ -96,11 +107,16 @@ public class Semester implements Serializable
         {
             String[] values = test.split(" // ");
 
+            if (Integer.parseInt(values[4].trim()) + weightings.get(values[0]) > 100)
+            {
+                throw new ProgressOver100Exception(Integer.parseInt(values[4].trim()) + weightings.get(values[0]));
+            }
+
             if (values[1].equals("COURSEWORK"))
             {
-
                 if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
                 {
+                    weightings.put(values[0], weightings.get(values[0]) + Integer.parseInt(values[4].trim()));
                     Coursework c = new Coursework(values[2].trim(),semester.getModule(values[0]).getName(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim());
                     semester.getModule(values[0]).addAssignment(c);
                 }
@@ -113,6 +129,7 @@ public class Semester implements Serializable
             {
                 if (returnDate(values[3], values[5]).before(semester.endDate)&&(semester.startDate.before(returnDate(values[3], values[5]))))
                 {
+                    weightings.put(values[0], weightings.get(values[0]) + Integer.parseInt(values[4].trim()));
                     Exam e = new Exam(values[2].trim(),semester.getModule(values[0]).getName(), values[3].trim(), Integer.parseInt(values[4].trim()), values[5].trim(), values[6].trim(), Integer.parseInt(values[7].trim()), values[8].trim());
                     semester.getModule(values[0]).addAssignment(e);
                 }
@@ -130,7 +147,7 @@ public class Semester implements Serializable
     {
         for(String s: modules.keySet())
         {
-            System.out.println(s+":");
+            System.out.println(s + ":");
             modules.get(s).AssignmentInfo();
         }
     }
@@ -145,30 +162,11 @@ public class Semester implements Serializable
         return modules.get(name);
     }
 
-    public HashMap<String,Module> getModules(){return this.modules;};
+    public HashMap<String,Module> getModules(){return this.modules;}
 
     public String getSemId()
     {
         return this.semId;
-    }
-
-    public Date getStartDate()
-    {
-        return this.startDate;
-    }
-
-    public Date getEndDate()
-    {
-        return this.endDate;
-    }
-
-    // exception
-    public static class DateOutOfBoundsException extends Exception
-    {
-        public DateOutOfBoundsException(String date)
-        {
-            super("Semester: assignment end date (" + date.trim() + ") is after the semester has ended.");
-        }
     }
 
     // static methods
@@ -201,15 +199,43 @@ public class Semester implements Serializable
         return new Time(timeMilli);
     }
 
+    // overridden methods
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Semester: "+semId+ " Starting: "+startDate+" Ending: "+endDate;
+    }
+
+    // exception
+    public static class DateOutOfBoundsException extends Exception
+    {
+        public DateOutOfBoundsException(String date)
+        {
+            super("Semester: assignment end date (" + date.trim() + ") is after the semester has ended.");
+        }
+    }
+
+    public static class ProgressOver100Exception extends Exception
+    {
+        public ProgressOver100Exception (int weighting)
+        {
+            super("Semester: weighting (" + weighting + ") is too large in comparison to other assignments.");
+        }
+
+    }
+
+    public static class NameAlreadyExistsException extends Exception
+    {
+        public NameAlreadyExistsException (String name)
+        {
+            super ("Semester: " + name + " already exists.");
+        }
     }
 
     // test harness
     public static void main(String[] args) throws Exception
     {
-        Semester n = newSemester("examplehub.txt");
+        Semester n = newSemester("examplehub1.txt");
         System.out.println(n.getSemId() + " | " + n.getStartDate() + " | " + n.getEndDate() + "\n");
         n.SemesterInfo();
     }
