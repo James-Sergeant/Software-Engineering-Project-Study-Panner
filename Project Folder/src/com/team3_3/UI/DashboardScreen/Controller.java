@@ -6,6 +6,7 @@ import com.team3_3.Planner.ModuleData.Module;
 import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
 import com.team3_3.UI.Main;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
@@ -154,12 +155,30 @@ public class Controller {
 
     public void showGanttChart(ActionEvent actionEvent) { SwingUtilities.invokeLater(() ->
     {
-        GanttChart ganttchart = new GanttChart(selectedModule);
-        ganttchart.setSize(400,268);
-        ganttchart.setLocationRelativeTo(null);
-        ganttchart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        ganttchart.setVisible(true);
-
+        try
+        {
+            GanttChart ganttchart = new GanttChart(selectedModule);
+            ganttchart.setSize(400, 268);
+            ganttchart.setLocationRelativeTo(null);
+            //ganttchart.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            ganttchart.setVisible(true);
+        }
+        catch (NullPointerException e)
+        {
+            Platform.runLater(() -> {
+            Alert moduleNullError = new Alert(Alert.AlertType.ERROR);
+            moduleNullError.setHeaderText("No Module Present or Selected");
+            moduleNullError.setContentText("Please select a module or load in the semester file");
+            moduleNullError.showAndWait(); });
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+            Platform.runLater(() -> {
+                Alert moduleNullError = new Alert(Alert.AlertType.ERROR);
+                moduleNullError.setHeaderText("No tasks added");
+                moduleNullError.setContentText("Please add tasks for the milestones");
+                moduleNullError.showAndWait(); });
+        }
     });
     }
 
