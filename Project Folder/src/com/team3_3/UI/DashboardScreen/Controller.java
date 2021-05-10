@@ -84,12 +84,12 @@ public class Controller {
     private TasksController tasksController;
     public Assignment selectedAssignment;
     public Milestone selectedMilestone;
-    public Task selectedTask;
+    public com.team3_3.Planner.ModuleData.Task selectedTask;
     //Drop Downs:
     public ComboBox<Module> myTaskSelectModule;
     public ComboBox<Assignment> myTaskSelectAssignement;
     public ComboBox<Milestone> myTaskSelectMilestone;
-    public ComboBox<Task> myTaskSelectTask;
+    public ComboBox<com.team3_3.Planner.ModuleData.Task> myTaskSelectTask;
     //Add Milestone:
     public Button myTaskAddMilestoneButton;
     public Pane addMilestoneBox;
