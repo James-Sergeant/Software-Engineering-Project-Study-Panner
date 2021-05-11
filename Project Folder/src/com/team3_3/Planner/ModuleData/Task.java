@@ -87,17 +87,13 @@ public class Task implements Serializable
         return this.endDate;
     }
 
-    public boolean getFinished()
+    public boolean getFinished() // returns if task is finished
     {
-        for (Work w : work)
+        if (getMaximum() == 0)
         {
-            if (!w.getFinished()) // if the work isn't finished
-            {
-                return false;
-            }
+            return true; // all work is finished
         }
-
-        return true; // if all work is finished
+        return false; // work still needs to be completed
     }
 
     public int getMaximum()

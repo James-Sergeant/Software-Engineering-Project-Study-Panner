@@ -26,7 +26,6 @@ public class Work implements Serializable
     public final transient int SSN = 1;
     private String name;
     private int weighting;
-    private boolean finished = false; // assignment not finished by default
     private File file;
 
     public Work (String name, int weighting, File file) throws Semester.ProgressOver100Exception
@@ -53,15 +52,5 @@ public class Work implements Serializable
     public String getName()
     {
         return this.name;
-    }
-
-    public boolean getFinished()
-    {
-        return this.finished;
-    }
-
-    public void setFinished() // works like a lightswitch - either finished or not finished
-    {
-        this.finished = !finished;
     }
 }

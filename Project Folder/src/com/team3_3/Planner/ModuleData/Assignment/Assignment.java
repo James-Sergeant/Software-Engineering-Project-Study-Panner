@@ -205,7 +205,7 @@ public abstract class Assignment implements Serializable, Updatable
     public static void main(String[] args) throws ParseException, Semester.ProgressOver100Exception, Semester.NameAlreadyExistsException
     {
         Work work = new Work("Work 1", 10, new File("File"));
-        work.setFinished();
+        //work.setFinished();
         Task task = new Task("Task 1", 20, "10/10/2020", "11/10/2020");
         Task task2 = new Task("Task 2", 20, "10/10/2020", "13/10/2020");
         task.addWork(work);
