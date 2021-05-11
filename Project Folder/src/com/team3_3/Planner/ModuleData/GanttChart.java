@@ -21,7 +21,7 @@ public class GanttChart extends JFrame
 {
     public GanttChart(Module module)
     {
-        super(module.getName());
+        super(module.getName()+" "+"GANTT CHART" );
         IntervalCategoryDataset data = makeCategoryDataset(module);
         JFreeChart ganttChart = ChartFactory.createGanttChart(module.getName(),"Objectives", "Date", data,true,false,false);
 
