@@ -48,7 +48,7 @@ public class GanttChart extends JFrame
 
                 for (com.team3_3.Planner.ModuleData.Task t : m.getTasks().values()) // all tasks within a milestone
                 {
-                    tasks.add(new Task (t.getName(), Date.from(LocalDate.of(t.getStartDate().getYear(), t.getStartDate().getMonth(), t.getStartDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(t.getEndDate().getYear(), t.getEndDate().getMonth(), t.getEndDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create task for gantt
+                    tasks.add(new Task (m.getName() +" "+ t.getName(), Date.from(LocalDate.of(t.getStartDate().getYear(), t.getStartDate().getMonth(), t.getStartDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(t.getEndDate().getYear(), t.getEndDate().getMonth(), t.getEndDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create task for gantt
                 }
 
                 //data.add (tasks); // adds all tasks within a milestone
