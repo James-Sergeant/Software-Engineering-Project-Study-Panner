@@ -32,9 +32,9 @@ public class GanttChart extends JFrame
     private IntervalCategoryDataset makeCategoryDataset (Module module)
     {
         TaskSeriesCollection data = new TaskSeriesCollection();
-        TaskSeries milestones = new TaskSeries(/*a.getName() */ "milestones"); // all milestones within an assignment
+        TaskSeries milestones = new TaskSeries(/*a.getName() */ "Milestones"); // all milestones within an assignment
 
-        TaskSeries tasks = new TaskSeries(/*m.getName() +*/ " tasks"); // all tasks within a milestone
+        TaskSeries tasks = new TaskSeries(/*m.getName() +*/ " Tasks"); // all tasks within a milestone
 
         for (Assignment a : module.getAssignments().values()) // for each assignment within a module
         {
