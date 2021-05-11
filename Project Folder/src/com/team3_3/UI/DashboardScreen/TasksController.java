@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.Collection;
 
 public class TasksController {
@@ -36,6 +38,14 @@ public class TasksController {
                 setupMilestoneBox();
             }
         });
+
+        controller.myTaskAddtaskButton.setOnAction(actionEvent -> {
+            boolean set = !controller.addTaskBox.visibleProperty().get();
+            controller.addTaskBox.setVisible(set);
+            setupTaskBox();
+        });
+
+
         update();
     }
 
@@ -177,9 +187,45 @@ public class TasksController {
     }
 
     private void setupTaskBox(){
-
+        controller.MyTaskAddTaskAdd.setOnAction(actionEvent -> {
+            addNewTask();
+        });
+        controller.MyTaskAddTaskWeighting.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                String val = Integer.toString((int)controller.MyTaskAddTaskWeighting.getValue());
+                controller.MyTaskAddTaskWeightingText.setText(val);
+            }
+        });
+        controller.MyTaskAddTaskWeightingText.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                String valString = controller.MyTaskAddTaskWeightingText.getText();
+                try {
+                    int val = Integer.parseInt(valString);
+                    controller.MyTaskAddTaskWeighting.setValue(val);
+                }catch (NumberFormatException e){
+                    controller.MyTaskAddTaskWeightingText.setText(Integer.toString((int)controller.MyTaskAddTaskWeighting.getValue()));
+                }
+            }
+        });
     }
     private void addNewTask(){
-
+        String name = controller.MyTaskAddTaskName.getText();
+        double weighting = controller.MyTaskAddTaskWeighting.getValue();
+        LocalDate startDateValue = controller.MyTaskAddTaskStartDate.getValue();
+        LocalDate endDateValue = controller.MyTaskAddTaskEndDate.getValue();
+        try {
+            Task task = new Task(name, (int) weighting, startDateValue, endDateValue);
+            controller.selectedMilestone.addTask(task);
+            controller.addTaskBox.setVisible(false);
+            controller.myTaskSelectTask.setValue(task);
+        } catch (Semester.ProgressOver100Exception e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } catch (Semester.NameAlreadyExistsException e) {
+            e.printStackTrace();
+        }
     }
 }

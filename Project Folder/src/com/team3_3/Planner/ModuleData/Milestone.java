@@ -1,6 +1,7 @@
 package com.team3_3.Planner.ModuleData;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -96,14 +97,14 @@ public class Milestone implements Serializable
         return maximum;
     }
 
-    public Date getStartDate()
+    public LocalDate getStartDate()
     {
         Task task = (Task) tasks.values().toArray()[0]; // first element
-        Date date = task.getStartDate(); // change to first element in tasks
+        LocalDate date = task.getStartDate(); // change to first element in tasks
 
         for (Task t : tasks.values())
         {
-            if (t.getStartDate().before(date))
+            if (t.getStartDate().isBefore(date))
             {
                 date = t.getStartDate();
             }
@@ -117,14 +118,14 @@ public class Milestone implements Serializable
         return date;
     }
 
-    public Date getEndDate()
+    public LocalDate getEndDate()
     {
         Task task = (Task) tasks.values().toArray()[0]; // first element
-        Date date = task.getEndDate(); // change to first element in tasks
+        LocalDate date = task.getEndDate(); // change to first element in tasks
 
         for (Task t : tasks.values())
         {
-            if (t.getEndDate().after(date))
+            if (t.getEndDate().isAfter(date))
             {
                 date = t.getEndDate();
             }

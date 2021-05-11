@@ -109,7 +109,7 @@
             <Label fx:id="invalidFileLabel" alignment="CENTER" layoutX="752.0" layoutY="14.0" prefHeight="31.0" prefWidth="177.0" text="Invalid FIle, please try again" textFill="RED" visible="false" />
          </children>
       </Pane>
-      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
+      <Pane fx:id="myModulesPane" layoutX="244.0" layoutY="1.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
          <children>
             <ComboBox fx:id="myModulesSelector" layoutX="177.0" layoutY="39.0" prefHeight="25.0" prefWidth="660.0" promptText="Select a Module " />
             <TableView fx:id="moduleDeliverableTable" layoutX="169.0" layoutY="173.0" prefHeight="228.0" prefWidth="660.0">
@@ -141,7 +141,7 @@
                </columns>
             </TableView>
          </children></Pane>
-      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
+      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
          <children>
             <ComboBox fx:id="myTaskSelectModule" layoutX="23.0" layoutY="24.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Module" />
             <ComboBox fx:id="myTaskSelectAssignement" layoutX="23.0" layoutY="58.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Assignement" visible="false" />
@@ -173,15 +173,15 @@
             <Pane fx:id="addTaskBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="412.0" style="-fx-background-color: #ABB2B9;" visible="false">
                <children>
                   <TextField fx:id="MyTaskAddTaskName" layoutX="14.0" layoutY="25.0" text="Name" />
-                  <Slider fx:id="MyTaskAddTaskWeighting" layoutX="14.0" layoutY="89.0" min="1.0" />
                   <Button fx:id="MyTaskAddTaskAdd" layoutX="368.0" layoutY="103.0" mnemonicParsing="false" text="Add" />
                   <Label fx:id="MyTaskAddTaskError" alignment="CENTER" prefHeight="31.0" prefWidth="177.0" text="This task alredy exists" textFill="RED" />
                   <DatePicker fx:id="MyTaskAddTaskStartDate" layoutX="186.0" layoutY="25.0" />
                   <DatePicker fx:id="MyTaskAddTaskEndDate" layoutX="186.0" layoutY="77.0" />
-                  <Text layoutX="61.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting" />
+                  <Text layoutX="61.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting" />
                   <Text layoutX="241.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" wrappingWidth="62.53515625" />
                   <Text layoutX="241.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" wrappingWidth="62.53515625" />
-                  <Text fx:id="MyTaskAddTaskWeightingText" layoutX="73.0" layoutY="115.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50%" />
+                  <TextField fx:id="MyTaskAddTaskWeightingText" layoutX="70.0" layoutY="111.0" prefHeight="25.0" prefWidth="38.0" />
+                  <Slider fx:id="MyTaskAddTaskWeighting" layoutX="18.0" layoutY="71.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </Pane>
             <Pane layoutX="23.0" layoutY="305.0" prefHeight="342.0" prefWidth="489.0" style="-fx-background-color: #ABB2B9;">

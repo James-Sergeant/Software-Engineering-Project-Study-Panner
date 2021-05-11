@@ -39,12 +39,12 @@ public class GanttChart extends JFrame
 
             for (Milestone m : a.getMilestones().values()) // for each milestone within an assignment
             {
-                milestones.add(new Task (m.getName(), Date.from(LocalDate.of(m.getStartDate().getYear(), m.getStartDate().getMonth(), m.getStartDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(m.getEndDate().getYear(), m.getEndDate().getMonth(), m.getEndDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create milestone for gantt
+                milestones.add(new Task (m.getName(), Date.from(LocalDate.of(m.getStartDate().getYear(), m.getStartDate().getMonth(), m.getStartDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(m.getEndDate().getYear(), m.getEndDate().getMonth(), m.getEndDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create milestone for gantt
                 TaskSeries tasks = new TaskSeries(m.getName() + " tasks"); // all tasks within a milestone
 
                 for (com.team3_3.Planner.ModuleData.Task t : m.getTasks().values()) // all tasks within a milestone
                 {
-                    tasks.add(new Task (t.getName(), Date.from(LocalDate.of(t.getStartDate().getYear(), t.getStartDate().getMonth(), t.getStartDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(t.getEndDate().getYear(), t.getEndDate().getMonth(), t.getEndDate().getDay()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create task for gantt
+                    tasks.add(new Task (t.getName(), Date.from(LocalDate.of(t.getStartDate().getYear(), t.getStartDate().getMonth(), t.getStartDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)), Date.from(LocalDate.of(t.getEndDate().getYear(), t.getEndDate().getMonth(), t.getEndDate().getDayOfMonth()).atStartOfDay().toInstant(ZoneOffset.UTC)))); // create task for gantt
                 }
 
                 data.add (tasks); // adds all tasks within a milestone

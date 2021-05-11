@@ -92,6 +92,14 @@ public class Controller {
     public Button myTaskAddMilestoneAdd;
     //Add Task:
     public Button myTaskAddtaskButton;
+    public Pane addTaskBox;
+    public Label MyTaskAddTaskError;
+    public TextField MyTaskAddTaskName;
+    public Slider MyTaskAddTaskWeighting;
+    public TextField MyTaskAddTaskWeightingText;
+    public DatePicker MyTaskAddTaskStartDate;
+    public DatePicker MyTaskAddTaskEndDate;
+    public Button MyTaskAddTaskAdd;
 
     ////////used for account settings page/////////
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -31,11 +32,11 @@ public class Task implements Serializable
     public final transient int SSN = 1;
     private String name;
     private int weighting;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private HashSet<Work> work = new HashSet<>();
 
-    public Task (String name, int weighting, String startDate, String endDate) throws Semester.ProgressOver100Exception, ParseException
+    public Task (String name, int weighting, LocalDate startDate, LocalDate endDate) throws Semester.ProgressOver100Exception, ParseException
     {
         this.name = name;
         if (weighting > 100)
@@ -43,8 +44,8 @@ public class Task implements Serializable
             throw new Semester.ProgressOver100Exception(weighting);
         }
         this.weighting = weighting;
-        this.startDate = returnDate(startDate, "0:00");
-        this.endDate = returnDate(endDate, "23:59");
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
     public void addWork (Work work) throws Semester.NameAlreadyExistsException, Semester.ProgressOver100Exception
@@ -77,12 +78,12 @@ public class Task implements Serializable
         return this.name;
     }
 
-    public Date getStartDate()
+    public LocalDate getStartDate()
     {
         return this.startDate;
     }
 
-    public Date getEndDate()
+    public LocalDate getEndDate()
     {
         return this.endDate;
     }
