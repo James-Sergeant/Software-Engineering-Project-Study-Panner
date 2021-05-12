@@ -93,7 +93,7 @@ public class Controller {
 
 
     public void accountSettingsAction(ActionEvent actionEvent) {
-        System.out.println("insert: accountSettingsAction");
+        Main.dashboardLoad(actionEvent, "myAccountSettings");
     }
 
     public void signOutAction() {

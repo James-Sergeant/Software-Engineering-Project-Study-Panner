@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
@@ -13,6 +14,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -23,7 +26,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.DashboardScreen.Controller">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1259.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.team3_3.UI.DashboardScreen.Controller">
    <children>
       <VBox prefHeight="832.0" prefWidth="244.0" style="-fx-background-color: #32a8a4;">
          <children>
@@ -137,8 +140,26 @@
                   <TableColumn fx:id="moduleUpcomingTaskTableProgress" prefWidth="220.0" text="Progress" />
                </columns>
             </TableView>
+            <Button fx:id="RequestExtensionButton" layoutX="853.0" layoutY="183.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Request Extention" />
+            <Pane fx:id="extensionRequestPane" layoutX="839.0" layoutY="251.0" prefHeight="163.0" prefWidth="167.0" style="-fx-background-color: #ABB2B9;" visible="false">
+               <children>
+                  <DatePicker fx:id="extensionDatePicker" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="138.0" />
+                  <TextField fx:id="extensionMOEmail" layoutX="9.0" layoutY="69.0" />
+                  <Text layoutX="14.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Module organiser Email:" wrappingWidth="138.0" />
+                  <Button fx:id="extensionSub" layoutX="62.0" layoutY="100.0" mnemonicParsing="false" text="Send" />
+               </children>
+            </Pane>
+            <Button fx:id="SubmitExtensionButton" layoutX="853.0" layoutY="220.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Submit Extention" />
+            <Pane fx:id="extentionApprovalPane" layoutX="839.0" layoutY="245.0" prefHeight="104.0" prefWidth="167.0" style="-fx-background-color: #ABB2B9;" visible="false">
+               <children>
+                  <TextField fx:id="extensionCode" layoutX="10.0" layoutY="37.0" />
+                  <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Approval Code" textAlignment="CENTER" wrappingWidth="138.0" />
+                  <Button fx:id="extensionsCodeSub" layoutX="63.0" layoutY="69.0" mnemonicParsing="false" text="Send" />
+               </children>
+            </Pane>
+            <Label fx:id="extLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="847.0" layoutY="148.0" prefHeight="17.0" prefWidth="149.0" text="Label" textAlignment="CENTER" visible="false" />
          </children></Pane>
-      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
+      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
          <children>
             <ComboBox fx:id="myTaskSelectModule" layoutX="23.0" layoutY="24.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Module" />
             <ComboBox fx:id="myTaskSelectAssignement" layoutX="23.0" layoutY="58.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Assignement" visible="false" />
@@ -146,17 +167,17 @@
             <ComboBox fx:id="myTaskSelectMilestone" layoutX="23.0" layoutY="90.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Milestone" visible="false" />
             <ComboBox fx:id="myTaskSelectTask" layoutX="23.0" layoutY="124.0" prefHeight="25.0" prefWidth="161.0" promptText="Slelect Task" visible="false" />
             <Button fx:id="myTaskAddtaskButton" layoutX="204.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Task" visible="false" />
-            <TableView layoutX="546.0" layoutY="264.0" prefHeight="545.0" prefWidth="454.0">
+            <TableView fx:id="myTaskWorkTable" layoutX="546.0" layoutY="264.0" prefHeight="545.0" prefWidth="454.0">
               <columns>
-                <TableColumn prefWidth="137.0" text="Name" />
-                  <TableColumn prefWidth="133.0" text="Notes" />
-                <TableColumn prefWidth="93.0" text="File" />
-                  <TableColumn prefWidth="90.0" text="Weighting" />
+                <TableColumn fx:id="myTaskWorkTableName" prefWidth="137.0" text="Name" />
+                  <TableColumn fx:id="myTaskWorkTableNotes" prefWidth="133.0" text="Notes" />
+                <TableColumn fx:id="myTaskWorkTableFile" prefWidth="93.0" text="File" />
+                  <TableColumn fx:id="myTaskWorkTableWeighting" prefWidth="90.0" text="Weighting" />
               </columns>
             </TableView>
-            <ProgressBar layoutX="14.0" layoutY="219.0" prefWidth="200.0" progress="0.0" />
+            <ProgressBar fx:id="TaskProgressBar" layoutX="14.0" layoutY="219.0" prefWidth="200.0" />
             <Text layoutX="14.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Progress:" textAlignment="CENTER" wrappingWidth="200.0" />
-            <Pane fx:id="addMilestoneBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="261.0" style="-fx-background-color: #ABB2B9;" visible="false">
+            <Pane fx:id="addMilestoneBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="261.0" style="-fx-background-color: #ABB2B9;">
                <children>
                   <TextField fx:id="myTaskAddMilestoneName" layoutX="89.0" layoutY="19.0" text="Name" />
                   <Slider fx:id="myTaskAddMilestoneWeighting" layoutX="93.0" layoutY="50.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
@@ -167,38 +188,149 @@
                   <Text layoutX="13.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting:" wrappingWidth="62.53515625" />
                </children>
             </Pane>
-            <Pane fx:id="addTaskBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="412.0" style="-fx-background-color: #ABB2B9;">
+            <Pane fx:id="addTaskBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="412.0" style="-fx-background-color: #ABB2B9;" visible="false">
                <children>
                   <TextField fx:id="MyTaskAddTaskName" layoutX="14.0" layoutY="25.0" text="Name" />
                   <Button fx:id="MyTaskAddTaskAdd" layoutX="368.0" layoutY="103.0" mnemonicParsing="false" text="Add" />
-                  <Label fx:id="MyTaskAddTaskError" alignment="CENTER" prefHeight="31.0" prefWidth="177.0" text="This task alredy exists" textFill="RED" />
+                  <Label fx:id="MyTaskAddTaskError" alignment="CENTER" prefHeight="31.0" prefWidth="177.0" text="This task alredy exists" textFill="RED" visible="false" />
                   <DatePicker fx:id="MyTaskAddTaskStartDate" layoutX="186.0" layoutY="25.0" />
                   <DatePicker fx:id="MyTaskAddTaskEndDate" layoutX="186.0" layoutY="77.0" />
-                  <Text layoutX="56.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting" />
+                  <Text layoutX="61.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting" />
                   <Text layoutX="241.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" wrappingWidth="62.53515625" />
                   <Text layoutX="241.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" wrappingWidth="62.53515625" />
-                  <Text fx:id="MyTaskAddTaskWeightingText" layoutX="72.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50%" />
+                  <TextField fx:id="MyTaskAddTaskWeightingText" layoutX="70.0" layoutY="111.0" prefHeight="25.0" prefWidth="38.0" />
                   <Slider fx:id="MyTaskAddTaskWeighting" layoutX="18.0" layoutY="71.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </Pane>
-            <Pane layoutX="23.0" layoutY="305.0" prefHeight="342.0" prefWidth="489.0" style="-fx-background-color: #ABB2B9;">
+            <Pane fx:id="myTaskAddWorkPane" layoutX="23.0" layoutY="305.0" prefHeight="342.0" prefWidth="489.0" style="-fx-background-color: #ABB2B9;" visible="false">
                <children>
-                  <TextField layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="278.0" />
-                  <Button layoutX="387.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Work" />
+                  <TextField fx:id="myTaskAddWorkName" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="278.0" />
+                  <Button fx:id="myTaskAddWorkButton" layoutX="387.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Work" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="62.53515625" />
-                  <TextArea layoutX="14.0" layoutY="97.0" prefHeight="200.0" prefWidth="278.0" />
+                  <TextArea fx:id="myTaskAddWorkNotes" layoutX="14.0" layoutY="97.0" prefHeight="200.0" prefWidth="278.0" />
                   <Text layoutX="14.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notes:" wrappingWidth="62.53515625" />
-                  <Button layoutX="423.0" layoutY="97.0" mnemonicParsing="false" text="Add file" />
+                  <Button fx:id="myTaskAddWorkAddFile" layoutX="423.0" layoutY="97.0" mnemonicParsing="false" text="Add file" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="51.0" prefHeight="17.0" prefWidth="174.0" text="File Name" textAlignment="CENTER" />
-                  <Slider layoutX="319.0" layoutY="205.0" min="1.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="171.0" prefHeight="17.0" prefWidth="174.0" text="Weighting:" textAlignment="CENTER" />
+                  <Slider fx:id="myTaskAddWorkWeighting" layoutX="319.0" layoutY="197.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="myTaskAddWorkWeightingText" alignment="CENTER" layoutX="369.0" layoutY="239.0" prefHeight="25.0" prefWidth="38.0" text="0" />
                </children>
             </Pane>
+            <Button fx:id="showGanttChart" layoutX="323.0" layoutY="207.0" mnemonicParsing="false" onAction="#showGanttChart" prefHeight="31.0" prefWidth="161.0" text="Show Gantt Chart" />
          </children></Pane>
-      <Pane fx:id="settingsPane" layoutX="254.0" layoutY="9.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false" />
+      <Pane fx:id="settingsPane" layoutX="254.0" layoutY="9.0" prefHeight="819.0" prefWidth="1001.0" style="-fx-background-color: #dbdbdb;" visible="false">
+         <children>
+            <Line fx:id="settingsBreaker1" endX="266.2000732421875" endY="237.99998474121094" layoutX="-32.0" layoutY="11.0" startX="825.0" startY="237.99998474121094" />
+            <ImageView fx:id="imageLight" fitHeight="150.0" fitWidth="200.0" layoutX="159.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@resources/generic_user_icon.png" />
+               </image>
+            </ImageView>
+            <Text fx:id="userEmail" layoutX="335.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="458.13671875">
+               <font>
+                  <Font name="Lucida Console" size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="userFullName" layoutX="335.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Full Name" wrappingWidth="300.13671875">
+               <font>
+                  <Font name="Lucida Console" size="30.0" />
+               </font>
+            </Text>
+            <Text fx:id="userStatus" layoutX="335.0" layoutY="195.0" strokeType="OUTSIDE" strokeWidth="0.0" text="{student}" wrappingWidth="138.13671875">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button fx:id="editAccountButton" layoutX="679.0" layoutY="116.0" mnemonicParsing="false" onAction="#editAccountButtonAction" prefHeight="32.0" prefWidth="110.0" text="Edit Account" />
+            <Text fx:id="themesText" layoutX="473.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Themes" wrappingWidth="150.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Line fx:id="settingsBreaker2" endX="266.2000732421875" endY="237.99998474121094" layoutX="-32.0" layoutY="175.0" startX="825.0" startY="237.99998474121094" />
+            <ToggleButton fx:id="matrixThemeToggle" layoutX="273.0" layoutY="322.0" mnemonicParsing="false" onAction="#matrixThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Matrix">
+               <toggleGroup>
+                  <ToggleGroup fx:id="themesToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="lightThemeToggle" layoutX="452.0" layoutY="322.0" mnemonicParsing="false" onAction="#lightThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Light">
+               <toggleGroup>
+                  <ToggleGroup fx:id="themesToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ToggleButton fx:id="darkThemeToggle" layoutX="635.0" layoutY="322.0" mnemonicParsing="false" onAction="#darkThemeToggleAction" prefHeight="32.0" prefWidth="124.0" text="Dark">
+               <toggleGroup>
+                  <ToggleGroup fx:id="themesToggleGroup" />
+               </toggleGroup>
+            </ToggleButton>
+            <ImageView fx:id="imageMatrix" fitHeight="150.0" fitWidth="200.0" layoutX="159.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/user_icon_Matrix.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="imageDark" fitHeight="150.0" fitWidth="200.0" layoutX="159.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@resources/user_icon_Dark.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
       <Rectangle fx:id="settingsDivider" arcHeight="5.0" arcWidth="5.0" fill="#ffbb87" height="60.0" layoutX="231.0" layoutY="428.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="mySemesterDivider" arcHeight="5.0" arcWidth="5.0" fill="#64c93c" height="60.0" layoutX="231.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myModulesDivider" arcHeight="5.0" arcWidth="5.0" fill="#c93c48" height="60.0" layoutX="231.0" layoutY="308.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myTasksDivider" arcHeight="5.0" arcWidth="5.0" fill="#b2b0c2" height="60.0" layoutX="231.0" layoutY="368.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
+      <Pane fx:id="myAccountSettingsPane" layoutX="257.0" layoutY="9.0" prefHeight="819.0" prefWidth="1001.0" style="-fx-background-color: #dbdbdb;" visible="false">
+         <children>
+            <Line endX="-6.0" endY="768.0" layoutX="510.0" layoutY="63.0" startX="-6.0" startY="-74.0" />
+            <Text layoutX="35.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <TextField fx:id="firstNameEntry" layoutX="35.0" layoutY="84.0" prefHeight="29.0" prefWidth="369.0" promptText="addFirstName">
+               <font>
+                  <Font name="Lucida Console" size="12.0" />
+               </font>
+            </TextField>
+            <Text layoutX="35.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <TextField fx:id="lastNameEntry" layoutX="36.0" layoutY="185.0" prefHeight="29.0" prefWidth="369.0" promptText="addLastName">
+               <font>
+                  <Font name="Lucida Console" size="12.0" />
+               </font>
+            </TextField>
+            <Text layoutX="550.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old Password" wrappingWidth="215.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Line endX="100.0" layoutX="734.0" layoutY="199.0" startX="-100.0" />
+            <Text layoutX="550.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password" wrappingWidth="177.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="543.0" layoutY="389.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Re-Enter New Password" wrappingWidth="384.0">
+               <font>
+                  <Font name="Lucida Console" size="24.0" />
+               </font>
+            </Text>
+            <Text layoutX="543.0" layoutY="579.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Verification Code" wrappingWidth="209.0">
+               <font>
+                  <Font name="Lucida Console" size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="verificationCodeEntry" layoutX="759.0" layoutY="561.0" promptText="enter verification code" />
+            <Button fx:id="saveAccountButton" layoutX="860.0" layoutY="766.0" mnemonicParsing="false" onAction="#saveAccountButtonAction" prefHeight="38.0" prefWidth="118.0" text="Save" />
+            <Button fx:id="sendVerificationButton" layoutX="530.0" layoutY="766.0" mnemonicParsing="false" onAction="#sendVerificationButtonAction" prefHeight="38.0" prefWidth="221.0" text="Send Verification Code" />
+            <PasswordField fx:id="oldPasswordEntry" layoutX="543.0" layoutY="113.0" prefHeight="26.0" prefWidth="369.0" promptText="enterOldPassword" />
+            <PasswordField fx:id="newPasswordEntry1" layoutX="530.0" layoutY="303.0" prefHeight="26.0" prefWidth="369.0" promptText="enterNewPassword" />
+            <PasswordField fx:id="newPasswordEntry2" layoutX="530.0" layoutY="430.0" prefHeight="26.0" prefWidth="369.0" promptText="reEnterNewPassword" />
+            <Label fx:id="settingsErrorLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="536.0" layoutY="715.0" prefHeight="17.0" prefWidth="209.0" text="Label" visible="false" />
+         </children>
+      </Pane>
+      <Rectangle fx:id="myAccountSettingsDivider" arcHeight="5.0" arcWidth="5.0" fill="#c93c48" height="20.0" layoutY="328.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="1.0" />
    </children>
 </Pane>

@@ -55,6 +55,10 @@ public class SemesterController {
         controller.mySemesterModuleTableModule.setCellValueFactory(new PropertyValueFactory<>("name"));
         controller.mySemesterModuleTableProgress.setCellValueFactory(new PropertyValueFactory<>("progressBar"));
 
+        for (Module module: modules.values()){
+            module.updateProgress();
+        }
+
         controller.mySemesterModuleTable.getItems().addAll(modules.values());
 
     }
@@ -76,6 +80,10 @@ public class SemesterController {
         controller.mySemesterDeadlineTableModule.setCellValueFactory(new PropertyValueFactory<>("module"));
         controller.mySemesterDeadlineTableDeadline.setCellValueFactory(new PropertyValueFactory<>("date"));
         controller.mySemesterDeadlineTableProgression.setCellValueFactory(new PropertyValueFactory<>("progressBar"));
+
+        for(Assignment assignment: assignments){
+            assignment.updateProgress();
+        }
 
         controller.mySemesterDeadlineTable.getItems().addAll(assignments);
     }
@@ -125,8 +133,10 @@ public class SemesterController {
         } catch (Semester.DateOutOfBoundsException e) {
             controller. invalidFileLabel.setText("The date on this file is invalid");
             controller.invalidFileLabel.setVisible(true);
+        } catch (Semester.ProgressOver100Exception e) {
+            controller.invalidFileLabel.setText("The progress is too large");
+            controller.invalidFileLabel.setVisible(true);
         }
         return null;
     }
-
 }

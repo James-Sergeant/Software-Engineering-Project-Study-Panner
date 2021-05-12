@@ -1,12 +1,17 @@
 package com.team3_3.Planner.ModuleData;
 
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
+import com.team3_3.Planner.ModuleData.Assignment.Coursework;
+import com.team3_3.Planner.ModuleData.Assignment.Exam;
+import com.team3_3.Planner.utils.Hash;
 import javafx.scene.control.ProgressBar;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
@@ -28,12 +33,12 @@ import java.util.HashMap;
  * <h2>Refrences: </>
  *  -Offical JavaDoc help page @link https://www.oracle.com/uk/technical-resources/articles/java/javadoc-tool.html
  */
-public class Module implements Serializable
+public class Module implements Serializable, Updatable
 {
     // instance variables
     public final transient int SSN = 1;
     private final String name;
-    private HashMap<String,Assignment> assignments=new HashMap<String , Assignment>();
+    private HashMap<String,Assignment> assignments=new HashMap<>();
     private double progress;
     private transient ProgressBar progressBar;
     // constructor
@@ -42,10 +47,51 @@ public class Module implements Serializable
         this.name = name;
         this.progressBar = new ProgressBar(0);
     }
+
+
     @Serial
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException
+    {
         ois.defaultReadObject();
         progressBar = new ProgressBar(progress);
+    }
+
+    public double getModuleCompletion()
+    {
+        double progress = 0; // starts off with 0% completion
+
+        for (Assignment a : assignments.values())
+        {
+            if (a.getFinished()) // if the assignment is finished
+            {
+                progress += (a.getWeighting()*0.01);
+            }
+        }
+
+        return progress;
+    }
+
+    public void updateProgress(){
+        progress = 0;
+        for(Assignment assignment: assignments.values()){
+            assignment.updateProgress();
+            System.out.println("Ass progress: "+assignment.getProgress());
+            System.out.println("Ass weight: "+assignment.getWeighting());
+            progress += ((double)assignment.getProgress())*((double) assignment.getWeighting()/100);
+        }
+        System.out.println("Progress: "+progress);
+        progressBar.setProgress(progress);
+    }
+
+    public double getProgress() {
+        return progress;
+    }
+
+    @Override
+    public void update()
+    {
+        this.progress = getModuleCompletion();
+        this.progressBar.setProgress(progress);
     }
 
     // methods
@@ -69,7 +115,8 @@ public class Module implements Serializable
     {
         return assignments.get(name);
     }
-    public HashMap<String, Assignment> getAssignments(){
+    public HashMap<String, Assignment> getAssignments()
+    {
         return assignments;
     }
     public String getName()
@@ -77,12 +124,23 @@ public class Module implements Serializable
         return this.name;
     }
 
-    public ProgressBar getProgressBar() {
+    public ProgressBar getProgressBar()
+    {
         return progressBar;
     }
-
     @Override
     public String toString() {
         return name;
+    }
+
+    public static void main(String[] args) throws ParseException, Semester.ProgressOver100Exception
+    {
+        Coursework coursework = new Coursework("Coursework", "PROGRAMMING 3", "11/2/2020", 10, "1:30");
+        Exam exam = new Exam("Exam", "PROGRAMMING 3", "12/2/2020", 50, "1:30", "2:30", 60, "Exam hall");
+        Module mod = new Module("PROGRAMMING 3");
+        mod.addAssignment(coursework);
+        mod.addAssignment(exam);
+
+        System.out.println(mod.getModuleCompletion());
     }
 }
