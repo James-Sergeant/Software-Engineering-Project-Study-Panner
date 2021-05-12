@@ -140,8 +140,26 @@
                   <TableColumn fx:id="moduleUpcomingTaskTableProgress" prefWidth="220.0" text="Progress" />
                </columns>
             </TableView>
+            <Button fx:id="RequestExtensionButton" layoutX="853.0" layoutY="183.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Request Extention" />
+            <Pane fx:id="extensionRequestPane" layoutX="839.0" layoutY="251.0" prefHeight="163.0" prefWidth="167.0" style="-fx-background-color: #ABB2B9;" visible="false">
+               <children>
+                  <DatePicker fx:id="extensionDatePicker" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="138.0" />
+                  <TextField fx:id="extensionMOEmail" layoutX="9.0" layoutY="69.0" />
+                  <Text layoutX="14.0" layoutY="63.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Module organiser Email:" wrappingWidth="138.0" />
+                  <Button fx:id="extensionSub" layoutX="62.0" layoutY="100.0" mnemonicParsing="false" text="Send" />
+               </children>
+            </Pane>
+            <Button fx:id="SubmitExtensionButton" layoutX="853.0" layoutY="220.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="138.0" text="Submit Extention" />
+            <Pane fx:id="extentionApprovalPane" layoutX="839.0" layoutY="245.0" prefHeight="104.0" prefWidth="167.0" style="-fx-background-color: #ABB2B9;" visible="false">
+               <children>
+                  <TextField fx:id="extensionCode" layoutX="10.0" layoutY="37.0" />
+                  <Text layoutX="15.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Approval Code" textAlignment="CENTER" wrappingWidth="138.0" />
+                  <Button fx:id="extensionsCodeSub" layoutX="63.0" layoutY="69.0" mnemonicParsing="false" text="Send" />
+               </children>
+            </Pane>
+            <Label fx:id="extLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="847.0" layoutY="148.0" prefHeight="17.0" prefWidth="149.0" text="Label" textAlignment="CENTER" visible="false" />
          </children></Pane>
-      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;">
+      <Pane fx:id="myTasksPane" layoutX="244.0" prefHeight="831.0" prefWidth="1014.0" style="-fx-background-color: #dbdbdb;" visible="false">
          <children>
             <ComboBox fx:id="myTaskSelectModule" layoutX="23.0" layoutY="24.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Module" />
             <ComboBox fx:id="myTaskSelectAssignement" layoutX="23.0" layoutY="58.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Assignement" visible="false" />
@@ -149,17 +167,17 @@
             <ComboBox fx:id="myTaskSelectMilestone" layoutX="23.0" layoutY="90.0" prefHeight="25.0" prefWidth="161.0" promptText="Select Milestone" visible="false" />
             <ComboBox fx:id="myTaskSelectTask" layoutX="23.0" layoutY="124.0" prefHeight="25.0" prefWidth="161.0" promptText="Slelect Task" visible="false" />
             <Button fx:id="myTaskAddtaskButton" layoutX="204.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Task" visible="false" />
-            <TableView layoutX="546.0" layoutY="264.0" prefHeight="545.0" prefWidth="454.0">
+            <TableView fx:id="myTaskWorkTable" layoutX="546.0" layoutY="264.0" prefHeight="545.0" prefWidth="454.0">
               <columns>
-                <TableColumn prefWidth="137.0" text="Name" />
-                  <TableColumn prefWidth="133.0" text="Notes" />
-                <TableColumn prefWidth="93.0" text="File" />
-                  <TableColumn prefWidth="90.0" text="Weighting" />
+                <TableColumn fx:id="myTaskWorkTableName" prefWidth="137.0" text="Name" />
+                  <TableColumn fx:id="myTaskWorkTableNotes" prefWidth="133.0" text="Notes" />
+                <TableColumn fx:id="myTaskWorkTableFile" prefWidth="93.0" text="File" />
+                  <TableColumn fx:id="myTaskWorkTableWeighting" prefWidth="90.0" text="Weighting" />
               </columns>
             </TableView>
-            <ProgressBar layoutX="14.0" layoutY="219.0" prefWidth="200.0" progress="0.0" />
+            <ProgressBar fx:id="TaskProgressBar" layoutX="14.0" layoutY="219.0" prefWidth="200.0" />
             <Text layoutX="14.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Task Progress:" textAlignment="CENTER" wrappingWidth="200.0" />
-            <Pane fx:id="addMilestoneBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="261.0" style="-fx-background-color: #ABB2B9;" visible="false">
+            <Pane fx:id="addMilestoneBox" layoutX="323.0" layoutY="22.0" prefHeight="137.0" prefWidth="261.0" style="-fx-background-color: #ABB2B9;">
                <children>
                   <TextField fx:id="myTaskAddMilestoneName" layoutX="89.0" layoutY="19.0" text="Name" />
                   <Slider fx:id="myTaskAddMilestoneWeighting" layoutX="93.0" layoutY="50.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
@@ -174,7 +192,7 @@
                <children>
                   <TextField fx:id="MyTaskAddTaskName" layoutX="14.0" layoutY="25.0" text="Name" />
                   <Button fx:id="MyTaskAddTaskAdd" layoutX="368.0" layoutY="103.0" mnemonicParsing="false" text="Add" />
-                  <Label fx:id="MyTaskAddTaskError" alignment="CENTER" prefHeight="31.0" prefWidth="177.0" text="This task alredy exists" textFill="RED" />
+                  <Label fx:id="MyTaskAddTaskError" alignment="CENTER" prefHeight="31.0" prefWidth="177.0" text="This task alredy exists" textFill="RED" visible="false" />
                   <DatePicker fx:id="MyTaskAddTaskStartDate" layoutX="186.0" layoutY="25.0" />
                   <DatePicker fx:id="MyTaskAddTaskEndDate" layoutX="186.0" layoutY="77.0" />
                   <Text layoutX="61.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weighting" />
@@ -184,17 +202,18 @@
                   <Slider fx:id="MyTaskAddTaskWeighting" layoutX="18.0" layoutY="71.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </Pane>
-            <Pane layoutX="23.0" layoutY="305.0" prefHeight="342.0" prefWidth="489.0" style="-fx-background-color: #ABB2B9;">
+            <Pane fx:id="myTaskAddWorkPane" layoutX="23.0" layoutY="305.0" prefHeight="342.0" prefWidth="489.0" style="-fx-background-color: #ABB2B9;" visible="false">
                <children>
-                  <TextField layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="278.0" />
-                  <Button layoutX="387.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Work" />
+                  <TextField fx:id="myTaskAddWorkName" layoutX="14.0" layoutY="34.0" prefHeight="25.0" prefWidth="278.0" />
+                  <Button fx:id="myTaskAddWorkButton" layoutX="387.0" layoutY="297.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="88.0" text="Add Work" />
                   <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" wrappingWidth="62.53515625" />
-                  <TextArea layoutX="14.0" layoutY="97.0" prefHeight="200.0" prefWidth="278.0" />
+                  <TextArea fx:id="myTaskAddWorkNotes" layoutX="14.0" layoutY="97.0" prefHeight="200.0" prefWidth="278.0" />
                   <Text layoutX="14.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Notes:" wrappingWidth="62.53515625" />
-                  <Button layoutX="423.0" layoutY="97.0" mnemonicParsing="false" text="Add file" />
+                  <Button fx:id="myTaskAddWorkAddFile" layoutX="423.0" layoutY="97.0" mnemonicParsing="false" text="Add file" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="300.0" layoutY="51.0" prefHeight="17.0" prefWidth="174.0" text="File Name" textAlignment="CENTER" />
-                  <Slider layoutX="319.0" layoutY="205.0" min="1.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="302.0" layoutY="171.0" prefHeight="17.0" prefWidth="174.0" text="Weighting:" textAlignment="CENTER" />
+                  <Slider fx:id="myTaskAddWorkWeighting" layoutX="319.0" layoutY="197.0" minorTickCount="5" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <TextField fx:id="myTaskAddWorkWeightingText" alignment="CENTER" layoutX="369.0" layoutY="239.0" prefHeight="25.0" prefWidth="38.0" text="0" />
                </children>
             </Pane>
             <Button fx:id="showGanttChart" layoutX="323.0" layoutY="207.0" mnemonicParsing="false" onAction="#showGanttChart" prefHeight="31.0" prefWidth="161.0" text="Show Gantt Chart" />

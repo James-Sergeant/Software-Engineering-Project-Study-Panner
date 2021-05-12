@@ -3,6 +3,7 @@ package com.team3_3.Planner.ModuleData;
 import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 import com.team3_3.Planner.ModuleData.Assignment.Coursework;
 import com.team3_3.Planner.ModuleData.Assignment.Exam;
+import com.team3_3.Planner.utils.Hash;
 import javafx.scene.control.ProgressBar;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.io.Serializable;
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
@@ -45,6 +47,8 @@ public class Module implements Serializable, Updatable
         this.name = name;
         this.progressBar = new ProgressBar(0);
     }
+
+
     @Serial
     private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException
     {
@@ -64,6 +68,22 @@ public class Module implements Serializable, Updatable
             }
         }
 
+        return progress;
+    }
+
+    public void updateProgress(){
+        progress = 0;
+        for(Assignment assignment: assignments.values()){
+            assignment.updateProgress();
+            System.out.println("Ass progress: "+assignment.getProgress());
+            System.out.println("Ass weight: "+assignment.getWeighting());
+            progress += ((double)assignment.getProgress())*((double) assignment.getWeighting()/100);
+        }
+        System.out.println("Progress: "+progress);
+        progressBar.setProgress(progress);
+    }
+
+    public double getProgress() {
         return progress;
     }
 
@@ -107,6 +127,10 @@ public class Module implements Serializable, Updatable
     public ProgressBar getProgressBar()
     {
         return progressBar;
+    }
+    @Override
+    public String toString() {
+        return name;
     }
 
     public static void main(String[] args) throws ParseException, Semester.ProgressOver100Exception

@@ -28,12 +28,12 @@ import javax.mail.internet.*;
 public abstract class Email
 {
     private static final String USERNAME = "ueateam33";  // Gmail username
-    private static final String PASSWORD = ":0kpsXBu8b7CnJc~'=R#"; // Gmail password
+    private static final String PASSWORD = "Team33Team33"; // Gmail password
 
     // NOTE: Two-Step Authentication needs to be turned OFF
     // NOTE: 'Allow Less Secure App' needs to be turned ON
 
-    private static void sendEmail(String email, String subject, String body) throws MessagingException
+    public static void sendEmail(String email, String subject, String body) throws MessagingException
     {
         Properties props = System.getProperties();
         props.put("mail.smtp.starttls.enable", "true");
@@ -64,7 +64,7 @@ public abstract class Email
 
     public static void main(String[] args) throws MessagingException
     {
-        String email = "xxxxx@gmail.com"; // temp-mail.org - good site for testing recipient
+        String email = "james@jamessergeant.uk"; // temp-mail.org - good site for testing recipient
         String subject = "Test email";
         String body = "This is the body of test email";
 

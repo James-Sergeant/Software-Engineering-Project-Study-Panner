@@ -1,7 +1,13 @@
 package com.team3_3.Planner.ModuleData;
 
-import java.io.File;
-import java.io.Serializable;
+import com.team3_3.UI.Main;
+import javafx.application.HostServices;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
+
+import java.awt.*;
+import java.io.*;
 
 /**
  * <h1>Example Class</h1>
@@ -27,16 +33,43 @@ public class Work implements Serializable
     private String name;
     private int weighting;
     private File file;
+    private String note;
+    private transient Button button;
+    private transient ProgressIndicator progressIndicator;
 
-    public Work (String name, int weighting, File file) throws Semester.ProgressOver100Exception
+    public Work (String name,String note, int weighting, File file) throws Semester.ProgressOver100Exception
     {
         this.name = name;
+        this.note = note;
         if (weighting > 100)
         {
             throw new Semester.ProgressOver100Exception(weighting);
         }
         this.weighting = weighting;
         this.file = file;
+        this.button = new Button();
+        buttonSetup();
+        this.progressIndicator = new ProgressIndicator((double)weighting/100);
+    }
+    private void buttonSetup(){
+        button.setText("Open File");
+        button.setOnAction(actionEvent -> {
+            Desktop desktop = Desktop.getDesktop();
+            try {
+                desktop.open(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+    // overridden/serializable methods
+    @Serial
+    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException
+    {
+        ois.defaultReadObject();
+        progressIndicator = new ProgressIndicator((double)weighting/100);
+        button = new Button();
+        buttonSetup();
     }
 
     public File getFile()
@@ -52,5 +85,26 @@ public class Work implements Serializable
     public String getName()
     {
         return this.name;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public Button getButton() {
+        return button;
+    }
+
+    public ProgressIndicator getProgressIndicator() {
+        return progressIndicator;
+    }
+
+    public int getSSN() {
+        return SSN;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

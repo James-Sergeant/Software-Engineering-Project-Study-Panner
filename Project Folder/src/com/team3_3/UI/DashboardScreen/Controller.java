@@ -71,6 +71,9 @@ public class Controller {
     public TableColumn<Task, String> moduleUpcomingTaskTableTask;
     public TableColumn<Task, Date> moduleUpcomingTaskTableDueDate;
     public TableColumn<Task, ProgressBar> moduleUpcomingTaskTableProgress;
+    public Label numTaskCompleted;
+    public Label numTaskRemaining;
+    public ProgressBar moduleProgressBar;
 
     //Tasks page
     private TasksController tasksController;
@@ -100,6 +103,37 @@ public class Controller {
     public DatePicker MyTaskAddTaskStartDate;
     public DatePicker MyTaskAddTaskEndDate;
     public Button MyTaskAddTaskAdd;
+    //Add work:
+    public TextField myTaskAddWorkName;
+    public TextArea myTaskAddWorkNotes;
+    public Button myTaskAddWorkAddFile;
+    public Slider myTaskAddWorkWeighting;
+    public TextField myTaskAddWorkWeightingText;
+    public Button myTaskAddWorkButton;
+    public Pane myTaskAddWorkPane;
+    //Display work:
+    public TableView<Work> myTaskWorkTable;
+    public TableColumn<Work, String> myTaskWorkTableName;
+    public TableColumn<Work, String> myTaskWorkTableNotes;
+    public TableColumn<Work, Button> myTaskWorkTableFile;
+    public TableColumn<Work, ProgressIndicator> myTaskWorkTableWeighting;
+    //Task Progress Bar:
+    public ProgressBar TaskProgressBar;
+    //Change deadline:
+    public Button RequestExtensionButton;
+    public Pane extensionRequestPane;
+    public Button SubmitExtensionButton;
+    public DatePicker extensionDatePicker;
+    public TextField extensionMOEmail;
+    public Button extensionSub;
+    public TextField extensionCode;
+    public Button extensionsCodeSub;
+    public Pane extentionApprovalPane;
+    public Label extLabel;
+
+
+
+
 
     ////////used for account settings page/////////
 
@@ -210,6 +244,7 @@ public class Controller {
         Main.dashboardLoad(actionEvent, "myModules");
         if(user.getCurrentSemester() != null){
             modulesController.updateModulesPage();
+            modulesController.loadExt();
         }
     }
 

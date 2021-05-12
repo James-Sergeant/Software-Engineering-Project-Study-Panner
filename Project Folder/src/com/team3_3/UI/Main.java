@@ -4,6 +4,7 @@ package com.team3_3.UI;
 
 import com.team3_3.Planner.User.Login;
 import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
-
+    public HostServices hostServices = getHostServices();
     //keep track of inaccessible stages (Modality.APPLICATION_MODAL event)
     public static Stage mainStage;
 

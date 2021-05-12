@@ -1,12 +1,17 @@
 package com.team3_3.Planner.ModuleData.Assignment;
 
 import com.team3_3.Planner.ModuleData.*;
+import com.team3_3.Planner.User.Login;
+import com.team3_3.Planner.User.User;
+import com.team3_3.Planner.utils.Hash;
 import javafx.scene.control.ProgressBar;
+import org.jfree.util.Log;
 
 import java.io.*;
 import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -41,6 +46,8 @@ public abstract class Assignment implements Serializable, Updatable
     private HashMap<String, Milestone> milestones = new HashMap<>();
     private double progress = 0;
     private transient ProgressBar progressBar;
+    private String extCode;
+    private LocalDate extDate;
 
     // constructor
     public Assignment(String name,String module, Date date, int weighting) throws Semester.ProgressOver100Exception
@@ -54,6 +61,37 @@ public abstract class Assignment implements Serializable, Updatable
             throw new Semester.ProgressOver100Exception(weighting);
         }
         this.weighting = weighting;
+    }
+
+    public String genExtCode(String email, LocalDate date){
+        extDate = date;
+        String hash = Hash.SHA1(email+Math.random());
+        String code = hash.substring(0,16);
+        this.extCode = code;
+        return code;
+    }
+
+    public boolean validCode(String code){
+        if (code.equals(extCode)){
+            System.out.println(extDate.getYear()+" "+extDate.getMonthValue());
+            this.date = new Date((extDate.getYear()-1900),extDate.getMonthValue(),extDate.getDayOfMonth());
+            User.saveUser(Login.getLoggedInUser());
+            return true;
+        }
+        return false;
+    }
+
+    public void updateProgress(){
+        for(Milestone milestone: milestones.values()){
+            milestone.updateProgress();
+            progress = 0;
+            progress += ((double) milestone.getProgress()/100)*((double)milestone.getWeighting()/100);
+        }
+        progressBar.setProgress(progress);
+    }
+
+    public double getProgress() {
+        return progress;
     }
 
     // getters
@@ -133,6 +171,8 @@ public abstract class Assignment implements Serializable, Updatable
         }
 
         milestones.put(milestone.getName(),milestone);
+
+        User.saveUser(Login.getLoggedInUser());
     }
 
     public int getMaximum()
@@ -199,6 +239,11 @@ public abstract class Assignment implements Serializable, Updatable
         }
 
         return new Time(timeMilli);
+    }
+
+    @Override
+    public String toString() {
+        return name + "date: " + date;
     }
 
     // test harness

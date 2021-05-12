@@ -1,5 +1,8 @@
 package com.team3_3.Planner.ModuleData;
 
+import com.team3_3.Planner.User.Login;
+import com.team3_3.Planner.User.User;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
@@ -31,6 +34,7 @@ public class Milestone implements Serializable
     private String name;
     private int weighting;
     private HashMap<String, Task> tasks = new HashMap<>();
+    int progress = 0;
 
     // constructor
     public Milestone (String name, int weighting) throws Semester.ProgressOver100Exception
@@ -67,6 +71,25 @@ public class Milestone implements Serializable
         }
 
         tasks.put(task.getName(), task);
+        User.saveUser(Login.getLoggedInUser());
+    }
+
+    public void updateProgress(){
+        for(Task task: tasks.values()){
+            task.updateProgress();
+            progress = 0;
+            progress += (task.getProgress() * ((double) task.getWeighting()/100));
+        }
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void updateTaskProgress(){
+        for(Task task: tasks.values()){
+            task.updateProgress();
+        }
     }
 
     public boolean getFinished()
@@ -137,6 +160,11 @@ public class Milestone implements Serializable
         }
 
         return date;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 
     // getters
