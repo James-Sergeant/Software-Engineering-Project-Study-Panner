@@ -5,6 +5,8 @@ import com.team3_3.Planner.ModuleData.Assignment.Assignment;
 import com.team3_3.Planner.ModuleData.Module;
 import com.team3_3.Planner.User.Login;
 import com.team3_3.Planner.User.User;
+import com.team3_3.Planner.utils.Email;
+import com.team3_3.Planner.utils.Hash;
 import com.team3_3.UI.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -20,6 +22,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 
+import javax.mail.MessagingException;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -154,7 +157,6 @@ public class Controller {
     public ImageView imageDark;
 
     public TextField verificationCodeEntry;
-    public TextField emailEntry;
     public TextField firstNameEntry;
     public TextField lastNameEntry;
     public TextField oldPasswordEntry;
@@ -178,6 +180,8 @@ public class Controller {
     public Rectangle mySemesterDivider;
     public Rectangle myModulesDivider;
     public Rectangle myTasksDivider;
+
+    public Label settingsErrorLabel;
 
 
 
@@ -203,7 +207,6 @@ public class Controller {
         userStatus.setText(status);
 
         //for AccountSettings page
-        emailEntry.setText(email);
         firstNameEntry.setText(user.getFirstname());
         lastNameEntry.setText(user.getSurname());
     }
@@ -374,12 +377,50 @@ public class Controller {
 
     }
 
+    private String code;
+
     public void saveAccountButtonAction(ActionEvent actionEvent) {
-        System.out.println("need to implement functionality");
+        User user = Login.getLoggedInUser();
+        if(code.equals(verificationCodeEntry.getText())){
+            //First Name:
+            if(firstNameEntry.getText() != null){
+                user.setFirstname(firstNameEntry.getText());
+            }
+            //Surname:
+            if(lastNameEntry.getText() != null){
+                user.setSurname(lastNameEntry.getText());
+            }
+            //Password:
+            if(newPasswordEntry1.getText() != null && newPasswordEntry2.getText() != null){
+                if((newPasswordEntry1.getText().equals((newPasswordEntry2.getText())))){
+                    try {
+                        Login.changePassword(user.getEmail(),newPasswordEntry1.getText());
+                    } catch (Login.InvalidPasswordException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    settingsErrorLabel.setText("Password's don't match");
+                    settingsErrorLabel.setVisible(true);
+                }
+            }
+        }else{
+            settingsErrorLabel.setText("Code invalid");
+            settingsErrorLabel.setVisible(true);
+        }
     }
 
     public void sendVerificationButtonAction(ActionEvent actionEvent) {
-        System.out.println("need to implement functionality");
+        String password = oldPasswordEntry.getText();
+        String email = Login.getLoggedInUser().getEmail();
+        String hash = Hash.SHA1(email+Math.random());
+        code = hash.substring(0,16);
+        if(Login.checkPassword(email,password)){
+            try {
+                Email.sendEmail(email, "Account Changes","Code to confirm account changes: "+code);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /////Following controls Dashboard.fxml - myAccountSettings\\\\\

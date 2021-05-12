@@ -221,6 +221,14 @@ public class User implements Serializable {
                 '}';
     }
 
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     /**
      * Tests for the class
      * @param args String[]: Command line arguments.

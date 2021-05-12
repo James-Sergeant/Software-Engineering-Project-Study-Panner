@@ -111,7 +111,7 @@ public abstract class Login {
      * @param password String: users password.
      * @return Boolean: True if the users password matches.
      */
-    private static boolean checkPassword(String email, String password){
+    public static boolean checkPassword(String email, String password){
         final String SALT = hashSHA512(email);
         final String PASSWORD_SALT = password + SALT;
         final String PASSWORD_HASH = hashSHA512(PASSWORD_SALT);
@@ -246,6 +246,13 @@ public abstract class Login {
         USER_PASSWORD_MAP.remove(email);
         saveUserPassword();
         return true;
+    }
+
+    public static void changePassword(String email, String newPassword) throws InvalidPasswordException {
+        checkPassword(newPassword);
+        removeUserPassword(email);
+        String hash = passwordHashAndSalt(email, newPassword);
+        addUserPassword(email,hash);
     }
 
 
