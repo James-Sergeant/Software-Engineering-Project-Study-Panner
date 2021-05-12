@@ -278,7 +278,7 @@
       <Rectangle fx:id="mySemesterDivider" arcHeight="5.0" arcWidth="5.0" fill="#64c93c" height="60.0" layoutX="231.0" layoutY="248.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myModulesDivider" arcHeight="5.0" arcWidth="5.0" fill="#c93c48" height="60.0" layoutX="231.0" layoutY="308.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
       <Rectangle fx:id="myTasksDivider" arcHeight="5.0" arcWidth="5.0" fill="#b2b0c2" height="60.0" layoutX="231.0" layoutY="368.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="27.0" />
-      <Pane fx:id="myAccountSettingsPane" layoutX="257.0" layoutY="9.0" prefHeight="819.0" prefWidth="1001.0" style="-fx-background-color: #dbdbdb;">
+      <Pane fx:id="myAccountSettingsPane" layoutX="257.0" layoutY="9.0" prefHeight="819.0" prefWidth="1001.0" style="-fx-background-color: #dbdbdb;" visible="false">
          <children>
             <Line endX="-6.0" endY="768.0" layoutX="510.0" layoutY="63.0" startX="-6.0" startY="-74.0" />
             <Text layoutX="35.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="177.0">
