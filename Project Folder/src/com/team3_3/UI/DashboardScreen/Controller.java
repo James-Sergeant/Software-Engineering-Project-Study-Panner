@@ -395,8 +395,11 @@ public class Controller {
                 if((newPasswordEntry1.getText().equals((newPasswordEntry2.getText())))){
                     try {
                         Login.changePassword(user.getEmail(),newPasswordEntry1.getText());
+                        settingsErrorLabel.setText("Password Changed!");
+                        settingsErrorLabel.setVisible(true);
                     } catch (Login.InvalidPasswordException e) {
-                        e.printStackTrace();
+                        settingsErrorLabel.setText("Invalid New Password!");
+                        settingsErrorLabel.setVisible(true);
                     }
                 }else{
                     settingsErrorLabel.setText("Password's don't match");
@@ -417,6 +420,8 @@ public class Controller {
         if(Login.checkPassword(email,password)){
             try {
                 Email.sendEmail(email, "Account Changes","Code to confirm account changes: "+code);
+                settingsErrorLabel.setText("Email Sent!");
+                settingsErrorLabel.setVisible(true);
             } catch (MessagingException e) {
                 e.printStackTrace();
             }

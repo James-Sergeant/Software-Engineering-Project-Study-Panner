@@ -45,7 +45,11 @@ public class Controller {
          * Send email to user containing new password
          * Then, once successful, change user's old password to new generated password.
          */
-        System.out.println("insert: forgottenAction");
+        try {
+            Main.changeMainScene(actionEvent,"forgottenPassword.fxml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void createAccountAction(ActionEvent actionEvent) throws IOException {

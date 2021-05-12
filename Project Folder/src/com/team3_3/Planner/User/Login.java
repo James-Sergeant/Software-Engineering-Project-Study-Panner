@@ -148,11 +148,11 @@ public abstract class Login {
      * @param email the users email address.
      * @throws InvalidEmailAddressException thrown if the condations are not met.
      */
-    private static void checkEmail(String email) throws InvalidEmailAddressException{
+    public static void checkEmail(String email) throws InvalidEmailAddressException{
         Pattern pattern = Pattern.compile("(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])",Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         boolean matchFound = matcher.find();
-        if(!matchFound) {
+        if(!matchFound || !email.contains("uea.ac.uk")) {
             throw new InvalidEmailAddressException(email);
         }
     }
